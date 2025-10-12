@@ -13,23 +13,32 @@
         <div class="container">
           <div class="d-flex flex-wrap align-items-center justify-content-between">
             <!-- Logo -->
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
+            <a href="index.html" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
               <h4 class="mb-0 fw-bold text-primary">BLOG</h4>
             </a>
             
             <!-- Navigation for large screens -->
             <ul class="nav d-none d-lg-flex me-lg-auto mb-2 justify-content-center mb-md-0">
               <li>
+                <a href="index.html" class="nav-link px-2 link-body-emphasis active">Home</a>
+              </li>
+              <li>
+                <a href="categories.html" class="nav-link px-2 link-body-emphasis">Categories</a>
+              </li>
+              <li>
+                <a href="post_category.html" class="nav-link px-2 link-body-emphasis">Technology</a>
+              </li>
+              <li>
+                <a href="#" class="nav-link px-2 link-body-emphasis">About</a>
+              </li>
+              <li>
+                <a href="#" class="nav-link px-2 link-body-emphasis">Contact</a>
+              </li>
+              <li>
                 <a href="login.html" class="nav-link px-2 link-secondary">Login</a>
               </li>
               <li>
-                <a href="#" class="nav-link px-2 link-body-emphasis">Inventory</a>
-              </li>
-              <li>
-                <a href="#" class="nav-link px-2 link-body-emphasis">Customers</a>
-              </li>
-              <li>
-                <a href="#" class="nav-link px-2 link-body-emphasis">Products</a>
+                <a href="signup.html" class="nav-link px-2 link-secondary">Sign Up</a>
               </li>
             </ul>
             
@@ -42,7 +51,7 @@
               <!-- User dropdown for large screens only -->
               <div class="dropdown text-end me-3 d-none d-lg-block">
                 <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                  <img src="img/no_img.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
                 </a>
                 <ul class="dropdown-menu text-small">
                   <li><a class="dropdown-item" href="#">New project...</a></li>
@@ -73,7 +82,7 @@
       <div class="offcanvas-body">
         <!-- User Profile Section -->
         <div class="d-flex align-items-center mb-4 pb-3 border-bottom">
-          <img src="https://github.com/mdo.png" alt="User Avatar" width="48" height="48" class="rounded-circle me-3">
+          <img src="img/no_img.jpg" alt="User Avatar" width="48" height="48" class="rounded-circle me-3">
           <div>
             <h6 class="mb-0">John Doe</h6>
             <small class="text-muted">john.doe@example.com</small>
@@ -83,23 +92,28 @@
         <!-- Navigation Links -->
         <ul class="navbar-nav flex-grow-1 pe-3 mb-4">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">
-              <i class="bi bi-house-door me-2"></i>Overview
+            <a class="nav-link active" aria-current="page" href="index.html">
+              <i class="bi bi-house-door me-2"></i>Home
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="bi bi-box-seam me-2"></i>Inventory
+            <a class="nav-link" href="categories.html">
+              <i class="bi bi-box-seam me-2"></i>Categories
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="bi bi-people me-2"></i>Customers
+            <a class="nav-link" href="post_category.html">
+              <i class="bi bi-laptop me-2"></i>Technology
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="bi bi-bag me-2"></i>Products
+            <a class="nav-link" href="login.html">
+              <i class="bi bi-person me-2"></i>Login
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="signup.html">
+              <i class="bi bi-person-plus me-2"></i>Sign Up
             </a>
           </li>
           <li class="nav-item dropdown">
@@ -107,8 +121,8 @@
               <i class="bi bi-three-dots me-2"></i>More
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#"><i class="bi bi-graph-up me-2"></i>Reports</a></li>
-              <li><a class="dropdown-item" href="#"><i class="bi bi-bar-chart me-2"></i>Analytics</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-info-circle me-2"></i>About</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-envelope me-2"></i>Contact</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
             </ul>
@@ -137,275 +151,207 @@
       </div>
     </div>
     <!-- End Header -->
+
     <div class="container">
-        <div class="row mb-2">
-        <div class="col-md-6">
-          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="col p-4 d-flex flex-column position-static">
-              <strong class="d-inline-block mb-2 text-primary-emphasis">World</strong>
-              <h3 class="mb-0">Featured post</h3>
-              <div class="mb-1 text-body-secondary">Nov 12</div>
-              <p class="card-text mb-auto">
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content.
-              </p>
-              <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
-                Continue reading
-                <svg class="bi" aria-hidden="true">
-                  <use xlink:href="#chevron-right"></use>
-                </svg>
-              </a>
+        <!-- Featured Posts Section -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="fw-bold text-dark">Featured Posts</h2>
+                    <a href="categories.html" class="btn btn-outline-primary">View All</a>
+                </div>
             </div>
-            <div class="col-auto d-none d-lg-block">
-              <svg aria-label="Placeholder: Thumbnail" class="bd-placeholder-img" height="250" preserveAspectRatio="xMidYMid slice" role="img" width="200" xmlns="http://www.w3.org/2000/svg">
-                <title>Placeholder</title>
-                <rect width="100%" height="100%" fill="#55595c"></rect>
-                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-              </svg>
+        </div>
+        <!-- Featured Posts Grid -->
+        <div class="row mb-4">
+        <div class="col-md-6">
+          <div class="card border-0 shadow-sm h-100 featured-card">
+            <div class="row g-0 h-100">
+              <div class="col-md-4">
+                <img src="img/no_img.jpg" class="img-fluid rounded-start h-100 object-cover" alt="Tech">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body d-flex flex-column h-100">
+                  <span class="badge bg-primary mb-2 align-self-start">Technology</span>
+                  <h5 class="card-title fw-bold">The Future of Web Development</h5>
+                  <p class="card-text text-muted flex-grow-1">
+                    Explore the latest trends and technologies shaping the future of web development in 2025.
+                  </p>
+                  <div class="d-flex justify-content-between align-items-center mt-auto">
+                    <small class="text-muted">October 12, 2025</small>
+                    <a href="detail_blog.html" class="btn btn-sm btn-outline-primary">Read More</a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
         <div class="col-md-6">
-          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="col p-4 d-flex flex-column position-static">
-              <strong class="d-inline-block mb-2 text-success-emphasis">Design</strong>
-              <h3 class="mb-0">Post title</h3>
-              <div class="mb-1 text-body-secondary">Nov 11</div>
-              <p class="mb-auto">
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content.
-              </p>
-              <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
-                Continue reading
-                <svg class="bi" aria-hidden="true">
-                  <use xlink:href="#chevron-right"></use>
-                </svg>
-              </a>
-            </div>
-            <div class="col-auto d-none d-lg-block">
-              <svg aria-label="Placeholder: Thumbnail" class="bd-placeholder-img" height="250" preserveAspectRatio="xMidYMid slice" role="img" width="200" xmlns="http://www.w3.org/2000/svg">
-                <title>Placeholder</title>
-                <rect width="100%" height="100%" fill="#55595c"></rect>
-                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-              </svg>
+          <div class="card border-0 shadow-sm h-100 featured-card">
+            <div class="row g-0 h-100">
+              <div class="col-md-4">
+                <img src="img/no_img.jpg" class="img-fluid rounded-start h-100 object-cover" alt="Design">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body d-flex flex-column h-100">
+                  <span class="badge bg-success mb-2 align-self-start">Design</span>
+                  <h5 class="card-title fw-bold">UI/UX Design Principles</h5>
+                  <p class="card-text text-muted flex-grow-1">
+                    Learn essential design principles that create beautiful and user-friendly interfaces.
+                  </p>
+                  <div class="d-flex justify-content-between align-items-center mt-auto">
+                    <small class="text-muted">October 11, 2025</small>
+                    <a href="detail_blog.html" class="btn btn-sm btn-outline-success">Read More</a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        </div>
+        <!-- Latest Posts Section -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="fw-bold text-dark mb-4">Latest Posts</h3>
+            </div>
         </div>
        <div class="row">
-        <div class="col-md-8">
-            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="col p-4 d-flex flex-column position-static">
-              <strong class="d-inline-block mb-2 text-success-emphasis">Design</strong>
-              <h3 class="mb-0">Post title</h3>
-              <div class="mb-1 text-body-secondary">Nov 11</div>
-              <p class="mb-auto">
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content.
-              </p>
-              <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
-                Continue reading
-                <svg class="bi" aria-hidden="true">
-                  <use xlink:href="#chevron-right"></use>
-                </svg>
-              </a>
+        <div class="col-lg-8">
+            <!-- Post Cards -->
+            <div class="row g-4 mb-4">
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm h-100 post-card">
+                        <img src="img/no_img.jpg" class="card-img-top" alt="JavaScript">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge bg-warning text-dark mb-2 align-self-start">Programming</span>
+                            <h5 class="card-title fw-semibold">Best JavaScript Frameworks</h5>
+                            <p class="card-text text-muted flex-grow-1">
+                                Compare React, Vue, Angular and other popular frameworks for modern web development.
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">Oct 10, 2025</small>
+                                <a href="detail_blog.html" class="btn btn-sm btn-primary">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm h-100 post-card">
+                        <img src="img/no_img.jpg" class="card-img-top" alt="Lifestyle">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge bg-danger mb-2 align-self-start">Lifestyle</span>
+                            <h5 class="card-title fw-semibold">Work-Life Balance Tips</h5>
+                            <p class="card-text text-muted flex-grow-1">
+                                Practical strategies to maintain productivity while enjoying a healthy lifestyle.
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">Oct 9, 2025</small>
+                                <a href="detail_blog.html" class="btn btn-sm btn-primary">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm h-100 post-card">
+                        <img src="img/no_img.jpg" class="card-img-top" alt="Business">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge bg-info mb-2 align-self-start">Business</span>
+                            <h5 class="card-title fw-semibold">Startup Growth Strategies</h5>
+                            <p class="card-text text-muted flex-grow-1">
+                                Essential tactics for scaling your startup and achieving sustainable growth.
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">Oct 8, 2025</small>
+                                <a href="detail_blog.html" class="btn btn-sm btn-primary">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm h-100 post-card">
+                        <img src="img/no_img.jpg" class="card-img-top" alt="Travel">
+                        <div class="card-body d-flex flex-column">
+                            <span class="badge bg-secondary mb-2 align-self-start">Travel</span>
+                            <h5 class="card-title fw-semibold">Digital Nomad Guide</h5>
+                            <p class="card-text text-muted flex-grow-1">
+                                Everything you need to know about working remotely while traveling the world.
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">Oct 7, 2025</small>
+                                <a href="detail_blog.html" class="btn btn-sm btn-primary">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-auto d-none d-lg-block">
-              <svg aria-label="Placeholder: Thumbnail" class="bd-placeholder-img" height="250" preserveAspectRatio="xMidYMid slice" role="img" width="200" xmlns="http://www.w3.org/2000/svg">
-                <title>Placeholder</title>
-                <rect width="100%" height="100%" fill="#55595c"></rect>
-                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-              </svg>
+            <!-- Load More Button -->
+            <div class="text-center mb-4">
+                <a href="categories.html" class="btn btn-outline-primary btn-lg">View More Posts</a>
             </div>
-            </div>
-            <!-- end post -->
-            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="col p-4 d-flex flex-column position-static">
-              <strong class="d-inline-block mb-2 text-success-emphasis">Design</strong>
-              <h3 class="mb-0">Post title</h3>
-              <div class="mb-1 text-body-secondary">Nov 11</div>
-              <p class="mb-auto">
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content.
-              </p>
-              <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
-                Continue reading
-                <svg class="bi" aria-hidden="true">
-                  <use xlink:href="#chevron-right"></use>
-                </svg>
-              </a>
-            </div>
-            <div class="col-auto d-none d-lg-block">
-              <svg aria-label="Placeholder: Thumbnail" class="bd-placeholder-img" height="250" preserveAspectRatio="xMidYMid slice" role="img" width="200" xmlns="http://www.w3.org/2000/svg">
-                <title>Placeholder</title>
-                <rect width="100%" height="100%" fill="#55595c"></rect>
-                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-              </svg>
-            </div>
-            </div>
-            <!-- end post -->
-            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="col p-4 d-flex flex-column position-static">
-              <strong class="d-inline-block mb-2 text-success-emphasis">Design</strong>
-              <h3 class="mb-0">Post title</h3>
-              <div class="mb-1 text-body-secondary">Nov 11</div>
-              <p class="mb-auto">
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content.
-              </p>
-              <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
-                Continue reading
-                <svg class="bi" aria-hidden="true">
-                  <use xlink:href="#chevron-right"></use>
-                </svg>
-              </a>
-            </div>
-            <div class="col-auto d-none d-lg-block">
-              <svg aria-label="Placeholder: Thumbnail" class="bd-placeholder-img" height="250" preserveAspectRatio="xMidYMid slice" role="img" width="200" xmlns="http://www.w3.org/2000/svg">
-                <title>Placeholder</title>
-                <rect width="100%" height="100%" fill="#55595c"></rect>
-                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-              </svg>
-            </div>
-            </div>
-            <!-- end post -->
-            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="col p-4 d-flex flex-column position-static">
-              <strong class="d-inline-block mb-2 text-success-emphasis">Design</strong>
-              <h3 class="mb-0">Post title</h3>
-              <div class="mb-1 text-body-secondary">Nov 11</div>
-              <p class="mb-auto">
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content.
-              </p>
-              <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
-                Continue reading
-                <svg class="bi" aria-hidden="true">
-                  <use xlink:href="#chevron-right"></use>
-                </svg>
-              </a>
-            </div>
-            <div class="col-auto d-none d-lg-block">
-              <svg aria-label="Placeholder: Thumbnail" class="bd-placeholder-img" height="250" preserveAspectRatio="xMidYMid slice" role="img" width="200" xmlns="http://www.w3.org/2000/svg">
-                <title>Placeholder</title>
-                <rect width="100%" height="100%" fill="#55595c"></rect>
-                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-              </svg>
-            </div>
-            </div>
-            <!-- end post -->
-            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="col p-4 d-flex flex-column position-static">
-              <strong class="d-inline-block mb-2 text-success-emphasis">Design</strong>
-              <h3 class="mb-0">Post title</h3>
-              <div class="mb-1 text-body-secondary">Nov 11</div>
-              <p class="mb-auto">
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content.
-              </p>
-              <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
-                Continue reading
-                <svg class="bi" aria-hidden="true">
-                  <use xlink:href="#chevron-right"></use>
-                </svg>
-              </a>
-            </div>
-            <div class="col-auto d-none d-lg-block">
-              <svg aria-label="Placeholder: Thumbnail" class="bd-placeholder-img" height="250" preserveAspectRatio="xMidYMid slice" role="img" width="200" xmlns="http://www.w3.org/2000/svg">
-                <title>Placeholder</title>
-                <rect width="100%" height="100%" fill="#55595c"></rect>
-                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-              </svg>
-            </div>
-            </div>
-            <!-- end post -->
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">Previous</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
-            </nav>
         </div>
-        <div class="col-md-4">
+        <div class="col-lg-4">
           <div class="position-sticky" style="top: 2rem">
+            <!-- About Section -->
             <div class="p-4 mb-3 bg-body-tertiary rounded">
-              <h4 class="fst-italic">About</h4>
+              <h4 class="fst-italic">About Our Blog</h4>
               <p class="mb-0">
-                Customize this section to tell your visitors a little bit about
-                your publication, writers, content, or something else entirely.
-                Totally up to you.
+                We share insights and knowledge about technology, design, business, and lifestyle. 
+                Our goal is to provide valuable content that helps you grow personally and professionally.
               </p>
             </div>
+            
+            <!-- Popular Categories -->
+            <div class="p-4 mb-3 bg-light rounded">
+                <h4 class="fst-italic mb-3">Popular Categories</h4>
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="post_category.html" class="badge bg-primary text-decoration-none fs-6 py-2 px-3">Technology</a>
+                    <a href="post_category.html" class="badge bg-success text-decoration-none fs-6 py-2 px-3">Design</a>
+                    <a href="post_category.html" class="badge bg-warning text-dark text-decoration-none fs-6 py-2 px-3">Business</a>
+                    <a href="post_category.html" class="badge bg-danger text-decoration-none fs-6 py-2 px-3">Lifestyle</a>
+                    <a href="post_category.html" class="badge bg-info text-decoration-none fs-6 py-2 px-3">Travel</a>
+                </div>
+            </div>
+            <!-- Recent Posts -->
             <div>
-              <h4 class="fst-italic">Recent posts</h4>
+              <h4 class="fst-italic">Recent Posts</h4>
               <ul class="list-unstyled">
                 <li>
-                  <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                    <svg aria-hidden="true" class="bd-placeholder-img" height="96" preserveAspectRatio="xMidYMid slice" width="100%" xmlns="http://www.w3.org/2000/svg">
-                      <rect width="100%" height="100%" fill="#777"></rect>
-                    </svg>
+                  <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="detail_blog.html">
+                    <img src="img/no_img.jpg" alt="Post thumbnail" class="rounded" width="100" height="60">
                     <div class="col-lg-8">
-                      <h6 class="mb-0">Example blog post title</h6>
-                      <small class="text-body-secondary">January 15, 2024</small>
+                      <h6 class="mb-0">The Future of Web Development</h6>
+                      <small class="text-body-secondary">October 12, 2025</small>
                     </div>
                   </a>
                 </li>
                 <li>
-                  <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                    <svg aria-hidden="true" class="bd-placeholder-img" height="96" preserveAspectRatio="xMidYMid slice" width="100%" xmlns="http://www.w3.org/2000/svg">
-                      <rect width="100%" height="100%" fill="#777"></rect>
-                    </svg>
+                  <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="detail_blog.html">
+                    <img src="img/no_img.jpg" alt="Post thumbnail" class="rounded" width="100" height="60">
                     <div class="col-lg-8">
-                      <h6 class="mb-0">This is another blog post title</h6>
-                      <small class="text-body-secondary">January 14, 2024</small>
+                      <h6 class="mb-0">UI/UX Design Principles</h6>
+                      <small class="text-body-secondary">October 11, 2025</small>
                     </div>
                   </a>
                 </li>
                 <li>
-                  <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                    <svg aria-hidden="true" class="bd-placeholder-img" height="96" preserveAspectRatio="xMidYMid slice" width="100%" xmlns="http://www.w3.org/2000/svg">
-                      <rect width="100%" height="100%" fill="#777"></rect>
-                    </svg>
+                  <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="detail_blog.html">
+                    <img src="img/no_img.jpg" alt="Post thumbnail" class="rounded" width="100" height="60">
                     <div class="col-lg-8">
-                      <h6 class="mb-0">
-                        Longer blog post title: This one has multiple lines!
-                      </h6>
-                      <small class="text-body-secondary">January 13, 2024</small>
+                      <h6 class="mb-0">Work-Life Balance Tips</h6>
+                      <small class="text-body-secondary">October 10, 2025</small>
                     </div>
                   </a>
                 </li>
               </ul>
             </div>
+            <!-- Social Links -->
             <div class="p-4">
-              <h4 class="fst-italic">Archives</h4>
-              <ol class="list-unstyled mb-0">
-                <li><a href="#">March 2021</a></li>
-                <li><a href="#">February 2021</a></li>
-                <li><a href="#">January 2021</a></li>
-                <li><a href="#">December 2020</a></li>
-                <li><a href="#">November 2020</a></li>
-                <li><a href="#">October 2020</a></li>
-                <li><a href="#">September 2020</a></li>
-                <li><a href="#">August 2020</a></li>
-                <li><a href="#">July 2020</a></li>
-                <li><a href="#">June 2020</a></li>
-                <li><a href="#">May 2020</a></li>
-                <li><a href="#">April 2020</a></li>
-              </ol>
-            </div>
-            <div class="p-4">
-              <h4 class="fst-italic">Elsewhere</h4>
+              <h4 class="fst-italic">Follow Us</h4>
               <ol class="list-unstyled">
-                <li><a href="#">GitHub</a></li>
-                <li><a href="#">Social</a></li>
-                <li><a href="#">Facebook</a></li>
+                <li><a href="#" class="text-decoration-none"><i class="bi bi-github"></i> GitHub</a></li>
+                <li><a href="#" class="text-decoration-none"><i class="bi bi-twitter"></i> Twitter</a></li>
+                <li><a href="#" class="text-decoration-none"><i class="bi bi-facebook"></i> Facebook</a></li>
+                <li><a href="#" class="text-decoration-none"><i class="bi bi-linkedin"></i> LinkedIn</a></li>
               </ol>
             </div>
           </div>
@@ -413,6 +359,43 @@
        </div>
     </div>
     <!-- End Main-->
+
+    <!-- Custom Styles -->
+    <style>
+        .featured-card:hover {
+            transform: translateY(-5px);
+            transition: transform 0.3s ease;
+        }
+        
+        .post-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .post-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+        }
+        
+        .object-cover {
+            object-fit: cover;
+        }
+        
+        .badge:hover {
+            transform: scale(1.05);
+            transition: transform 0.2s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .display-4 {
+                font-size: 2rem;
+            }
+            
+            .hero-buttons .btn {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
       <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
         <div class="container">
         <div class="col-md-4 d-flex align-items-center">

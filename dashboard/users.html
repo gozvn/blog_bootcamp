@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Quản lý User - Dashboard</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="index.html">Blog Admin</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                </div>
+            </form>
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">Settings</a></li>
+                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Core</div>
+                            <a class="nav-link" href="index.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Dashboard
+                            </a>
+                            
+                            <!-- Quản lý User -->
+                            <div class="sb-sidenav-menu-heading">Quản lý</div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUsers" aria-expanded="true" aria-controls="collapseUsers">
+                                <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                                Quản lý User
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse show" id="collapseUsers" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link active" href="users.html">Danh sách User</a>
+                                    <a class="nav-link" href="user-add.html">Thêm User</a>
+                                </nav>
+                            </div>
+                            
+                            <!-- Quản lý Post -->
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePosts" aria-expanded="false" aria-controls="collapsePosts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-newspaper"></i></div>
+                                Quản lý Post
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapsePosts" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="posts.html">Danh sách Post</a>
+                                    <a class="nav-link" href="post-add.html">Thêm Post</a>
+                                </nav>
+                            </div>
+                            
+                            <!-- Quản lý Category -->
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tags"></i></div>
+                                Quản lý Category
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseCategories" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="categories.html">Danh sách Category</a>
+                                    <a class="nav-link" href="category-add.html">Thêm Category</a>
+                                </nav>
+                            </div>
+                            
+                            <!-- Quản lý Comment -->
+                            <a class="nav-link" href="comments.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-comments"></i></div>
+                                Quản lý Comment
+                            </a>
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Logged in as:</div>
+                        Admin User
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Quản lý User</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Danh sách User</li>
+                        </ol>
+                        
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-users me-1"></i>
+                                Danh sách User
+                                <a href="user-add.html" class="btn btn-primary btn-sm float-end">
+                                    <i class="fas fa-plus"></i> Thêm User
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <table id="usersTable" class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Email</th>
+                                            <th>Role</th>
+                                            <th>Ngày tạo</th>
+                                            <th>Trạng thái</th>
+                                            <th>Hành động</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>admin@example.com</td>
+                                            <td><span class="badge bg-danger">Admin</span></td>
+                                            <td>2023-01-01</td>
+                                            <td><span class="badge bg-success">Active</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-warning" onclick="editUser(1)">
+                                                    <i class="fas fa-edit"></i> Sửa
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" onclick="deleteUser(1)">
+                                                    <i class="fas fa-trash"></i> Xóa
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>editor@example.com</td>
+                                            <td><span class="badge bg-warning">Editor</span></td>
+                                            <td>2023-02-15</td>
+                                            <td><span class="badge bg-success">Active</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-warning" onclick="editUser(2)">
+                                                    <i class="fas fa-edit"></i> Sửa
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" onclick="deleteUser(2)">
+                                                    <i class="fas fa-trash"></i> Xóa
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>user@example.com</td>
+                                            <td><span class="badge bg-info">User</span></td>
+                                            <td>2023-03-20</td>
+                                            <td><span class="badge bg-secondary">Inactive</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-warning" onclick="editUser(3)">
+                                                    <i class="fas fa-edit"></i> Sửa
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" onclick="deleteUser(3)">
+                                                    <i class="fas fa-trash"></i> Xóa
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>author@example.com</td>
+                                            <td><span class="badge bg-primary">Author</span></td>
+                                            <td>2023-04-10</td>
+                                            <td><span class="badge bg-success">Active</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-warning" onclick="editUser(4)">
+                                                    <i class="fas fa-edit"></i> Sửa
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" onclick="deleteUser(4)">
+                                                    <i class="fas fa-trash"></i> Xóa
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Blog Admin 2023</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        
+        <!-- Modal Edit User -->
+        <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editUserModalLabel">Chỉnh sửa User</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editUserForm">
+                            <input type="hidden" id="editUserId" />
+                            <div class="mb-3">
+                                <label for="editUserEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="editUserEmail" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editUserRole" class="form-label">Role</label>
+                                <select class="form-control" id="editUserRole" required>
+                                    <option value="">Chọn role</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="editor">Editor</option>
+                                    <option value="author">Author</option>
+                                    <option value="user">User</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editUserPassword" class="form-label">Password mới (để trống nếu không đổi)</label>
+                                <input type="password" class="form-control" id="editUserPassword">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-primary" onclick="saveUserEdit()">Lưu thay đổi</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        <script>
+            // Initialize DataTable
+            window.addEventListener('DOMContentLoaded', event => {
+                const datatablesSimple = document.getElementById('usersTable');
+                if (datatablesSimple) {
+                    new simpleDatatables.DataTable(datatablesSimple);
+                }
+            });
+
+            function editUser(userId) {
+                // Sample data - in real app, fetch from API
+                const users = {
+                    1: { email: 'admin@example.com', role: 'admin' },
+                    2: { email: 'editor@example.com', role: 'editor' },
+                    3: { email: 'user@example.com', role: 'user' },
+                    4: { email: 'author@example.com', role: 'author' }
+                };
+                
+                const user = users[userId];
+                if (user) {
+                    document.getElementById('editUserId').value = userId;
+                    document.getElementById('editUserEmail').value = user.email;
+                    document.getElementById('editUserRole').value = user.role;
+                    document.getElementById('editUserPassword').value = '';
+                    
+                    new bootstrap.Modal(document.getElementById('editUserModal')).show();
+                }
+            }
+
+            function saveUserEdit() {
+                const userId = document.getElementById('editUserId').value;
+                const email = document.getElementById('editUserEmail').value;
+                const role = document.getElementById('editUserRole').value;
+                const password = document.getElementById('editUserPassword').value;
+                
+                // Here you would normally send AJAX request to save data
+                console.log('Saving user:', { userId, email, role, password });
+                
+                alert('User đã được cập nhật thành công!');
+                bootstrap.Modal.getInstance(document.getElementById('editUserModal')).hide();
+                
+                // Refresh the page or update table row
+                location.reload();
+            }
+
+            function deleteUser(userId) {
+                if (confirm('Bạn có chắc chắn muốn xóa user này?')) {
+                    // Here you would normally send AJAX request to delete
+                    console.log('Deleting user:', userId);
+                    alert('User đã được xóa thành công!');
+                    location.reload();
+                }
+            }
+        </script>
+    </body>
+</html>

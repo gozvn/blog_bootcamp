@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Detail - BLOG</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+
+    <header class="p-3 mb-3 border-bottom">
+        <div class="container">
+          <div class="d-flex flex-wrap align-items-center justify-content-between">
+            <!-- Logo -->
+            <a href="index.html" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
+              <h4 class="mb-0 fw-bold text-primary">BLOG</h4>
+            </a>
+            
+            <!-- Navigation for large screens -->
+            <ul class="nav d-none d-lg-flex me-lg-auto mb-2 justify-content-center mb-md-0">
+              <li>
+                <a href="index.html" class="nav-link px-2 link-body-emphasis">Home</a>
+              </li>
+              <li>
+                <a href="categories.html" class="nav-link px-2 link-body-emphasis">Categories</a>
+              </li>
+              <li>
+                <a href="post_category.html" class="nav-link px-2 link-body-emphasis">Technology</a>
+              </li>
+              <li>
+                <a href="#" class="nav-link px-2 link-body-emphasis">About</a>
+              </li>
+              <li>
+                <a href="#" class="nav-link px-2 link-body-emphasis">Contact</a>
+              </li>
+              <li>
+                <a href="login.html" class="nav-link px-2 link-secondary">Login</a>
+              </li>
+              <li>
+                <a href="signup.html" class="nav-link px-2 link-secondary">Sign Up</a>
+              </li>
+            </ul>
+            
+            <div class="d-flex align-items-center">
+              <!-- Search form for large screens only -->
+              <form class="me-3 d-none d-lg-block" role="search">
+                <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+              </form>
+              
+              <!-- User dropdown for large screens only -->
+              <div class="dropdown text-end me-3 d-none d-lg-block">
+                <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="img/no_img.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
+                </a>
+                <ul class="dropdown-menu text-small">
+                  <li><a class="dropdown-item" href="#">New project...</a></li>
+                  <li><a class="dropdown-item" href="#">Settings</a></li>
+                  <li><a class="dropdown-item" href="#">Profile</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Sign out</a></li>
+                </ul>
+              </div>
+              
+              <!-- Hamburger menu button for mobile -->
+              <button class="btn btn-outline-secondary d-lg-none d-flex align-items-center justify-content-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" style="width: 40px; height: 40px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+    </header>
+
+    <!-- Offcanvas Menu -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <!-- User Profile Section -->
+        <div class="d-flex align-items-center mb-4 pb-3 border-bottom">
+          <img src="img/no_img.jpg" alt="User Avatar" width="48" height="48" class="rounded-circle me-3">
+          <div>
+            <h6 class="mb-0">John Doe</h6>
+            <small class="text-muted">john.doe@example.com</small>
+          </div>
+        </div>
+        
+        <!-- Navigation Links -->
+        <ul class="navbar-nav flex-grow-1 pe-3 mb-4">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">
+              <i class="bi bi-house-door me-2"></i>Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="categories.html">
+              <i class="bi bi-box-seam me-2"></i>Categories
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="post_category.html">
+              <i class="bi bi-laptop me-2"></i>Technology
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="login.html">
+              <i class="bi bi-person me-2"></i>Login
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="signup.html">
+              <i class="bi bi-person-plus me-2"></i>Sign Up
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-three-dots me-2"></i>More
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#"><i class="bi bi-info-circle me-2"></i>About</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-envelope me-2"></i>Contact</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+            </ul>
+          </li>
+        </ul>
+        
+        <!-- Search form in offcanvas -->
+        <form class="d-flex mb-4" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
+          <button class="btn btn-outline-primary" type="submit">
+            <i class="bi bi-search"></i>
+          </button>
+        </form>
+        
+        <!-- User Actions -->
+        <div class="mt-auto">
+          <hr class="mb-3">
+          <ul class="list-unstyled">
+            <li><a class="dropdown-item py-2" href="#"><i class="bi bi-plus-circle me-2"></i>New project...</a></li>
+            <li><a class="dropdown-item py-2" href="#"><i class="bi bi-person-circle me-2"></i>Profile</a></li>
+            <li><a class="dropdown-item py-2" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+            <li><hr class="dropdown-divider my-2"></li>
+            <li><a class="dropdown-item py-2 text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i>Sign out</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- End Header -->
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <!-- Main Article -->
+            <div class="col-lg-8">
+                <!-- Breadcrumb -->
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="categories.html">Technology</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Blog Post</li>
+                    </ol>
+                </nav>
+
+                <!-- Article Header -->
+                <article class="mb-5">
+                    <header class="mb-4">
+                        <h1 class="title fw-bold text-dark mb-3">The Future of Web Development: Trends and Technologies to Watch in 2025</h1>
+                        
+                        <!-- Article Meta -->
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="img/no_img.jpg" alt="Author" width="40" height="40" class="rounded-circle me-3">
+                            <div>
+                                <p class="mb-0 fw-semibold">John Doe</p>
+                                <small class="text-muted">Published on October 12, 2025 • 5 min read</small>
+                            </div>
+                        </div>
+
+                        <!-- Tags -->
+                        <div class="mb-4">
+                            <span class="badge bg-primary me-2">Technology</span>
+                            <span class="badge bg-secondary me-2">Web Development</span>
+                            <span class="badge bg-success me-2">Programming</span>
+                            <span class="badge bg-info">Trends</span>
+                        </div>
+
+                        <!-- Featured Image -->
+                        <div class="mb-4">
+                            <img src="img/no_img.jpg" alt="Featured Image" class="img-fluid rounded shadow">
+                        </div>
+                    </header>
+
+                    <!-- Article Content -->
+                    <div class="article-content">
+                        <p class="lead">
+                            Web development continues to evolve at a rapid pace, with new technologies and frameworks emerging constantly. As we move through 2025, developers need to stay ahead of the curve to build modern, efficient, and user-friendly applications.
+                        </p>
+
+                        <h2 class="h3 mt-5 mb-3">The Rise of AI-Powered Development</h2>
+                        <p>
+                            Artificial Intelligence is revolutionizing how we approach web development. From code generation to automated testing, AI tools are becoming indispensable for modern developers. Tools like GitHub Copilot and ChatGPT are transforming the development workflow, making developers more productive than ever before.
+                        </p>
+
+                        <h2 class="h3 mt-5 mb-3">Progressive Web Applications (PWAs)</h2>
+                        <p>
+                            PWAs continue to bridge the gap between web and mobile applications. With improved performance, offline capabilities, and native-like experiences, PWAs are becoming the go-to solution for businesses looking to reach users across all platforms with a single codebase.
+                        </p>
+
+                        <blockquote class="blockquote border-start border-4 border-primary ps-4 py-3 my-4 bg-light">
+                            <p class="mb-0">"The future of web development lies in creating seamless, accessible, and performant experiences that work everywhere."</p>
+                            <footer class="blockquote-footer mt-2">Jane Smith, <cite title="Senior Developer at TechCorp">Senior Developer at TechCorp</cite></footer>
+                        </blockquote>
+
+                        <h2 class="h3 mt-5 mb-3">WebAssembly and Performance</h2>
+                        <p>
+                            WebAssembly (WASM) is enabling near-native performance in web applications. This technology allows developers to run code written in languages like C, C++, and Rust directly in the browser, opening up new possibilities for complex web applications.
+                        </p>
+
+                        <h2 class="h3 mt-5 mb-3">Serverless Architecture</h2>
+                        <p>
+                            Serverless computing is changing how we deploy and scale web applications. With platforms like Vercel, Netlify, and AWS Lambda, developers can focus on writing code without worrying about server management, leading to faster development cycles and reduced operational costs.
+                        </p>
+
+                        <div class="alert alert-info mt-4" role="alert">
+                            <h4 class="alert-heading">Pro Tip!</h4>
+                            <p class="mb-0">Stay updated with the latest web development trends by following industry blogs, attending conferences, and participating in developer communities.</p>
+                        </div>
+
+                        <h2 class="h3 mt-5 mb-3">Conclusion</h2>
+                        <p>
+                            The web development landscape in 2025 is exciting and full of opportunities. By embracing these emerging technologies and trends, developers can create better, faster, and more accessible web experiences for users worldwide.
+                        </p>
+                    </div>
+
+                    <!-- Social Share -->
+                    <div class="d-flex align-items-center mt-5 pt-4 border-top">
+                        <span class="me-3 fw-semibold">Share this article:</span>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-outline-primary btn-sm">
+                                <i class="bi bi-facebook"></i> Facebook
+                            </button>
+                            <button type="button" class="btn btn-outline-info btn-sm">
+                                <i class="bi bi-twitter"></i> Twitter
+                            </button>
+                            <button type="button" class="btn btn-outline-danger btn-sm">
+                                <i class="bi bi-linkedin"></i> LinkedIn
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-link-45deg"></i> Copy Link
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Comments Section -->
+                <section class="mt-5">
+                    <h3 class="mb-4">Comments (3)</h3>
+                    
+                    <!-- Comment 1 -->
+                    <div class="d-flex mb-4">
+                        <img src="img/no_img.jpg" alt="Commenter" width="50" height="50" class="rounded-circle me-3">
+                        <div class="flex-grow-1">
+                            <div class="bg-light p-3 rounded">
+                                <h6 class="mb-1">Alice Johnson</h6>
+                                <small class="text-muted">2 hours ago</small>
+                                <p class="mb-0 mt-2">Great article! I'm particularly excited about WebAssembly and its potential for web applications.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Comment 2 -->
+                    <div class="d-flex mb-4">
+                        <img src="img/no_img.jpg" alt="Commenter" width="50" height="50" class="rounded-circle me-3">
+                        <div class="flex-grow-1">
+                            <div class="bg-light p-3 rounded">
+                                <h6 class="mb-1">Bob Smith</h6>
+                                <small class="text-muted">5 hours ago</small>
+                                <p class="mb-0 mt-2">PWAs have been a game-changer for our business. The performance improvements are remarkable.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Comment Form -->
+                    <div class="mt-4">
+                        <h4 class="mb-3">Leave a Comment</h4>
+                        <form>
+                            <div class="mb-3">
+                                <label for="commentName" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="commentName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="commentEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="commentEmail" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="commentText" class="form-label">Comment</label>
+                                <textarea class="form-control" id="commentText" rows="4" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Post Comment</button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <div class="position-sticky" style="top: 2rem">
+                    <!-- About Author -->
+                    <div class="p-4 mb-3 bg-body-tertiary rounded">
+                        <h4 class="fst-italic">About the Author</h4>
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="img/no_img.jpg" alt="Author" width="60" height="60" class="rounded-circle me-3">
+                            <div>
+                                <h6 class="mb-0">John Doe</h6>
+                                <small class="text-muted">Senior Developer</small>
+                            </div>
+                        </div>
+                        <p class="mb-0">
+                            John is a passionate web developer with over 8 years of experience in building modern web applications. He loves sharing knowledge and helping others learn.
+                        </p>
+                    </div>
+
+                    <!-- Related Posts -->
+                    <div class="mb-3">
+                        <h4 class="fst-italic">Related Posts</h4>
+                        <ul class="list-unstyled">
+                            <li>
+                                <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                                    <svg aria-hidden="true" class="bd-placeholder-img" height="96" preserveAspectRatio="xMidYMid slice" width="100%" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="100%" height="100%" fill="#777"></rect>
+                                    </svg>
+                                    <div class="col-lg-8">
+                                        <h6 class="mb-0">Best JavaScript Frameworks for 2025</h6>
+                                        <small class="text-body-secondary">October 10, 2025</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                                    <svg aria-hidden="true" class="bd-placeholder-img" height="96" preserveAspectRatio="xMidYMid slice" width="100%" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="100%" height="100%" fill="#777"></rect>
+                                    </svg>
+                                    <div class="col-lg-8">
+                                        <h6 class="mb-0">CSS Grid vs Flexbox: When to Use What</h6>
+                                        <small class="text-body-secondary">October 8, 2025</small>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
+                                    <svg aria-hidden="true" class="bd-placeholder-img" height="96" preserveAspectRatio="xMidYMid slice" width="100%" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="100%" height="100%" fill="#777"></rect>
+                                    </svg>
+                                    <div class="col-lg-8">
+                                        <h6 class="mb-0">Building Accessible Web Applications</h6>
+                                        <small class="text-body-secondary">October 5, 2025</small>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Newsletter -->
+                    <div class="p-4 bg-primary text-white rounded">
+                        <h4 class="fst-italic text-white">Subscribe to Newsletter</h4>
+                        <p class="mb-3">Get the latest web development tips and tutorials delivered to your inbox.</p>
+                        <form>
+                            <div class="mb-3">
+                                <input type="email" class="form-control" placeholder="Enter your email" required>
+                            </div>
+                            <button type="submit" class="btn btn-light w-100">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Main -->
+
+    <!-- Footer -->
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <div class="container">
+        <div class="col-md-4 d-flex align-items-center">
+          <a href="index.html" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1" aria-label="Bootstrap">
+            <svg class="bi" width="30" height="24" aria-hidden="true">
+              <use xlink:href="#bootstrap"></use>
+            </svg>
+          </a>
+          <span class="mb-3 mb-md-0 text-body-secondary">© 2025 Company, Inc</span>
+        </div>
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+          <li class="ms-3">
+            <a class="text-body-secondary" href="#" aria-label="Instagram"><svg class="bi" width="24" height="24" aria-hidden="true">
+                <use xlink:href="#instagram"></use></svg></a>
+          </li>
+          <li class="ms-3">
+            <a class="text-body-secondary" href="#" aria-label="Facebook"><svg class="bi" width="24" height="24">
+                <use xlink:href="#facebook"></use></svg></a>
+          </li>
+        </ul></div>
+    </footer>
+
+    <!-- Bootstrap JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
