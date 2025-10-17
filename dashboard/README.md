@@ -1,3 +1,0 @@
-Sample Admin Dashboard 
-Bootstrap 5
-Sample template table, sidebar, chart v.v...
