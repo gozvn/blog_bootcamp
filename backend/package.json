@@ -8,7 +8,9 @@
     "dev": "nodemon server.js",
     "prepare": "husky",
     "postinstall": "npx husky install",
-    "test": "jest --detectOpenHandles --verbose"
+    "test": "jest --detectOpenHandles --verbose",
+    "db:seed:all": "npx sequelize-cli db:seed:all",
+    "db:seed:undo": "npx sequelize-cli db:seed:undo:all"
   },
   "author": "",
   "license": "ISC",

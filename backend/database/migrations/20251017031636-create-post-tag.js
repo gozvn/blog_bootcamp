@@ -2,27 +2,30 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('postTags', {
-      id: {
+    await queryInterface.createTable('posts_tags', {
+      post_id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
+        references: { model: 'posts', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
-      temp: {
-        type: Sequelize.STRING
-      },
-      createdAt: {
+      tag_id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        references: { model: 'tags', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       }
+    });
+    
+    await queryInterface.addConstraint('posts_tags', {
+      fields: ['post_id', 'tag_id'],
+      type: 'primary key',
+      name: 'post_tag_pkey'
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('postTags');
+    await queryInterface.dropTable('posts_tags');
   }
 };

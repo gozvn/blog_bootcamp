@@ -8,7 +8,7 @@ module.exports = {
     // Mã hoá password 123456
     const hashedPassword = await bcrypt.hash('123456', bcryptConfig.rounds);
 
-    await queryInterface.bulkInsert('Users', [
+    await queryInterface.bulkInsert('users', [
       {
         avatar: null,
         username: 'admin',
@@ -49,6 +49,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('Users', null, {});
+    await queryInterface.bulkDelete('users', null, {});
   }
 };
