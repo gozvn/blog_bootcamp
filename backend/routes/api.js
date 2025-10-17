@@ -13,6 +13,10 @@ const router = express.Router({ mergeParams: true });
 // }
 // );
 
+router.get("/", (req, res) => {
+  res.send("Hello world");
+});
+
 router.group("/example", validate([]), (router) => {
   router.get('/', exampleController.exampleRequest)
 })

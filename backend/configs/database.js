@@ -3,6 +3,7 @@ require("dotenv").config();
 module.exports = {
   environment: process.env.DATABASE_ENV || "development",
   development: {
+    prefix: process.env.PREFIX_PATH || "",
     username: process.env.DATABASE_USERNAME || "root",
     password: process.env.DATABASE_PASSWORD || "root",
     database: process.env.DATABASE_NAME || "core",
@@ -15,6 +16,7 @@ module.exports = {
     },
   },
   test: {
+    prefix: process.env.PREFIX_PATH || "",
     username: process.env.DATABASE_TEST_USERNAME,
     password: process.env.DATABASE_TEST_PASSWORD,
     database: process.env.DATABASE_TEST_NAME,
@@ -28,6 +30,7 @@ module.exports = {
     },
   },
   production: {
+    prefix: process.env.PREFIX_PATH || "",
     username: process.env.PROD_DB_USERNAME,
     password: process.env.PROD_DB_PASSWORD,
     database: process.env.PROD_DB_NAME,
