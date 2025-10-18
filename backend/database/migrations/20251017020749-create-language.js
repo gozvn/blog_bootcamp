@@ -9,8 +9,8 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      lang_code: { type: Sequelize.STRING(5), allowNull: false },
-      lang_name: { type: Sequelize.STRING(50), allowNull: false },
+      lang_code: { type: Sequelize.STRING(5), allowNull: false, defaultValue: 'vi' },
+      lang_name: { type: Sequelize.STRING(50), allowNull: false, defaultValue: 'Tiếng Việt'},
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,
