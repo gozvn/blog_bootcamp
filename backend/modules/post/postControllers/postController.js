@@ -2,12 +2,11 @@ const responseUtils = require("utils/responseUtils")
 const postService = require("../postServices/postService.js")
 
 const postController = {
-
     postRequest: async (req, res) => {
         try {
             const post = await postService.list();
             // xử lý show all ở đây
-            return responseUtils.ok(res,{post})
+            return responseUtils.ok(res,post)
         } catch (error) {
             console.log(error)
             return responseUtils.error(res,{

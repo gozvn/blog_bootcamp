@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'postcategories',
     sequelize,
     modelName: 'PostCategory',
+    timestamps: false,
   });
   return PostCategory;
 };

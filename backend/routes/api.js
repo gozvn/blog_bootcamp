@@ -22,6 +22,7 @@ router.get("/", (req, res) => {
 // router.group("/admin", dashboardRouter); 
 router.group("/post", validate([]), (router) => {
   router.get('/', postController.postRequest),
+  // router.get('/test', postController.test),
   // router.get('/{id}', postController.postDetail),
   router.post('/post',postController.createPost)
   // router.put('/edit/{id}',postController.editPost)
