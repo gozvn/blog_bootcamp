@@ -10,9 +10,12 @@ const postController = {
             const categoryId = req.query.category_id || null;
             const tagId = req.query.tag_id || null;
             const userId = req.query.user_id || null;
+            const langId = req.query.lang_id || null;
+            const status = req.query.status || null;
+            const featured = req.query.status || null;
             // const cat = parse Int(req.query.cat);
 
-            const post = await postService.list(page,limit,categoryId,tagId,userId);
+            const post = await postService.list(page,limit,categoryId,tagId,userId,langId,status,featured);
             // xử lý show all ở đây
             return responseUtils.ok(res,post)
         } catch (error) {
