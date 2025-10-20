@@ -37,6 +37,9 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'posts',
     sequelize,
     modelName: 'Post',
+    timestamps: false,  
+    createdAt: 'created_at', // ánh xạ
+    updatedAt: 'updated_at', // ánh xạ
   });
   return Post;
 };

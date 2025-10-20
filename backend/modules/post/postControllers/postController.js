@@ -4,7 +4,15 @@ const postService = require("../postServices/postService.js")
 const postController = {
     postRequest: async (req, res) => {
         try {
-            const post = await postService.list();
+            // chenf param ở đây
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || 10;
+            const categoryId = req.query.category_id || null;
+            const tagId = req.query.tag_id || null;
+            const userId = req.query.user_id || null;
+            // const cat = parse Int(req.query.cat);
+
+            const post = await postService.list(page,limit,categoryId,tagId,userId);
             // xử lý show all ở đây
             return responseUtils.ok(res,post)
         } catch (error) {
