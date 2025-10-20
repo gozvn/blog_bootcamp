@@ -9,8 +9,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      thumbnail: { type: Sequelize.STRING(100) },
       cat_name: { type: Sequelize.STRING(255) },
       cat_slug: { type : Sequelize.STRING(100)},
+      description: { type : Sequelize.TEXT},
       created_at: {
         allowNull: false,
         type: Sequelize.DATE

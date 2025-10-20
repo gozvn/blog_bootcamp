@@ -5,7 +5,7 @@ const { validate } = require("kernels/validations");
 const exampleController = require("modules/examples/controllers/exampleController");
 const router = express.Router({ mergeParams: true });
 const postController = require("modules/post/postControllers/postController");
-const categoryController = require("modules/post/postControllers/categoryController");
+const categoryController = require("modules/category/categoryControllers/categoryController");
 
 // ===== EXAMPLE Request, make this commented =====
 // router.group("/posts",middlewares([authenticated, role("owner")]),(router) => {
@@ -22,7 +22,7 @@ router.get("/", (req, res) => {
 // router.group("/user", userRouter );
 // router.group("/admin", dashboardRouter); 
 router.group("/post", validate([]), (router) => {
-  router.get('/', postController.postRequest),
+  router.get('/', postController.all),
   // router.get('/test', postController.test),
   // router.get('/{id}', postController.postDetail),
   router.post('/post',postController.createPost)
@@ -31,10 +31,10 @@ router.group("/post", validate([]), (router) => {
 })
 
 router.group("/category", validate([]), (router) => {
-  router.get('/', categoryController.categoryRequest),
+  router.get('/', categoryController.all),
   // router.get('/test', postController.test),
   // router.get('/{id}', postController.postDetail),
-  router.post('/post',categoryController.createPost)
+  router.post('/post',categoryController.create)
   // router.put('/edit/{id}',postController.editPost)
   // router.delete('/delete/{id}',postController.deletePost)
 })

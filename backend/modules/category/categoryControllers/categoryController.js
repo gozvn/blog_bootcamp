@@ -2,21 +2,21 @@ const responseUtils = require("utils/responseUtils")
 const categoryService = require("../categoryServices/categoryService.js")
     
 const categoryController = {
-    async categoryRequest(req, res) {
+    all: async (req, res) => {
         try {
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 10;
-            const categoryId = req.query.id || null;
-            const userId = req.query.user_id || null;
-            const langId = req.query.lang_id || null;
+            const categoryId = req.query.cat_id || null;
 
-            const post = await categoryService.list(page,limit,categoryId,userId,langId);
-            // xử lý show all ở đây
-            return responseUtils.ok(res,post)
+            const cat = await categoryService.list(page,limit,categoryId);
+            return responseUtils.ok(res,cat)
         } catch (error) {
-            console.error("Error handling category request:", error);
+            console.error(error);
             responseUtils.error(res, error);
         }
+    },
+    create: (req, res) => {
+        // Implementation for creating a category
     }
 }
 

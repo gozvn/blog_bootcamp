@@ -2,7 +2,7 @@ const responseUtils = require("utils/responseUtils")
 const postService = require("../postServices/postService.js")
 
 const postController = {
-    postRequest: async (req, res) => {
+    all: async (req, res) => {
         try {
             // chenf param ở đây
             const page = parseInt(req.query.page) || 1;
