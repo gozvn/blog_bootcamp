@@ -4,7 +4,8 @@ const middlewares = require("kernels/middlewares");
 const { validate } = require("kernels/validations");
 const exampleController = require("modules/examples/controllers/exampleController");
 const router = express.Router({ mergeParams: true });
-
+const userRouter = require("modules/user/userRouter.js");
+const postController = require("modules/post/postControllers/postController");
 // ===== EXAMPLE Request, make this commented =====
 // router.group("/posts",middlewares([authenticated, role("owner")]),(router) => {
 //   router.post("/create",validate([createPostRequest]),postsController.create);
@@ -16,6 +17,19 @@ const router = express.Router({ mergeParams: true });
 router.get("/", (req, res) => {
   res.send("Hello world");
 });
+
+// router.group("/user", userRouter );
+// router.group("/admin", dashboardRouter); 
+router.group("/post", validate([]), (router) => {
+  router.get('/', postController.postRequest),
+  // router.get('/{id}', postController.postDetail),
+  router.post('/post',postController.createPost)
+  // router.put('/edit/{id}',postController.editPost)
+  // router.delete('/delete/{id}',postController.deletePost)
+})
+
+// router.group("/search", searchRouter);
+// router.group("/category", categoryRouter);
 
 router.group("/example", validate([]), (router) => {
   router.get('/', exampleController.exampleRequest)

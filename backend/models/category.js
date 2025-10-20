@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Category.belongsToMany(models.Post, {
-         through : models.postCategory, foreignKey : 'cat_id'
+         through : models.PostCategory, foreignKey : 'cat_id'
       })
     }
   }
@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     created_at: DataTypes.DATE,
     updated_at: DataTypes.DATE
   }, {
+    tableName: 'categories',
     sequelize,
     modelName: 'Category',
   });

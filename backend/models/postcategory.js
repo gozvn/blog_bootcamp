@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     post_id: { type: DataTypes.INTEGER, primaryKey: true },
     cat_id: { type: DataTypes.INTEGER, primaryKey: true }
   }, {
+    tableName: 'postcategories',
     sequelize,
     modelName: 'PostCategory',
   });

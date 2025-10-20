@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     post_id: { type: DataTypes.INTEGER, primaryKey: true },
     tag_id: { type: DataTypes.INTEGER, primaryKey: true }
   }, {
+    tablename: 'posts_tags',
     sequelize,
     modelName: 'PostTag',
   });

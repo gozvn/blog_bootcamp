@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING(100),
     slug: DataTypes.STRING(100)
   }, {
+    tableName: 'tags',
     sequelize,
     modelName: 'Tag',
   });
