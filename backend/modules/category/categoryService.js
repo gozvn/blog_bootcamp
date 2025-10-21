@@ -42,7 +42,29 @@ const categoryService ={
         })
 
         return category;
-    } 
-}
+    }, 
+    async create(data){
+        const category = await Category.create(data);
+        return category;
+    },
+    async update(id, data){
+        const whereClause = {
+            id: id
+        }
+        const category = await Category.update(data, {
+            where: whereClause,
+        });
+        return category;
+    },
+    async delete(id){
+        const whereClause = {
+            id: id
+        }
+        const category = await Category.destroy({
+            where: whereClause,
+        });
+        return category;
+    }   
+};
 
 module.exports = categoryService;

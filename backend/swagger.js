@@ -1,16 +1,22 @@
-// backend/swagger.js
-const swaggerAutogen = require('swagger-autogen')();
+const swaggerJsdoc = require('swagger-jsdoc');
+const path = require('path');
 
-const doc = {
-  info: {
-    title: 'Blog Bootcamp API',
-    description: 'Tài liệu API được sinh tự động bằng swagger-autogen',
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Blog Bootcamp API',
+      version: '1.0.0',
+      description: 'API documentation generated using swagger-jsdoc from JSDoc comments.',
+    },
+    servers: [
+        { url: 'http://localhost:3000' }
+    ],
   },
-  host: 'localhost:3000', // chỉnh lại nếu server bạn chạy port khác
-  schemes: ['http'],
+  // Đường dẫn đến file api.js của bạn
+  apis: ['./routes/api.js'], 
 };
 
-const outputFile = './swagger-output.json'; // nơi lưu file swagger sinh ra
-const endpointsFiles = ['./index.js']; // hoặc router chính nếu có
+const swaggerSpec = swaggerJsdoc(options);
 
-swaggerAutogen(outputFile, endpointsFiles);
+module.exports = swaggerSpec; // Xuất spec để dùng trong server.js

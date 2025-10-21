@@ -36,9 +36,39 @@ const categoryController = {
             return responseUtils.error(res, "Lỗi server");
         }
     },
+
     create: (req, res) => {
-        // Implementation for creating a category
-    }
+        try {
+            const data = req.body;
+            const category = categoryService.create(data);
+            return responseUtils.ok(res, category);
+        } catch (error) {
+            console.log(error);
+            return responseUtils.error(res, "Lỗi server");
+        }   
+    },
+    update: (req, res) => {
+        try {
+            const cat_id = req.params.cat_id ? parseInt(req.params.cat_id) : null;
+            const data = req.body;
+            const category = categoryService.update(cat_id, data);
+            return responseUtils.ok(res, category);
+        } catch (error) {
+            console.log(error);
+            return responseUtils.error(res, "Lỗi server");
+        }
+    },
+    delete: (req, res) => {
+        try {
+            const cat_id = req.params.cat_id ? parseInt(req.params.cat_id) : null;
+            const category = categoryService.delete(cat_id);
+            return responseUtils.ok(res, category);
+        } catch (error) {
+            console.log(error);
+            return responseUtils.error(res, "Lỗi server");
+        }
+    },
+    
 }
 
 module.exports = categoryController
