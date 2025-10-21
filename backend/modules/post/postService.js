@@ -1,3 +1,4 @@
+const { getbyID } = require("modules/category/categoryService");
 const { Post, User, Category, Tag, Language } = require("../../models");
 
 const postService = {
@@ -70,6 +71,17 @@ const postService = {
             };
     },
 
+    async getbyID(id){
+        const whereClause = {
+            id: id
+        }
+        const post = await Post.findOne({
+            where: whereClause,
+        })
+
+        return post;
+    } 
+    
     // async testCategories() {
     //     const postCategories = await PostCategory.findAll();
     //     console.log("PostCategory Data:", postCategories);

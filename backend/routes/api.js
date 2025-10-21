@@ -24,8 +24,8 @@ router.get("/", (req, res) => {
 router.group("/post", validate([]), (router) => {
   router.get('/', postController.all),
   // router.get('/test', postController.test),
-  // router.get('/{id}', postController.postDetail),
-  router.post('/post',postController.createPost)
+  router.get('/detail', postController.getbyID),
+  router.post('/create',postController.createPost)
   // router.put('/edit/{id}',postController.editPost)
   // router.delete('/delete/{id}',postController.deletePost)
 })

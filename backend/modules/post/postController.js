@@ -1,5 +1,5 @@
 const responseUtils = require("utils/responseUtils")
-const postService = require("./postService.js")
+const postService = require("./postService.js");
 
 const postController = {
     all: async (req, res) => {
@@ -12,7 +12,7 @@ const postController = {
             const userId = req.query.user_id || null;
             const langId = req.query.lang_id || null;
             const status = req.query.status || null;
-            const featured = req.query.status || null;
+            const featured = req.query.featured || null;
             // const cat = parse Int(req.query.cat);
 
             const post = await postService.list(page,limit,categoryId,tagId,userId,langId,status,featured);
@@ -25,8 +25,22 @@ const postController = {
             })
         }
     },
-    postDetail : (req, res) => {
+    getbyID : async (req, res) => {
+        try {
+            const id = req.query.id ? parseInt(req.query.id) : null;
+            if (!id) {
+                return responseUtils.error(res, "ID chưa được truyền ")
+            }
+            const post = await postService.getbyID(id);
+            if (!post) {
+                return responseUtils.notFound(res, " ID Không tồn tại ")
+            }
+            return responseUtils.ok(res, post);
 
+        } catch (error) {
+            console.log(error)
+            return responseUtils.error(res, error)
+        }
     },
     // tạo bài viết mới
     createPost: (req, res) => {

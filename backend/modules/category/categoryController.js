@@ -15,7 +15,7 @@ const categoryController = {
             responseUtils.error(res, error);
         }
     },
-    
+
     getbyID : async (req,res) => {
         try {
             const cat_id = req.query.cat_id ? parseInt(req.query.cat_id) : null;
@@ -32,7 +32,7 @@ const categoryController = {
 
             return responseUtils.ok(res, category);
         } catch (error) {
-            console.error(error);
+            console.log(error);
             return responseUtils.error(res, "Lỗi server");
         }
     },
