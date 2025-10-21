@@ -47,15 +47,17 @@ const categoryService ={
         const category = await Category.create(data);
         return category;
     },
-    async update(id, data){
+
+    async update(data){
         const whereClause = {
-            id: id
+            id: data.id
         }
         const category = await Category.update(data, {
             where: whereClause,
         });
         return category;
     },
+
     async delete(id){
         const whereClause = {
             id: id

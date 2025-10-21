@@ -44,7 +44,7 @@ const categoryController = {
             const errors = validationResult(req);
 
             if (!errors.isEmpty()) {
-                return responseUtils.error(res, errors.array()[0].msg, 400);
+                return responseUtils.error(res, errors.array());
             }
 
             const { cat_name, description, thumbnail } = req.body;
