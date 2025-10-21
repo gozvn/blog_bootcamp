@@ -6,6 +6,8 @@ const exampleController = require("modules/examples/controllers/exampleControlle
 const router = express.Router({ mergeParams: true });
 const postController = require("modules/post/postController");
 const categoryController = require("modules/category/categoryController");
+const categoryValidation = require("modules/category/categoryValidation");
+const { checkSchema } = require("express-validator");
 
 // ===== EXAMPLE Request, make this commented =====
 // router.group("/posts",middlewares([authenticated, role("owner")]),(router) => {
@@ -35,7 +37,7 @@ router.group("/category", validate([]), (router) => {
   // router.get('/test', postController.test),
   // router.get('/{id}', postController.postDetail),  router.get('/detail', categoryController.getbyID);
   router.get('/detail', categoryController.getbyID),
-  router.post('/create',categoryController.create)
+  router.post('/create',checkSchema(categoryValidation.createCategory),categoryController.create)
   // router.put('/edit/{id}',postController.editPost)
   // router.delete('/delete/{id}',postController.deletePost)
 })

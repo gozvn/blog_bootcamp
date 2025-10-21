@@ -1,6 +1,7 @@
 const responseUtils = require("utils/responseUtils")
-const categoryService = require("./categoryService.js")
-    
+const categoryService = require("./categoryService.js");
+const { validationResult } = require("express-validator");
+
 const categoryController = {
     all: async (req, res) => {
         try {
@@ -37,16 +38,32 @@ const categoryController = {
         }
     },
 
-    create: (req, res) => {
+    create: async(req, res) => {
         try {
-            const data = req.body;
-            const category = categoryService.create(data);
+            // check validation errors truoc khi xu ly
+            const errors = validationResult(req);
+
+            if (!errors.isEmpty()) {
+                return responseUtils.error(res, errors.array()[0].msg, 400);
+            }
+
+            const { cat_name, description, thumbnail } = req.body;
+
+            const category = await categoryService.create({
+                thumbnail: thumbnail || 'img/default-category.png',
+                cat_slug : cat_name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, ''),
+                cat_name: cat_name || "Unnamed Category",
+                description
+            });
+            
             return responseUtils.ok(res, category);
+
         } catch (error) {
             console.log(error);
             return responseUtils.error(res, "Lỗi server");
         }   
     },
+
     update: (req, res) => {
         try {
             const cat_id = req.params.cat_id ? parseInt(req.params.cat_id) : null;
@@ -68,7 +85,7 @@ const categoryController = {
             return responseUtils.error(res, "Lỗi server");
         }
     },
-    
+
 }
 
 module.exports = categoryController
