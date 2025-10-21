@@ -8,11 +8,11 @@ module.exports = {
     });
   },
 
-  notFound: (res) => {
+  notFound: (res, message) => {
     return res.status(404).send({
       success: false,
       status: 404,
-      message: "Cannot find resouces",
+      message: message || "Cannot find resouces",
     });
   },
 

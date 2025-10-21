@@ -1,4 +1,4 @@
-const { Post, User, Category, Tag, Language } = require("../../../models");
+const { Post, User, Category, Tag, Language } = require("../../models");
 
 const postService = {
     async list(page = 1, limit = 10, categoryId = null, tagId = null, userId = null, langId = null, status = null, featured = null) {

@@ -1,5 +1,5 @@
 const responseUtils = require("utils/responseUtils")
-const postService = require("../postServices/postService.js")
+const postService = require("./postService.js")
 
 const postController = {
     all: async (req, res) => {

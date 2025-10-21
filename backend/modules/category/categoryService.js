@@ -1,4 +1,4 @@
-const { Post, Category } = require("../../../models");
+const { Post, Category } = require("../../models");
 
 const categoryService ={
     // Example method
@@ -32,6 +32,16 @@ const categoryService ={
                 totalPages : Math.ceil(count / limit),
             }
         };
+    },
+    async getbyID(id){
+        const whereClause = {
+            id: id
+        }
+        const category = await Category.findOne({
+            where: whereClause,
+        })
+
+        return category;
     } 
 }
 
