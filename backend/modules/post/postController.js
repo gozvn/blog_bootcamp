@@ -2,6 +2,7 @@ const responseUtils = require("utils/responseUtils")
 const postService = require("./postService.js");
 
 const postController = {
+    
     all: async (req, res) => {
         try {
             // chenf param ở đây
@@ -20,9 +21,7 @@ const postController = {
             return responseUtils.ok(res,post)
         } catch (error) {
             console.log(error)
-            return responseUtils.error(res,{
-                message : error
-            })
+            return responseUtils.error(res,{ message : error })
         }
     },
     getbyID : async (req, res) => {
