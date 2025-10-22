@@ -17,7 +17,7 @@ const categoryController = {
         }
     },
 
-    getbyID : async (req,res) => {
+    getbyId : async (req,res) => {
         try {
             // const cat_id = req.query.cat_id ? parseInt(req.query.cat_id) : null;
             const cat_id = req.params.id ? parseInt(req.params.id) : null;

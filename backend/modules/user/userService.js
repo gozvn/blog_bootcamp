@@ -1,20 +1,25 @@
 const { User,Post,Language } = require("models");
 
 const userService = {
-    list: async (page, limit) => {
+    list: async (page, limit,id,role) => {
+
         const whereClause = {};
         const offset = (page - 1) * limit;
 
         const include = [
-            // {
-            //     model: Post,
-            //     attributes: ["id", "title"],
-            // },
             {
                 model: Language,
                 attributes: ["id", "lang_name"],
             }
         ];
+
+        if(id !== undefined && id !== null){
+            whereClause.id = id;
+        }
+        
+        if(role !== undefined && role !== null){
+            whereClause.role = role;
+        }
 
         const { count, rows } = await User.findAndCountAll({
             where: whereClause,
@@ -33,22 +38,12 @@ const userService = {
                 total: count,
                 page,
                 limit,
-                totalPages : Math.ceil(count / limit),
+                totalPages
             }
         };
     },
 
-    getbyID: async (id) => {
-        const whereClause = {
-            id: id
-        }
-        const user = await User.findOne({
-            where: whereClause,
-        });
 
-        return user;
-    }
-    
 };
 
 module.exports = userService;
