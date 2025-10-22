@@ -14,6 +14,7 @@ module.exports = {
         username: 'admin',
         password: hashedPassword,
         email: 'admin@example.com',
+        lang_id : 1,
         role: '1',
         created_at: new Date(),
         updated_at: new Date()
@@ -23,6 +24,7 @@ module.exports = {
         username: 'moderator',
         password: hashedPassword,
         email: 'mod@example.com',
+        lang_id : 1,
         role: '2',
         created_at: new Date(),
         updated_at: new Date()
@@ -32,6 +34,7 @@ module.exports = {
         username: 'user',
         password: hashedPassword,
         email: 'user@example.com',
+        lang_id : 1,
         role: '3',
         created_at: new Date(),
         updated_at: new Date()
@@ -41,6 +44,7 @@ module.exports = {
         username: 'guest',
         password: hashedPassword,
         email: 'guest@example.com',
+        lang_id : 1,
         role: '4',
         created_at: new Date(),
         updated_at: new Date()

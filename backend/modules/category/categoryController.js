@@ -6,11 +6,11 @@ const categoryController = {
     all: async (req, res) => {
         try {
             const page = parseInt(req.query.page) || 1;
-            const limit = parseInt(req.query.limit) || 10;
-            const categoryId = req.query.cat_id || null;
+            const limit = parseInt(req.query.limit) || process.env.CATEGORY_PAGINATION_LIMIT;
 
-            const cat = await categoryService.list(page,limit,categoryId);
-            return responseUtils.ok(res,cat)
+            const categories = await categoryService.list(page,limit);
+
+            return responseUtils.ok(res,categories)
         } catch (error) {
             console.error(error);
             responseUtils.error(res, error);

@@ -4,7 +4,12 @@ const middlewares = require("kernels/middlewares");
 const { validate } = require("kernels/validations");
 const exampleController = require("modules/examples/controllers/exampleController");
 const router = express.Router({ mergeParams: true });
+
+const userController = require("modules/user/userController");
+const userValidation = require("modules/user/userValidation");
+
 const postController = require("modules/post/postController");
+
 const categoryController = require("modules/category/categoryController");
 const categoryValidation = require("modules/category/categoryValidation");
 const { checkSchema } = require("express-validator");
@@ -30,6 +35,16 @@ router.group("/post", validate([]), (router) => {
   router.post('/create',postController.createPost)
   // router.put('/edit/{id}',postController.editPost)
   // router.delete('/delete/{id}',postController.deletePost)
+})
+
+// User routes
+router.group("/user", validate([]), (router) => {
+  router.get('/', userController.all),
+  router.get('/:id/posts', userController.getbyUser),
+  router.post('/create', checkSchema(userValidation.createUser), userController.create),
+  router.get('/:id', userController.getbyID),
+  router.put('/edit/:id', userController.update),
+  router.delete('/delete/:id', userController.delete)
 })
 
 // Module Category routes
