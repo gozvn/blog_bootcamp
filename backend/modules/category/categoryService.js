@@ -49,20 +49,13 @@ const categoryService ={
     },
 
     async update(id, data){
-        const [results] = await Category.sequelize.query(
-            'UPDATE categories SET cat_name = ?, thumbnail = ?, description = ?, updated_at = ? WHERE id = ?',
-            {
-                replacements: [
-                    data.cat_name,
-                    data.thumbnail,
-                    data.description,
-                    new Date(),
-                    id
-                ],
-                type: Category.sequelize.QueryTypes.UPDATE
-            }
-        );
-        return results;
+        const whereClause = {
+            id: id
+        }  
+        const category = await Category.update(data, {
+            where: whereClause
+        });
+        return category;
     },
 
     async delete(id){

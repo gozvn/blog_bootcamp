@@ -52,8 +52,8 @@ const categoryController = {
 
             const category = await categoryService.create({
                 thumbnail: thumbnail || 'img/default-category.png',
-                cat_slug : cat_name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, ''),
                 cat_name: name || "Unnamed Category",
+                cat_slug : cat_name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, ''),
                 description
             });
             
@@ -74,12 +74,18 @@ const categoryController = {
                 return responseUtils.notFound(res, "Không tìm thấy category");
             }
             const data = req.body;
+            const updatedata = {
+                cat_name: data.cat_name,
+                description: data.description,
+                cat_slug: data.cat_name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, ''),
+                updated_at: new Date()
+            }
 
             if (!data || Object.keys(data).length === 0 ) {
                 return responseUtils.error(res, "Dữ liệu cập nhật không hợp lệ");
             }
+            const category = await categoryService.update(id, updatedata);
 
-            const category = await categoryService.update(id, data);
             return responseUtils.ok(res, category);
             
         } catch (error) {
