@@ -6,7 +6,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const router = require("routes/api");
 const { swaggerUIServe,swaggerUISetup } = require("kernels/api-docs");
-const prefixPath = process.env.PREFIX_PATH || '/api/v1';
+const prefixPath = process.env.PREFIX_API_PATH || '/api/v1';
 
 const app = express();
 app.disable("x-powered-by");

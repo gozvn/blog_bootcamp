@@ -25,7 +25,7 @@ const categoryService ={
 
         return {
             rows,
-            pagniation: {
+            pagination: {
                 total: count,
                 page,
                 limit,
@@ -48,14 +48,21 @@ const categoryService ={
         return category;
     },
 
-    async update(data){
-        const whereClause = {
-            id: data.id
-        }
-        const category = await Category.update(data, {
-            where: whereClause,
-        });
-        return category;
+    async update(id, data){
+        const [results] = await Category.sequelize.query(
+            'UPDATE categories SET cat_name = ?, thumbnail = ?, description = ?, updated_at = ? WHERE id = ?',
+            {
+                replacements: [
+                    data.cat_name,
+                    data.thumbnail,
+                    data.description,
+                    new Date(),
+                    id
+                ],
+                type: Category.sequelize.QueryTypes.UPDATE
+            }
+        );
+        return results;
     },
 
     async delete(id){

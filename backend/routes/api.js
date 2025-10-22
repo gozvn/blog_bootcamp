@@ -36,7 +36,8 @@ router.group("/category", validate([]), (router) => {
   router.get('/', categoryController.all),
   // router.get('/test', postController.test),
   // router.get('/{id}', postController.postDetail),  router.get('/detail', categoryController.getbyID);
-  router.get('/detail', categoryController.getbyID),
+  router.get('/:id', categoryController.getbyID),
+  router.put('/edit/:id', checkSchema(categoryValidation.updateCategory), categoryController.update),
   router.post('/create',checkSchema(categoryValidation.createCategory),categoryController.create)
   // router.put('/edit/{id}',postController.editPost)
   // router.delete('/delete/{id}',postController.deletePost)

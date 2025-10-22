@@ -19,9 +19,10 @@ const categoryController = {
 
     getbyID : async (req,res) => {
         try {
-            const cat_id = req.query.cat_id ? parseInt(req.query.cat_id) : null;
+            // const cat_id = req.query.cat_id ? parseInt(req.query.cat_id) : null;
+            const cat_id = req.params.id ? parseInt(req.params.id) : null;
 
-            if (!cat_id){
+            if (!cat_id) {
                 return responseUtils.error(res, "Thiếu tham số cat_id");
             }
 
@@ -47,12 +48,12 @@ const categoryController = {
                 return responseUtils.error(res, errors.array());
             }
 
-            const { cat_name, description, thumbnail } = req.body;
+            const { name, description, thumbnail } = req.body;
 
             const category = await categoryService.create({
                 thumbnail: thumbnail || 'img/default-category.png',
                 cat_slug : cat_name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, ''),
-                cat_name: cat_name || "Unnamed Category",
+                cat_name: name || "Unnamed Category",
                 description
             });
             
@@ -64,20 +65,32 @@ const categoryController = {
         }   
     },
 
-    update: (req, res) => {
+    update: async (req, res) => {
         try {
-            const cat_id = req.params.cat_id ? parseInt(req.params.cat_id) : null;
+            const id = parseInt(req.params.id) || null;
+            // check validation errors truoc khi xu ly
+            const checkid = await categoryService.getbyID(id);
+            if (!checkid) {
+                return responseUtils.notFound(res, "Không tìm thấy category");
+            }
             const data = req.body;
-            const category = categoryService.update(cat_id, data);
+
+            if (!data || Object.keys(data).length === 0 ) {
+                return responseUtils.error(res, "Dữ liệu cập nhật không hợp lệ");
+            }
+
+            const category = await categoryService.update(id, data);
             return responseUtils.ok(res, category);
+            
         } catch (error) {
             console.log(error);
             return responseUtils.error(res, "Lỗi server");
         }
     },
+
     delete: (req, res) => {
         try {
-            const cat_id = req.params.cat_id ? parseInt(req.params.cat_id) : null;
+            const cat_id = req.params.id ? parseInt(req.params.id) : null;
             const category = categoryService.delete(cat_id);
             return responseUtils.ok(res, category);
         } catch (error) {

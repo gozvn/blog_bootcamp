@@ -1,40 +1,72 @@
 const categoryValidation = {
     createCategory: {   
-        cat_name: {
+        name: {
             in: ['body'],
             isString: {
-                errorMessage: 'Category Name must be a string',
+                errorMessage: 'validation.required',
             },
             notEmpty: {
-                errorMessage: 'Category Name is required',
+                errorMessage: 'validation.required',
             },
             isLength: {
                 options: { min: 11 },
-                errorMessage: 'Category Name must be more than 10 characters',
+                errorMessage: 'validation.required',
             }
         },
         description: {
             in: ['body'],
             isString: {
-                
-                errorMessage: 'Description must be a string',
+                errorMessage: 'validation.required',
             },
             notEmpty: {
-                errorMessage: 'Description is required',
+                errorMessage: 'validation.required',
             },
             isLength: {
                 options: { min: 11 },
-                errorMessage: 'Description must be more than 10 characters',
+                errorMessage: 'validation.required',
             }
         },
         thumbnail: {
             in: ['body'],
             isString: {
-                errorMessage: 'Thumbnail must be a string',
+                errorMessage: 'validation.required',
             }
         }
     },
-
+    updateCategory: {
+        name: {
+            in: ['body'],
+            isString: {
+                errorMessage: 'validation.required',
+            },
+            notEmpty: {
+                errorMessage: 'validation.required',
+            },
+            isLength: {
+                options: { min: 11 },
+                errorMessage: 'validation.required',
+            }
+        },
+        description: {
+            in: ['body'],
+            isString: {
+                errorMessage: 'validation.required',
+            },
+            notEmpty: {
+                errorMessage: 'validation.required',
+            },
+            isLength: {
+                options: { min: 11 },
+                errorMessage: 'validation.required',
+            }
+        },
+        thumbnail: {
+            in: ['body'],
+            isString: {
+                errorMessage: 'validation.required',
+            }
+        }
+    },
 
 
 }
