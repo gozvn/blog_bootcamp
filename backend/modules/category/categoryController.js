@@ -53,8 +53,10 @@ const categoryController = {
             const category = await categoryService.create({
                 thumbnail: thumbnail || 'img/default-category.png',
                 cat_name: name || "Unnamed Category",
-                cat_slug : cat_name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, ''),
-                description
+                cat_slug : name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, ''),
+                description : description,
+                created_at: new Date(),
+                updated_at: new Date()    
             });
             
             return responseUtils.ok(res, category);
@@ -74,10 +76,11 @@ const categoryController = {
                 return responseUtils.notFound(res, "Không tìm thấy category");
             }
             const data = req.body;
+            const cat_slug = data.slug || data.name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
             const updatedata = {
-                cat_name: data.cat_name,
+                cat_name: data.name,
                 description: data.description,
-                cat_slug: data.cat_name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, ''),
+                cat_slug: cat_slug,
                 updated_at: new Date()
             }
 
@@ -94,9 +97,16 @@ const categoryController = {
         }
     },
 
-    delete: (req, res) => {
+    delete: async (req, res) => {
         try {
             const cat_id = req.params.id ? parseInt(req.params.id) : null;
+            if (!cat_id) {
+                return responseUtils.error(res, "Thiếu tham số cat_id");
+            }
+            const checkid = await categoryService.getbyID(cat_id);
+            if (!checkid) {
+                return responseUtils.notFound(res, "Không tìm thấy category");
+            }
             const category = categoryService.delete(cat_id);
             return responseUtils.ok(res, category);
         } catch (error) {

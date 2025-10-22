@@ -9,7 +9,7 @@ const categoryValidation = {
                 errorMessage: 'validation.required',
             },
             isLength: {
-                options: { min: 11 },
+                options: { min: 5 },
                 errorMessage: 'validation.required',
             }
         },
