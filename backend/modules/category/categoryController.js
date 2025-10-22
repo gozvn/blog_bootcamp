@@ -6,10 +6,13 @@ const categoryController = {
     all: async (req, res) => {
         try {
             const page = parseInt(req.query.page) || 1;
-            const limit = parseInt(req.query.limit) || process.env.CATEGORY_PAGINATION_LIMIT;
+            const limit = parseInt(req.query.limit) || parseInt(process.env.CATEGORY_PAGINATION_LIMIT);
+            const id = parseInt(req.query.id) || null;
 
-            const categories = await categoryService.list(page,limit);
-
+            const categories = await categoryService.list(page,limit,id);
+            if (!categories.rows || categories.rows.length === 0 ) {
+                return responseUtils.notFound(res, "Không có category nào");
+            }   
             return responseUtils.ok(res,categories)
         } catch (error) {
             console.error(error);

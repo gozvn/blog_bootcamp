@@ -49,7 +49,7 @@ router.group("/user", validate([]), (router) => {
 // Module Category routes
 router.group("/category", validate([]), (router) => {
   router.get('/', categoryController.all),
-  router.get('/:id', categoryController.getbyId),
+  // router.get('/:id', categoryController.getbyId),
   router.put('/edit/:id', checkSchema(categoryValidation.updateCategory), categoryController.update),
   router.post('/create',checkSchema(categoryValidation.createCategory),categoryController.create),
   router.delete('/delete/:id',categoryController.delete)
