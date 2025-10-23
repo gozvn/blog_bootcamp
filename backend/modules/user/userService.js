@@ -2,7 +2,10 @@ const { User,Post,Language } = require("models");
 const user = require("models/user");
 
 const userService = {
-    list: async (page, limit,id,role) => {
+    list: async (page, limit,id,role,email) => {
+        
+        page = parseInt(page) || 1;
+        limit = parseInt(limit) || 10;
 
         const whereClause = {};
         const offset = (page - 1) * limit;
@@ -17,7 +20,11 @@ const userService = {
         if(id !== undefined && id !== null){
             whereClause.id = id;
         }
-        
+
+        if(email !== undefined && email !== null){
+            whereClause.email = email;
+        }
+
         if(role !== undefined && role !== null){
             whereClause.role = role;
         }
@@ -43,6 +50,16 @@ const userService = {
             }
         };
     },
+    async getbyID(id){
+        const whereClause = {
+            id: id
+        }
+        const user = await User.findOne({
+            where: whereClause,
+        })
+
+        return user;
+    }, 
     create: async (userData) => {
         const newUser = await User.create(userData);
         return newUser;

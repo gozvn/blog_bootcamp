@@ -1,6 +1,10 @@
 const responseUtils = require("utils/responseUtils")
 const userSerivce = require("./userService.js");
 
+const bcrypt = require('bcryptjs');
+const { bcrypt: bcryptConfig } = require('../../configs/hashing'); 
+const hash = require("kernels/hash/index.js");
+
 const userController = {
     all: async (req, res) => {
         try {
@@ -8,7 +12,8 @@ const userController = {
             const limit = parseInt(req.query.limit) || parseInt(process.env.CATEGORY_PAGINATION_LIMIT);
             const id = req.query.id || null;
             const role = req.query.role || null;
-            const user = await userSerivce.list(page, limit, id,role);
+            const email = req.query.email || null;
+            const user = await userSerivce.list(page, limit, id,role,email);
 
             return responseUtils.ok(res,user)
 
@@ -19,7 +24,25 @@ const userController = {
     },
     create: async (req, res) => {
         try {
-            const userData = req.body;
+            const raw = req.body;
+
+            if (!raw.username || !raw.email || !raw.password) {
+                return responseUtils.error(res, " Chua điền đủ thông tin !");
+            }
+
+            const hashedPassword = await bcrypt.hash(raw.password, bcryptConfig.rounds);
+
+            const userData = {
+                username: raw.username,
+                email: raw.email,
+                password: hashedPassword,
+                role: raw.role || '4', // 4 for guest, 1 for admin
+                avatar: raw.avatar || 'img/default-avatar.png',
+                lang_id : raw.lang_id || 1,
+                created_at: new Date(),
+                updated_at: new Date(),
+            };
+
             const newUser = await userSerivce.create(userData);
             return responseUtils.ok(res, newUser);
         } catch (error) {
@@ -30,9 +53,32 @@ const userController = {
     update: async (req, res) => {
         try {
             const userId = parseInt(req.params.id);
-            const userData = req.body;
+            const raw = req.body;
+
+            const checkuser = await userSerivce.getbyID(userId);
+            if (!checkuser) {
+                return responseUtils.error(res, "Không có user hợp lệ !");
+            }
+
+            if (!raw || Object.keys(raw).length === 0) {
+                return responseUtils.error(res, " Chua điền đủ thông tin !");
+            }
+
+            const userData = { 
+                username: raw.username,
+                email: raw.email,
+                role: raw.role,
+                avatar: raw.avatar,
+                lang_id: raw.lang_id,
+                updated_at: new Date(),
+            };
+
+            if (raw.password) {
+            userData.password = await bcrypt.hash(raw.password, bcryptConfig.rounds);
+            }
             const updatedUser = await userSerivce.update(userId, userData);
             return responseUtils.ok(res, updatedUser);
+
         } catch (error) {
             console.error(error);
             responseUtils.error(res, error);
@@ -42,7 +88,11 @@ const userController = {
         try {
             const userId = parseInt(req.params.id);
             if (!userId) {
-                responseUtils.error(res, "Không có user hợp lệ !");
+                return responseUtils.error(res, "Không có user hợp lệ !");
+            }
+            const checkuser = await userSerivce.getbyID(userId);
+            if (!checkuser) {
+                return responseUtils.error(res, "Không có user hợp lệ !");
             }
             await userSerivce.delete(userId);
             return responseUtils.ok(res, { message: "Xóa thành công" });

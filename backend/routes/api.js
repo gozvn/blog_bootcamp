@@ -40,16 +40,14 @@ router.group("/post", validate([]), (router) => {
 // User routes
 router.group("/user", validate([]), (router) => {
   router.get('/', userController.all),
-  // router.get('/:id/posts', userController.getPost),
   router.post('/create', checkSchema(userValidation.createUser), userController.create),
-  router.put('/edit/:id', userController.update),
+  router.put('/edit/:id', checkSchema(userValidation.updateUser), userController.update),
   router.delete('/delete/:id', userController.delete)
 })
 
 // Module Category routes
 router.group("/category", validate([]), (router) => {
   router.get('/', categoryController.all),
-  // router.get('/:id', categoryController.getbyId),
   router.put('/edit/:id', checkSchema(categoryValidation.updateCategory), categoryController.update),
   router.post('/create',checkSchema(categoryValidation.createCategory),categoryController.create),
   router.delete('/delete/:id',categoryController.delete)
