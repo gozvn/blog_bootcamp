@@ -1,4 +1,5 @@
 const { User,Post,Language } = require("models");
+const user = require("models/user");
 
 const userService = {
     list: async (page, limit,id,role) => {
@@ -42,8 +43,29 @@ const userService = {
             }
         };
     },
+    create: async (userData) => {
+        const newUser = await User.create(userData);
+        return newUser;
+    },
 
-
+    update: async (userId, userData) => {
+        const whereClause = {
+            id: userId
+        };  
+        await User.update(userData, {
+            where: whereClause
+        });
+        const updatedUser = await User.findOne({ where: whereClause });
+        return updatedUser;
+    },
+    delete: async (userId) => {
+        const whereClause = {
+            id: userId
+        };
+        await User.destroy({
+            where: whereClause
+        });
+    }
 };
 
 module.exports = userService;

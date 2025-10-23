@@ -17,53 +17,40 @@ const userController = {
             responseUtils.error(res, error);
         }
     },
-    getPost: async(req, res) => {
+    create: async (req, res) => {
         try {
-            const userId = parseInt(req.params.id) ;
-            if (!userId) {
-                responseUtils.error(res,"Không có usẻ hợp lệ !")
-            }
-
-            const user = await userSerivce.list(userId);
-
-            return responseUtils.ok(res,user)
-
+            const userData = req.body;
+            const newUser = await userSerivce.create(userData);
+            return responseUtils.ok(res, newUser);
         } catch (error) {
-          console.error(error)
-          responseUtils.error(res,error)     
+            console.error(error);
+            responseUtils.error(res, error);
         }
     },
-    create: (req, res) => {
-        return responseUtils.ok(res, {
-            data: 'CREATE USER'
-        })
-    },
-    getbyId: async (req, res) => {
+    update: async (req, res) => {
         try {
-            const userId = parseInt(req.params.id) ;
-            if (!userId) {
-                responseUtils.error(res,"Không có user hợp lệ !")
-            }
-            const user = await userSerivce.list(userId);
-
-            return responseUtils.ok(res,user)
-
+            const userId = parseInt(req.params.id);
+            const userData = req.body;
+            const updatedUser = await userSerivce.update(userId, userData);
+            return responseUtils.ok(res, updatedUser);
         } catch (error) {
-          console.error(error)
-          responseUtils.error(res,error)
+            console.error(error);
+            responseUtils.error(res, error);
         }
     },
-
-    update: (req, res) => {
-        return responseUtils.ok(res, {
-            data: 'UPDATE USER'
-        })
+    delete: async (req, res) => {
+        try {
+            const userId = parseInt(req.params.id);
+            if (!userId) {
+                responseUtils.error(res, "Không có user hợp lệ !");
+            }
+            await userSerivce.delete(userId);
+            return responseUtils.ok(res, { message: "Xóa thành công" });
+        } catch (error) {
+            console.error(error);
+            responseUtils.error(res, error);
+        }
     },
-    delete: (req, res) => {
-        return responseUtils.ok(res, {
-            data: 'DELETE USER'
-        })
-    }
 }
 
 module.exports = userController
