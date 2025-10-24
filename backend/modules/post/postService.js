@@ -88,10 +88,36 @@ const postService = {
     
     async createPost(data){
         // Logic to create a new post
-        const newPost = await Post.create(data);
+        const { tag_id, cat_id, ...postData } = data; // tách tag_id ra khỏi postData
+
+        const post = await Post.create(postData); // Tạo bài viết mới trước
+        // Xử lý tag
+        if (tag_id && Array.isArray(tag_id) && tag_id.length > 0) {
+            await post.setTags(tag_id); // Thiết lập các tag cho bài viết
+        }
+        // Xử lý Category
+        if (cat_id && Array.isArray(cat_id) && cat_id.length > 0) {
+            await post.setCategories(cat_id); // Thiết lập các category cho bài viết
+        }
+        const newPost = await Post.findOne({ 
+            where: { id: post.id }, 
+            include: [
+                { 
+                    model: Tag, as: 'tags', 
+                    attributes: ['id', 'name'], 
+                    through: { attributes: [] }
+                },
+                { 
+                    model: Category, as: 'categories', 
+                    attributes: ['id', 'cat_name'], 
+                    through: { attributes: [] }
+                }
+            ] 
+        }); // Lấy data bài viết mới cùng với các tag đã liên kết
 
         return newPost;
     },
+
     update: async (postId, postData) => {
         const whereClause = {
             id: postId
@@ -111,7 +137,7 @@ const postService = {
             where: whereClause
         });
     },
-    
+
 };
 
 module.exports = postService;

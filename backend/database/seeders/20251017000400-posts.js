@@ -14,8 +14,6 @@ module.exports = {
         user_id: faker.number.int({min:1,max:3}),
         status: faker.helpers.arrayElement(['draft','published']),
         featured: faker.datatype.boolean(),
-        tag_id: faker.number.int({min:1,max:4}),
-        cat_id: faker.number.int({min:1,max:4}),
         lang_id: faker.number.int({min:1,max:2}),
         created_at : faker.date.past({years:1}),
         updated_at: new Date()

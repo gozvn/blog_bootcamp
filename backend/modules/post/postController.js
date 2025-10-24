@@ -46,21 +46,23 @@ const postController = {
     create: async (req, res) => {
         try {
             const { title, thumbnail, featured, status, content, category, user_id, tag_id } = req.body;
-            if (!title || !content) {
-                return responseUtils.badRequest(res, {
-                    error: 'Thiếu tiêu đề hoặc nội dung bài viết'
+            if (!title || !content || !category || !user_id) {
+                return responseUtils.error(res, {
+                    error: 'Thiếu dữ liệu'
                 });
             }
             const newPost = await postService.createPost({
                 title,
-                title_slug: title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, ''),
+                slug: title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, ''),
                 thumbnail: thumbnail || 'img/default-thumbnail.jpg',
                 featured: featured || "0",
                 status: status || "draft",
                 content,
-                category,
+                category: Array.isArray(category) ? category : [],
                 user_id,
-                tag_id: Array.isArray(tag_id) ? tag_id : []
+                tag_id: Array.isArray(tag_id) ? tag_id : [],
+                created_at: new Date(),
+                updated_at: new Date(),
             });
             return responseUtils.ok(res, {
                 message: 'Tạo bài viết thành công',

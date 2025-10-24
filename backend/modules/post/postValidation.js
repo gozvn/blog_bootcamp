@@ -30,7 +30,7 @@ const postValidation = {
     },
     featured: {
       notEmpty: true,
-      isBoolean: true,
+      isInteger: true,
       errorMessage: 'Validation.required',
     },
     thumbnail: {
@@ -40,7 +40,7 @@ const postValidation = {
     },
     status: {
       notEmpty: true,
-      isIn: [[0, 1, 2]], // 0: draft, 1: published, 2: archived
+      isString: true,
       errorMessage: 'Validation.required',
     },
   },
@@ -70,7 +70,7 @@ const postValidation = {
     },
     featured: {
       optional: true,
-      isBoolean: true,
+      isInteger: true,
       errorMessage: 'Validation.required',
     },
     thumbnail: {
@@ -80,7 +80,7 @@ const postValidation = {
     },
     status: {
       optional: true,
-      isIn: [[0, 1, 2]], // 0: draft, 1: published, 2: archived
+      isString:true,
       errorMessage: 'Validation.required',
     },
   },
