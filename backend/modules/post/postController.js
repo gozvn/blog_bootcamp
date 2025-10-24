@@ -45,7 +45,7 @@ const postController = {
     // tạo bài viết mới
     create: async (req, res) => {
         try {
-            const { title, thumbnail, featured, status, content, category, user_id, tag_id } = req.body;
+            const { title, thumbnail, featured, status, content, category, user_id, tags } = req.body;
             if (!title || !content || !category || !user_id) {
                 return responseUtils.error(res, {
                     error: 'Thiếu dữ liệu'
@@ -60,7 +60,7 @@ const postController = {
                 content,
                 category: Array.isArray(category) ? category : [],
                 user_id,
-                tag_id: Array.isArray(tag_id) ? tag_id : [],
+                tags: Array.isArray(tags) ? tags : [],
                 created_at: new Date(),
                 updated_at: new Date(),
             });
@@ -75,9 +75,29 @@ const postController = {
     },
     // chỉnh sửa bài viết
     edit: async(req, res) => { 
-        // const postId = req.params.id;
-        // const { title, content, category, tag_id } = req.body;
-        // if (!title || !content) {
+        const id = req.params.id;
+        const { title, thumbnail, content, category, tags } = req.body;
+
+        const checkPost = await postService.getbyID(id);
+        if (!checkPost) {
+            return responseUtils.notFound(res, "ID không tồn tại")
+        }
+        
+        const updateData = {
+            title: title || null,
+            slug: title ? title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '') : null,
+            thumbnail: thumbnail || null,
+            content: content || null,
+            category: category || null,
+            tags: tags || null
+        };
+
+        const updatedPost = await postService.update(id, updateData);
+
+        return responseUtils.ok(res, {
+            message: "Cập nhật bài viết thành công",
+            post: updatedPost
+        });
     },
     delete: async(req, res) => {
         // const postId = req.params.id;

@@ -88,12 +88,12 @@ const postService = {
     
     async createPost(data){
         // Logic to create a new post
-        const { tag_id, category, ...postData } = data; // tách tag_id ra khỏi postData
+        const { tags, category, ...postData } = data; // tách tag_id ra khỏi postData
 
         const post = await Post.create(postData); // Tạo bài viết mới trước
         // Xử lý tag
-        if (tag_id && Array.isArray(tag_id) && tag_id.length > 0) {
-            await post.setTags(tag_id); // Thiết lập các tag cho bài viết
+        if (tags && Array.isArray(tags) && tags.length > 0) {
+            await post.setTags(tags); // Thiết lập các tag cho bài viết
         }
         // Xử lý Category
         if (category && Array.isArray(category) && category.length > 0) {
@@ -118,14 +118,42 @@ const postService = {
         return newPost;
     },
 
-    update: async (postId, postData) => {
+    update: async (id, updateData) => {
+        const { tags, category, ...restData } = updateData;
+
         const whereClause = {
-            id: postId
+            id: id
         };
-        await Post.update(postData, {
+        const post = await Post.update(restData, {
             where: whereClause
         });
-        const updatedPost = await Post.findOne({ where: whereClause });
+
+        // Nếu sửa tags thì chèn lại data
+        if (tags && Array.isArray(tags)) {
+            await post.setTags(tags);
+        }
+        // Nếu sửa category thì chèn lại 
+        if (category && Array.isArray(category)) {
+            await post.setCategories(category);
+        }
+
+        // Lấy lại thông tin sau khi sửa
+        const updatedPost = await Post.findOne({
+            where: whereClause,
+            include: [
+                { 
+                    model: Tag, as: 'tags', 
+                    attributes: ['id', 'name'], 
+                    through: { attributes: [] }
+                },
+                { 
+                    model: Category, as: 'categories', 
+                    attributes: ['id', 'cat_name'], 
+                    through: { attributes: [] }
+                }
+            ]
+        });
+
         return updatedPost;
     },
     
