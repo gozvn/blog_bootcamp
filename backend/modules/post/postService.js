@@ -88,7 +88,7 @@ const postService = {
     
     async createPost(data){
         // Logic to create a new post
-        const { tag_id, cat_id, ...postData } = data; // tách tag_id ra khỏi postData
+        const { tag_id, category, ...postData } = data; // tách tag_id ra khỏi postData
 
         const post = await Post.create(postData); // Tạo bài viết mới trước
         // Xử lý tag
@@ -96,8 +96,8 @@ const postService = {
             await post.setTags(tag_id); // Thiết lập các tag cho bài viết
         }
         // Xử lý Category
-        if (cat_id && Array.isArray(cat_id) && cat_id.length > 0) {
-            await post.setCategories(cat_id); // Thiết lập các category cho bài viết
+        if (category && Array.isArray(category) && category.length > 0) {
+            await post.setCategories(category); // Thiết lập các category cho bài viết
         }
         const newPost = await Post.findOne({ 
             where: { id: post.id }, 

@@ -18,6 +18,14 @@ module.exports = {
       {
         post_id: 1,
         cat_id: 4   // Education
+      },
+      {
+        post_id: 2,
+        cat_id: 4   // Education
+      },
+      {
+        post_id: 3,
+        cat_id: 4   // Education
       }
     ], {});
   },

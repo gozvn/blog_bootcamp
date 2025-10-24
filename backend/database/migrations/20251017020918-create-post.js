@@ -22,8 +22,6 @@ module.exports = {
       },
       status: { type: Sequelize.STRING },
       featured: { type: Sequelize.BOOLEAN },
-      cat_id: { type: Sequelize.INTEGER },
-      tag_id: { type: Sequelize.INTEGER },
       lang_id: {
         type: Sequelize.INTEGER,
         references: { model: 'languages', key: 'id' },

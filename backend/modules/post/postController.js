@@ -55,7 +55,7 @@ const postController = {
                 title,
                 slug: title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, ''),
                 thumbnail: thumbnail || 'img/default-thumbnail.jpg',
-                featured: featured || "0",
+                featured: featured || false,
                 status: status || "draft",
                 content,
                 category: Array.isArray(category) ? category : [],
