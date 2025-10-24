@@ -9,6 +9,7 @@ const userController = require("modules/user/userController");
 const userValidation = require("modules/user/userValidation");
 
 const postController = require("modules/post/postController");
+const postValidation = require("modules/post/postValidation");
 
 const categoryController = require("modules/category/categoryController");
 const categoryValidation = require("modules/category/categoryValidation");
@@ -29,32 +30,30 @@ router.get("/", (req, res) => {
 // router.group("/user", userRouter );
 // router.group("/admin", dashboardRouter); 
 router.group("/post", validate([]), (router) => {
-  router.get('/', postController.all),
-  // router.get('/test', postController.test),
-  router.get('/detail', postController.getbyID),
-  router.post('/create',postController.createPost)
-  // router.put('/edit/{id}',postController.editPost)
-  // router.delete('/delete/{id}',postController.deletePost)
+  router.get('/', postController.all);
+  router.get('/detail/:id', postController.getbyID);
+  router.post('/create', checkSchema(postValidation.createPost), postController.create);
+  router.put('/edit/:id', checkSchema(postValidation.editPost), postController.edit);
+  router.delete('/delete/:id', postController.delete);
 })
-
 // User routes
 router.group("/user", validate([]), (router) => {
-  router.get('/', userController.all),
-  router.post('/create', checkSchema(userValidation.createUser), userController.create),
-  router.put('/edit/:id', checkSchema(userValidation.updateUser), userController.update),
-  router.delete('/delete/:id', userController.delete)
+  router.get('/', userController.all);
+  router.post('/create', checkSchema(userValidation.createUser), userController.create);
+  router.put('/edit/:id', checkSchema(userValidation.updateUser), userController.update);
+  router.delete('/delete/:id', userController.delete);
 })
 
 // Module Category routes
 router.group("/category", validate([]), (router) => {
-  router.get('/', categoryController.all),
-  router.put('/edit/:id', checkSchema(categoryValidation.updateCategory), categoryController.update),
-  router.post('/create',checkSchema(categoryValidation.createCategory),categoryController.create),
-  router.delete('/delete/:id',categoryController.delete)
+  router.get('/', categoryController.all);
+  router.put('/edit/:id', checkSchema(categoryValidation.updateCategory), categoryController.update);
+  router.post('/create',checkSchema(categoryValidation.createCategory),categoryController.create);
+  router.delete('/delete/:id',categoryController.delete);
 })
 
 router.group("/example", validate([]), (router) => {
-  router.get('/', exampleController.exampleRequest)
+  router.get('/', exampleController.exampleRequest);
 })
 
 module.exports = router;

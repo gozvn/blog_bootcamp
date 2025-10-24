@@ -7,7 +7,7 @@ const postController = {
         try {
             // chenf param ở đây
             const page = parseInt(req.query.page) || 1;
-            const limit = parseInt(req.query.limit) || 10;
+            const limit = parseInt(req.query.limit) || process.env.POST_PAGINATION_LIMIT;
             const categoryId = req.query.category_id || null;
             const tagId = req.query.tag_id || null;
             const userId = req.query.user_id || null;
@@ -26,7 +26,8 @@ const postController = {
     },
     getbyID : async (req, res) => {
         try {
-            const id = req.query.id ? parseInt(req.query.id) : null;
+            const id = req.params.id ? parseInt(req.params.id) : null;
+
             if (!id) {
                 return responseUtils.error(res, "ID chưa được truyền ")
             }
@@ -42,21 +43,43 @@ const postController = {
         }
     },
     // tạo bài viết mới
-    createPost: (req, res) => {
-        // // Dữ liệu gửi lên nằm ở req.body
-        // const { title, content, category, user_id,tag_id } = req.body;
+    create: async (req, res) => {
+        try {
+            const { title, thumbnail, featured, status, content, category, user_id, tag_id } = req.body;
+            if (!title || !content) {
+                return responseUtils.badRequest(res, {
+                    error: 'Thiếu tiêu đề hoặc nội dung bài viết'
+                });
+            }
+            const newPost = await postService.createPost({
+                title,
+                title_slug: title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, ''),
+                thumbnail: thumbnail || 'img/default-thumbnail.jpg',
+                featured: featured || "0",
+                status: status || "draft",
+                content,
+                category,
+                user_id,
+                tag_id: Array.isArray(tag_id) ? tag_id : []
+            });
+            return responseUtils.ok(res, {
+                message: 'Tạo bài viết thành công',
+                post: newPost
+            });
+        } catch (error) {
+            console.log(error)
+            return responseUtils.error(res, error)
+        }
+    },
+    // chỉnh sửa bài viết
+    edit: async(req, res) => { 
+        // const postId = req.params.id;
+        // const { title, content, category, tag_id } = req.body;
         // if (!title || !content) {
-        //     return responseUtils.badRequest(res, {
-        //         error: 'Thiếu tiêu đề hoặc nội dung bài viết'
-        //     });
-        // }
-        // // Trả về dữ liệu mẫu
-        // return responseUtils.ok(res, {
-        //     message: 'Tạo bài viết thành công',
-        //     post: { title, content }
-        // });
+    },
+    delete: async(req, res) => {
+        // const postId = req.params.id;
     }
-
 
 }
 

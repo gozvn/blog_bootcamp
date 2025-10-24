@@ -3,6 +3,10 @@ const { Post, User, Category, Tag, Language } = require("../../models");
 
 const postService = {
     async list(page = 1, limit = 10, categoryId = null, tagId = null, userId = null, langId = null, status = null, featured = null) {
+
+            page = parseInt(page);
+            limit = parseInt(limit);
+
             const offset = (page -1) * limit;
             const whereClause ={};
             const include = [
@@ -80,14 +84,34 @@ const postService = {
         })
 
         return post;
-    } 
+    }, 
     
-    // async testCategories() {
-    //     const postCategories = await PostCategory.findAll();
-    //     console.log("PostCategory Data:", postCategories);
-    //     return postCategories;
-    // },
+    async createPost(data){
+        // Logic to create a new post
+        const newPost = await Post.create(data);
 
+        return newPost;
+    },
+    update: async (postId, postData) => {
+        const whereClause = {
+            id: postId
+        };
+        await Post.update(postData, {
+            where: whereClause
+        });
+        const updatedPost = await Post.findOne({ where: whereClause });
+        return updatedPost;
+    },
+    
+    delete: async (postId) => {
+        const whereClause = {
+            id: postId
+        };
+        await Post.destroy({
+            where: whereClause
+        });
+    },
+    
 };
 
 module.exports = postService;

@@ -11,6 +11,7 @@ module.exports = {
       },
       thumbnail: { type: Sequelize.STRING(100) },
       title: { type: Sequelize.STRING(255) },
+      slug: { type: Sequelize.STRING(255) },
       content: { type: Sequelize.TEXT('long') },
       user_id: {
         type: Sequelize.INTEGER,
@@ -21,6 +22,8 @@ module.exports = {
       },
       status: { type: Sequelize.STRING },
       featured: { type: Sequelize.BOOLEAN },
+      cat_id: { type: Sequelize.INTEGER },
+      tag_id: { type: Sequelize.INTEGER },
       lang_id: {
         type: Sequelize.INTEGER,
         references: { model: 'languages', key: 'id' },

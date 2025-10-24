@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     cat_name: DataTypes.STRING(255),
     thumbnail: DataTypes.STRING(100),
     description: DataTypes.TEXT,
+    post_id: DataTypes.INTEGER,
     cat_slug: DataTypes.STRING(100),
     created_at: DataTypes.DATE,
     updated_at: DataTypes.DATE

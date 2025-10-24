@@ -25,7 +25,10 @@ module.exports = (sequelize, DataTypes) => {
   Post.init({
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     thumbnail: DataTypes.STRING(100),
+    slug: DataTypes.STRING(255),
     title: DataTypes.STRING(255),
+    cat_id: DataTypes.INTEGER,
+    tag_id: DataTypes.INTEGER,
     content: DataTypes.TEXT('long'),
     user_id: DataTypes.INTEGER,
     status: DataTypes.STRING,
