@@ -51,4 +51,4 @@ const languageValidation = {
     }
 }
 
-module.export = languageValidation;
+module.exports = languageValidation;

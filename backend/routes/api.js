@@ -8,9 +8,11 @@ const router = express.Router({ mergeParams: true });
 const tagController = require("modules/tag/tagController");
 const tagValidation = require("modules/tag/tagValidation");
 
+const authController = require("modules/auth/authController")
 const commentController = require("modules/comment/commentController");
 
 const languageController = require("modules/language/languageController");
+const languageValidation = require("modules/language/languageValidation");
 
 const userController = require("modules/user/userController");
 const userValidation = require("modules/user/userValidation");
@@ -34,13 +36,17 @@ router.get("/", (req, res) => {
   res.send("Hello world");
 });
 
+// Authentication 
+router.group("/auth", validate([]), (router) => {
+  router.get('/login', authController.login);
+});
 
 // router.group("/admin", dashboardRouter); 
 // Language module routes
 router.group("/language", validate([]), (router) => {
   router.get('/', languageController.all);
-  router.post('/create', languageController.create);
-  router.put('/edit/:id', languageController.update);
+  router.post('/create', checkSchema(languageValidation.create), languageController.create);
+  router.put('/edit/:id', checkSchema(languageValidation.update), languageController.update);
   router.delete('/delete/:id', languageController.delete);
 });
 
