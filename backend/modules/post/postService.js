@@ -15,11 +15,13 @@ const postService = {
                         attributes: ["id", "username"],
                     },
                     {
+                        as: 'categories',
                         model: Category,
                         attributes: ["id", "cat_name"],
                         through: { attributes: [] },
                     },
                     {
+                        as: 'tags',
                         model: Tag,
                         attributes: ["id","name"],
                         through : { attributes:[] }
@@ -81,6 +83,28 @@ const postService = {
         }
         const post = await Post.findOne({
             where: whereClause,
+            include: [
+                {
+                    model: User,
+                    attributes: ["id", "username"],
+                },
+                {
+                    as: 'categories',
+                    model: Category,
+                    attributes: ["id", "cat_name"],
+                    through: { attributes: [] },
+                },
+                {
+                    as: 'tags',
+                    model: Tag,
+                    attributes: ["id","name"],
+                    through : { attributes:[] }
+                },
+                {
+                    model: Language,
+                    attributes: ["id","lang_name"],
+                }
+            ]
         })
 
         return post;
