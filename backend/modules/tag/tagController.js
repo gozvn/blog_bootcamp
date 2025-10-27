@@ -5,7 +5,7 @@ const tagController = {
     all: async (req, res) => {
         try {
             const page = parseInt(req.query.page) || 1;
-            const limit = parseInt(req.query.limit) || parseInt(process.env.TAG_PAGINATION_LIMIT);
+            const limit = parseInt(req.query.limit) || process.env.TAG_PAGINATION_LIMIT;
             const id = req.query.id ? parseInt(req.query.id) : null;
 
             const tags = await tagService.list(page, limit, id);
@@ -39,18 +39,19 @@ const tagController = {
     create: async (req, res) => {
         try {
             const { name, postId } = req.body;
-
+           
             const tag = await tagService.create({
                 postId: postId || null,
-                name: name || "Unnamed Tag",
+                name: name,
                 slug: name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]+/g, ""),
                 created_at: new Date(),
                 updated_at: new Date(),
             });
+
             if (!tag) {
                 return responseUtils.error(res, "Chưa truyền dữ liệu tạo tag");
             }
-
+            
             return responseUtils.ok(res, tag);
         } catch (error) {
             console.error(error);

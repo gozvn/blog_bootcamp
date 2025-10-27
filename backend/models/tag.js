@@ -19,9 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   Tag.init({
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     name: DataTypes.STRING(100),
-    slug: DataTypes.STRING(100),
-    createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE,
+    slug: DataTypes.STRING(100)
   }, {
     tableName: 'tags',
     sequelize,

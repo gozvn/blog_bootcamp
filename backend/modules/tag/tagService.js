@@ -1,7 +1,11 @@
 const { Post, Tag, PostTag } = require("../../models");
 
 const tagService = {
-  async list(page, limit, id) {
+  async list(page = 1, limit = 10, id) {
+
+    page = parseInt(page);
+    limit = parseInt(limit);
+    
     const whereClause = {};
     const offset = (page - 1) * limit;
     const include = [
@@ -41,26 +45,28 @@ const tagService = {
     return tag;
   },
 
-  async create(data, postId = null) {
+  async create(data) {
     // tạo tag trước
-    const tag = await Tag.create({
-      name: data.name,
-      slug: data.slug,
-      created_at: data.created_at || new Date(),
-      updated_at: data.updated_at || new Date(),
-    });
+    const {postId, ...rest} = data
+
+    const tag = await Tag.create(rest);
     
     // nếu có postId thì tạo liên kết
-    if (postId) {
-      await PostTag.create({
-        postId: postId,
-        tagId: tag.id,
-        created_at: new Date(),
-        updated_at: new Date(),
-      });
+    if (postId) { 
+      await tag.setPosts(postId);
     }
+    const newTag = await Tag.findOne({ 
+            where: { id: tag.id }, 
+            include: [
+                { 
+                    model: Post, as: 'posts', 
+                    attributes: ['id', 'name'], 
+                    through: { attributes: [] }
+                }
+            ] 
+    }); // Lấy data bài viết mới cùng với các tag đã liên kết
 
-    return tag;
+    return newTag;
   },
 
   async update(id, data) {
