@@ -5,6 +5,12 @@ const { validate } = require("kernels/validations");
 const exampleController = require("modules/examples/controllers/exampleController");
 const router = express.Router({ mergeParams: true });
 
+const tagController = require("modules/tag/tagController");
+
+const commentController = require("modules/comment/commentController");
+
+const languageController = require("modules/language/languageController");
+
 const userController = require("modules/user/userController");
 const userValidation = require("modules/user/userValidation");
 
@@ -27,8 +33,33 @@ router.get("/", (req, res) => {
   res.send("Hello world");
 });
 
-// router.group("/user", userRouter );
+
 // router.group("/admin", dashboardRouter); 
+// Language module routes
+router.group("/language", validate([]), (router) => {
+  router.get('/', languageController.all);
+  router.post('/create', languageController.create);
+  router.put('/edit/:id', languageController.update);
+  router.delete('/delete/:id', languageController.delete);
+});
+
+// Tag module routes
+router.group("/tag", validate([]), (router) => {
+  router.get('/', tagController.all);
+  router.post('/create', tagController.create);
+  router.put('/edit/:id', tagController.update);
+  router.delete('/delete/:id', tagController.delete);
+});
+
+// Comment module routes
+router.group("/comment", validate([]), (router) => {
+  router.get('/', commentController.all);
+  router.post('/create', commentController.create);
+  router.put('/edit/:id', commentController.update);
+  router.delete('/delete/:id', commentController.delete);
+});
+
+// Module Post routes
 router.group("/post", validate([]), (router) => {
   router.get('/', postController.all);
   router.get('/detail/:id', postController.getbyID);
