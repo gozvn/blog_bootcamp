@@ -25,6 +25,8 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'languages',
     sequelize,
     modelName: 'Language',
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
   });
   return Language;
 };

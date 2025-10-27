@@ -1,5 +1,5 @@
 const { getbyID } = require("modules/category/categoryService");
-const { Post, User, Category, Tag, Language } = require("../../models");
+const { Post, User,Comment, Category, Tag, Language } = require("../../models");
 
 const postService = {
     async list(page = 1, limit = 10, categoryId = null, tagId = null, userId = null, langId = null, status = null, featured = null) {
@@ -103,7 +103,12 @@ const postService = {
                 {
                     model: Language,
                     attributes: ["id","lang_name"],
+                },
+                {
+                    model: Comment,
+                    attributes: ["id","content"],
                 }
+                  
             ]
         })
 
