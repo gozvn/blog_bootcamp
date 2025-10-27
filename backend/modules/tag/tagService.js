@@ -47,26 +47,8 @@ const tagService = {
 
   async create(data) {
     // tạo tag trước
-    const {postId, ...rest} = data
-
-    const tag = await Tag.create(rest);
-    
-    // nếu có postId thì tạo liên kết
-    if (postId) { 
-      await tag.setPosts(postId);
-    }
-    const newTag = await Tag.findOne({ 
-            where: { id: tag.id }, 
-            include: [
-                { 
-                    model: Post, as: 'posts', 
-                    attributes: ['id', 'name'], 
-                    through: { attributes: [] }
-                }
-            ] 
-    }); // Lấy data bài viết mới cùng với các tag đã liên kết
-
-    return newTag;
+    const tag = await Tag.create(data);
+    return tag;
   },
 
   async update(id, data) {

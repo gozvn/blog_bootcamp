@@ -19,39 +19,21 @@ const tagController = {
         }
     },
 
-    getbyId: async (req, res) => {
-        try {
-            const tag_id = req.params.id ? parseInt(req.params.id) : null;
-            if (!tag_id) {
-                return responseUtils.error(res, "Thiếu tham số id");
-            }
-            const tag = await tagService.getbyID(tag_id);
-            if (!tag) {
-                return responseUtils.notFound(res, "Không tìm thấy tag");
-            }
-            return responseUtils.ok(res, tag);
-        } catch (error) {
-            console.error(error);
-            return responseUtils.error(res, "Lỗi server");
-        }
-    },
-
     create: async (req, res) => {
         try {
-            const { name, postId } = req.body;
-           
+            const { name } = req.body;
+            
+            if ( !name ) {
+                return responseUtils.error(res, " Chưa truyền dữ liệu ")
+            }
+
             const tag = await tagService.create({
-                postId: postId || null,
                 name: name,
                 slug: name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]+/g, ""),
                 created_at: new Date(),
                 updated_at: new Date(),
             });
 
-            if (!tag) {
-                return responseUtils.error(res, "Chưa truyền dữ liệu tạo tag");
-            }
-            
             return responseUtils.ok(res, tag);
         } catch (error) {
             console.error(error);
@@ -62,17 +44,22 @@ const tagController = {
     update: async (req, res) => {
         try {
             const id = parseInt(req.params.id) || null;
+            // Check xem tag ton tai truoc roi moi xu ly
             const checkid = await tagService.getbyID(id);
+            // Lấy name từ body đúng cách
             if (!checkid) {
                 return responseUtils.notFound(res, "Không tìm thấy tag");
             }
-            const data = req.body;
-            if (!data || Object.keys(data).length === 0) {
-                return responseUtils.error(res, "Dữ liệu cập nhật không hợp lệ");
+
+            // Check name moi trong body 
+            const { name } = req.body;
+            if (!name) {
+                return responseUtils.error(res, "Chưa truyền name");
             }
+
             const updatedata = {
-                name: data.name || checkid.name,
-                slug: data.name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]+/g, ""),
+                name:name,
+                slug: name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]+/g, ""),
                 updated_at: new Date(),
             };
             const tag = await tagService.update(id, updatedata);

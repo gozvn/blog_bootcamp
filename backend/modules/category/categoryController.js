@@ -44,12 +44,6 @@ const categoryController = {
 
     create: async(req, res) => {
         try {
-            // check validation errors truoc khi xu ly
-            const errors = validationResult(req);
-
-            if (!errors.isEmpty()) {
-                return responseUtils.error(res, errors.array());
-            }
 
             const { name, description, thumbnail } = req.body;
 
