@@ -38,8 +38,10 @@ const tagController = {
 
     create: async (req, res) => {
         try {
-            const { name } = req.body;
+            const { name, postId } = req.body;
+
             const tag = await tagService.create({
+                postId: postId || null,
                 name: name || "Unnamed Tag",
                 slug: name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]+/g, ""),
                 created_at: new Date(),

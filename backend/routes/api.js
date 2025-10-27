@@ -6,6 +6,7 @@ const exampleController = require("modules/examples/controllers/exampleControlle
 const router = express.Router({ mergeParams: true });
 
 const tagController = require("modules/tag/tagController");
+const tagValidation = require("modules/tag/tagValidation");
 
 const commentController = require("modules/comment/commentController");
 
@@ -46,8 +47,8 @@ router.group("/language", validate([]), (router) => {
 // Tag module routes
 router.group("/tag", validate([]), (router) => {
   router.get('/', tagController.all);
-  router.post('/create', tagController.create);
-  router.put('/edit/:id', tagController.update);
+  router.post('/create', checkSchema(tagValidation.create), tagController.create);
+  router.put('/edit/:id', checkSchema(tagValidation.update), tagController.update);
   router.delete('/delete/:id', tagController.delete);
 });
 

@@ -41,14 +41,25 @@ const tagService = {
     return tag;
   },
 
-  async create(data) {
-    // expect data.name, data.slug
+  async create(data, postId = null) {
+    // tạo tag trước
     const tag = await Tag.create({
       name: data.name,
       slug: data.slug,
       created_at: data.created_at || new Date(),
       updated_at: data.updated_at || new Date(),
     });
+    
+    // nếu có postId thì tạo liên kết
+    if (postId) {
+      await PostTag.create({
+        postId: postId,
+        tagId: tag.id,
+        created_at: new Date(),
+        updated_at: new Date(),
+      });
+    }
+
     return tag;
   },
 
