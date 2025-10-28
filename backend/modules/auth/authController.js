@@ -34,30 +34,28 @@ const authController = {
             const accessToken = jwt.sign(
                 {user_id:checkEmail.user_id},
                 process.env.JWT_SECRET_KEY,
-                {expiresIn: ACCESS_TOKEN_TTL}
+                {expiresIn: process.env.ACCESS_TOKEN_TTL}
             )   
             const refreshToken = crypto.randomBytes(64).toString('hex');
             const dataToken = {
                 user_id: checkEmail.id,
-                token: refreshToken,
-                active:1,
-                type:0
+                token: accessToken,
             }
 
             storeToken = await authService.saveToken(dataToken)
-            
-            if (storeToken.status == 200 ){
-                loginData = {
-                    accessToken : accessToken,
-                    refreshToken : refreshToken
-                }
-            }
 
-            responseUtils.ok(res,loginData)
+            res.cookie("refresh_token", refreshToken, {
+                httpOnly: true,          // bảo vệ cookie khỏi truy cập từ JS (XSS)
+                secure: false,           // bật true nếu HTTPS
+                sameSite: "strict",      // hạn chế gửi cookie sang domain khác
+                maxAge: process.env.REFRESH_TOKEN_TTL // 7 ngày
+            });
+
+            return responseUtils.ok(res,loginData)
             
         } catch (error) {
             console.error(error)
-            responseUtils.error(res, error)
+            return responseUtils.error(res, error)
         }
     }
 }
