@@ -5,6 +5,8 @@ const { validate } = require("kernels/validations");
 const exampleController = require("modules/examples/controllers/exampleController");
 const router = express.Router({ mergeParams: true });
 
+const authMiddleware  = require("../modules/middleware/authMiddleware")
+
 const tagController = require("modules/tag/tagController");
 const tagValidation = require("modules/tag/tagValidation");
 
