@@ -2,13 +2,10 @@ const responseUtils = require("utils/responseUtils");
 const hash = require("kernels/hash/index.js");
 const authService = require("./authService");
 
-const access_token_ttl = process.env.ACCESS_TOKEN_TTL;
-
 const bcrypt = require('bcryptjs');
 const { bcrypt: bcryptConfig } = require('../../configs/hashing');
 // const jwt = require("configs/jwt");
 const jwtUtils = require("../../utils/jwtUtils")
-const { check } = require("express-validator");
 
 
 const authController = {
@@ -106,6 +103,33 @@ const authController = {
             console.error(error);
             return responseUtils.error(res, error);
         }
+    },
+    refreshToken : async (req, res) => {
+        try {
+            // Lấy refresh_token từ cookie hoặc trong body
+            const refreshToken = req?.cookies?.refresh_token || req?.body?.refresh_token;
+
+            if (!refreshToken) {
+            return responseUtils.error(res, "Chưa có refresh Token");
+            }
+
+            // Tìm token trong DB
+            const existingToken = await authService.checkToken(refreshToken);
+                if (!existingToken) {
+                return responseUtils.notFound(res, "Token không hợp lệ hoặc đã bị xoá");
+            }
+
+            const decoded = jwtUtils.verifyRefreshToken(refreshToken);
+                if (!decoded) {
+                return responseUtils.error(res, "Refresh token không hợp lệ");
+            }
+            const newAccessToken = jwtUtils.sign(decoded.userId, decoded.role);
+
+            return responseUtils.ok(res, { accessToken : newAccessToken})
+        } catch (error) {
+            
+        }
+    
     }
 }
 
