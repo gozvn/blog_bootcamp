@@ -21,6 +21,12 @@ const authService ={
             where: { user_id }
         });
         return checkToken;
+    },
+    async checkToken(token) {
+        const checkToken = await UserToken.findOne({
+            where: { token }
+        });
+        return checkToken;
     }
 }
 

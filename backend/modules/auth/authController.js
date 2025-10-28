@@ -73,6 +73,39 @@ const authController = {
             console.error(error)
             return responseUtils.error(res, error)
         }
+    },
+    logout: async (req, res) => {
+        try {
+            // Lấy refresh_token từ cookie hoặc trong body
+            const refreshToken = req?.cookies?.refresh_token || req?.body?.refresh_token;
+
+            if (!refreshToken) {
+            return responseUtils.error(res, "Chưa có refresh Token");
+            }
+
+            // Tìm token trong DB
+            const existingToken = await authService.checkToken(refreshToken);
+            if (!existingToken) {
+            return responseUtils.notFound(res, "Token không hợp lệ hoặc đã bị xoá");
+            }
+
+            // xoá token
+            await existingToken.destroy();
+
+            // hoặc: await existingToken.destroy(); // nếu muốn xoá hẳn
+
+            // Xoá cookie
+            res.clearCookie("refresh_token", {
+                httpOnly: true,
+                secure: false,
+                sameSite: "strict",
+            });
+
+            return responseUtils.ok(res, "Đăng xuất thành công");
+        } catch (error) {
+            console.error(error);
+            return responseUtils.error(res, error);
+        }
     }
 }
 

@@ -39,7 +39,7 @@ router.get("/", (req, res) => {
 // Authentication 
 router.group("/auth", validate([]), (router) => {
   router.post('/login', authController.login);
-  // router.get('/logout', authController.logout);
+  router.post('/logout', authController.logout);
   // router.get('/refreshtoken',authController.refreshtoken);
 });
 
