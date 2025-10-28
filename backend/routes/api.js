@@ -38,7 +38,9 @@ router.get("/", (req, res) => {
 
 // Authentication 
 router.group("/auth", validate([]), (router) => {
-  router.get('/login', authController.login);
+  router.post('/login', authController.login);
+  // router.get('/logout', authController.logout);
+  // router.get('/refreshtoken',authController.refreshtoken);
 });
 
 // router.group("/admin", dashboardRouter); 

@@ -15,6 +15,12 @@ const authService ={
     async saveToken(data){
         const token = await UserToken.create(data)
         return token
+    },
+    async checkTokenByUser(user_id) {
+        const checkToken = await UserToken.findOne({
+            where: { user_id }
+        });
+        return checkToken;
     }
 }
 

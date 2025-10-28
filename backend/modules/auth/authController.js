@@ -6,7 +6,8 @@ const access_token_ttl = process.env.ACCESS_TOKEN_TTL;
 
 const bcrypt = require('bcryptjs');
 const { bcrypt: bcryptConfig } = require('../../configs/hashing');
-const jwt = require("configs/jwt");
+// const jwt = require("configs/jwt");
+const jwtUtils = require("../../utils/jwtUtils")
 const { check } = require("express-validator");
 
 
@@ -18,6 +19,7 @@ const authController = {
             if (!email || !password ) {
                 responseUtils.error(res, " Chưa truyền email, password ")
             }
+            
 
             console.log(email,password)
             const checkEmail = await authService.checkEmail(email)
@@ -31,25 +33,39 @@ const authController = {
                 return responseUtils.notFound(res, "Email hoặc mật khẩu không đúng !");
             }
             
-            const accessToken = jwt.sign(
-                {user_id:checkEmail.user_id},
-                process.env.JWT_SECRET_KEY,
-                {expiresIn: process.env.ACCESS_TOKEN_TTL}
-            )   
-            const refreshToken = crypto.randomBytes(64).toString('hex');
-            const dataToken = {
-                user_id: checkEmail.id,
-                token: accessToken,
-            }
+            const accessToken = jwtUtils.sign(checkEmail.id,checkEmail.role);
+            const refreshToken = jwtUtils.signRefreshToken(checkEmail.id, checkEmail.role);
 
-            storeToken = await authService.saveToken(dataToken)
+            const existingToken = await authService.checkTokenByUser(checkEmail.id);
+            if (existingToken) {
+                await existingToken.update({
+                    token: refreshToken,
+                    active: 1,
+                    updated_at: new Date(),
+                });
+            } else {
+                await authService.saveToken({
+                    user_id: checkEmail.id,
+                    token: refreshToken,
+                    active: 1,
+                });
+            }
 
             res.cookie("refresh_token", refreshToken, {
                 httpOnly: true,          // bảo vệ cookie khỏi truy cập từ JS (XSS)
                 secure: false,           // bật true nếu HTTPS
                 sameSite: "strict",      // hạn chế gửi cookie sang domain khác
-                maxAge: process.env.REFRESH_TOKEN_TTL // 7 ngày
+                maxAge: 7* 60 *60 *24 *1000 // 7 ngày
             });
+
+            const loginData = {
+                    accessToken,
+                    user: {
+                        id: checkEmail.id,
+                        email: checkEmail.email,
+                        name: checkEmail.name,
+                    },
+            };
 
             return responseUtils.ok(res,loginData)
             
