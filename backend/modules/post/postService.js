@@ -77,7 +77,7 @@ const postService = {
             };
     },
 
-    async getbyID(id){
+    async getbyId(id){
         const whereClause = {
             id: id
         }

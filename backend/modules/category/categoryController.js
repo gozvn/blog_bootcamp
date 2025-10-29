@@ -7,9 +7,8 @@ const categoryController = {
         try {
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || parseInt(process.env.CATEGORY_PAGINATION_LIMIT);
-            const id = parseInt(req.query.id) || null;
 
-            const categories = await categoryService.list(page,limit,id);
+            const categories = await categoryService.list(page,limit);
             if (!categories.rows || categories.rows.length === 0 ) {
                 return responseUtils.notFound(res, "Không có category nào");
             }   
@@ -29,7 +28,7 @@ const categoryController = {
                 return responseUtils.error(res, "Thiếu tham số cat_id");
             }
 
-            const category = await categoryService.getbyID(cat_id);
+            const category = await categoryService.getbyId(cat_id);
 
             if (!category) {
                 return responseUtils.notFound(res, "Không tìm thấy category");
@@ -49,7 +48,7 @@ const categoryController = {
 
             const category = await categoryService.create({
                 thumbnail: thumbnail || 'img/default-category.png',
-                cat_name: name || "Unnamed Category",
+                cat_name: name,
                 cat_slug : name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, ''),
                 description : description,
                 created_at: new Date(),
@@ -68,7 +67,7 @@ const categoryController = {
         try {
             const id = parseInt(req.params.id) || null;
             // check validation errors truoc khi xu ly
-            const checkid = await categoryService.getbyID(id);
+            const checkid = await categoryService.getbyId(id);
             if (!checkid) {
                 return responseUtils.notFound(res, "Không tìm thấy category");
             }
@@ -100,7 +99,7 @@ const categoryController = {
             if (!cat_id) {
                 return responseUtils.error(res, "Thiếu tham số cat_id");
             }
-            const checkid = await categoryService.getbyID(cat_id);
+            const checkid = await categoryService.getbyId(cat_id);
             if (!checkid) {
                 return responseUtils.notFound(res, "Không tìm thấy category");
             }

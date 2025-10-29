@@ -5,6 +5,9 @@ const categoryValidation = {
             isString: {
                 errorMessage: 'validation.required',
             },
+            unique: {
+                errorMessage: 'validation.required',
+            },
             notEmpty: {
                 errorMessage: 'validation.required',
             },

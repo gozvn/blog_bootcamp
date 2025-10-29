@@ -24,14 +24,14 @@ const postController = {
             return responseUtils.error(res,{ message : error })
         }
     },
-    getbyID : async (req, res) => {
+    getbyId : async (req, res) => {
         try {
             const id = req.params.id ? parseInt(req.params.id) : null;
 
             if (!id) {
                 return responseUtils.error(res, "ID chưa được truyền ")
             }
-            const post = await postService.getbyID(id);
+            const post = await postService.getbyId(id);
             if (!post) {
                 return responseUtils.notFound(res, " ID Không tồn tại ")
             }

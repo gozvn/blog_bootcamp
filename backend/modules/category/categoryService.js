@@ -2,7 +2,7 @@ const { Post, Category } = require("../../models");
 
 const categoryService ={
     // Example method
-    async list(page, limit, id) {
+    async list(page, limit) {
         // Logic to list categories with pagination and filters
         const whereClause = {};
         const offset = (page - 1) * limit;
@@ -13,9 +13,7 @@ const categoryService ={
                 through: { attributes: [] },
             }
         ];
-        if(id !== undefined && id !== null){
-            whereClause.id = id;
-        }
+
         const { count, rows } = await Category.findAndCountAll({
             where: whereClause,
             include,
@@ -35,7 +33,7 @@ const categoryService ={
             }
         };
     },
-    async getbyID(id){
+    async getbyId(id){
         const whereClause = {
             id: id
         }

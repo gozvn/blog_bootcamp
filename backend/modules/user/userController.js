@@ -22,6 +22,16 @@ const userController = {
             responseUtils.error(res, error);
         }
     },
+    getbyId: async (req, res) => {
+        try {
+            const id = req.params.id;
+            const user = await userSerivce.getbyId(id);
+            return responseUtils.ok(res, user);
+        } catch (error) {
+            console.error(error);
+            responseUtils.error(res, error);
+        }
+    },
     create: async (req, res) => {
         try {
             const raw = req.body;

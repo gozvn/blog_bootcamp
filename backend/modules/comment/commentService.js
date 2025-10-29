@@ -16,10 +16,12 @@ const commentService = {
         const include = [
             {
                 model: User,
+                as : 'user',
                 attributes: ["id", "username"],
             },
             {
                 model: Post,
+                as : 'post',
                 attributes: ["id", "title"],
             }
         ];
@@ -50,10 +52,12 @@ const commentService = {
             include: [
                 {
                     model: User,
+                    as : 'user',
                     attributes: ["id", "username"],
                 },
                 {
                     model: Post,
+                    as : 'post',
                     attributes: ["id", "title"],
                 }
             ]

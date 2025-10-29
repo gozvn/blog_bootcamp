@@ -73,7 +73,7 @@ router.group("/comment", validate([]), (router) => {
 // Module Post routes
 router.group("/post", validate([]), (router) => {
   router.get('/', postController.all);
-  router.get('/detail/:id', postController.getbyID);
+  router.get('/:id', postController.getbyId);
   router.post('/create', checkSchema(postValidation.createPost), postController.create);
   router.put('/edit/:id', checkSchema(postValidation.editPost), postController.edit);
   router.delete('/delete/:id', postController.delete);
@@ -81,6 +81,7 @@ router.group("/post", validate([]), (router) => {
 // User routes
 router.group("/user", validate([]), (router) => {
   router.get('/', userController.all);
+  router.get('/:id', userController.getbyId);
   router.post('/create', checkSchema(userValidation.createUser), userController.create);
   router.put('/edit/:id', checkSchema(userValidation.updateUser), userController.update);
   router.delete('/delete/:id', userController.delete);
@@ -89,6 +90,7 @@ router.group("/user", validate([]), (router) => {
 // Module Category routes
 router.group("/category", validate([]), (router) => {
   router.get('/', categoryController.all);
+  router.get('/:id', categoryController.getbyId);
   router.put('/edit/:id', checkSchema(categoryValidation.updateCategory), categoryController.update);
   router.post('/create',checkSchema(categoryValidation.createCategory),categoryController.create);
   router.delete('/delete/:id',categoryController.delete);
