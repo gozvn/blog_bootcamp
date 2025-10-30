@@ -43,7 +43,12 @@ const categoryController = {
 
     create: async(req, res) => {
         try {
-
+            // Kiểm tra validate trước khi xử lý
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return responseUtils.invalidated(res, errors.array());
+            }
+            // Lấy dữ liệu từ request
             const { name, description, thumbnail } = req.body;
 
             const category = await categoryService.create({
@@ -65,6 +70,12 @@ const categoryController = {
 
     update: async (req, res) => {
         try {
+            // Kiểm tra validate trước khi xử lý
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return responseUtils.invalidated(res, errors.array());
+            }
+            // Lấy dữ liệu từ request
             const id = parseInt(req.params.id) || null;
             // check validation errors truoc khi xu ly
             const checkid = await categoryService.getbyId(id);

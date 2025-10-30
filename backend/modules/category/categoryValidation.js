@@ -1,3 +1,6 @@
+const unique = require('../../kernels/validations/uniqueValidator');
+const { Category } = require('../../models');
+
 const categoryValidation = {
     createCategory: {   
         name: {
@@ -5,9 +8,7 @@ const categoryValidation = {
             isString: {
                 errorMessage: 'validation.required',
             },
-            unique: {
-                errorMessage: 'validation.required',
-            },
+            custom: unique(Category, 'cat_name', 'validation.required'),
             notEmpty: {
                 errorMessage: 'validation.required',
             },

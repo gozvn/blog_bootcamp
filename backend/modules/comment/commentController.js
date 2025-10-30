@@ -5,12 +5,11 @@ const { validationResult } = require("express-validator");
 const commentController = {
     all: async (req, res) => {
         try {
-            const id = parseInt(req.query.id) || null;
             const userId = parseInt(req.query.user_id) || null;
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || parseInt(process.env.COMMENT_PAGINATION_LIMIT || 10);
 
-            const comment = await commentService.list(page, limit, id, userId);
+            const comment = await commentService.list(page, limit, userId);
             return responseUtils.ok(res, comment);
         } catch (error) {
             console.error(error);
@@ -20,6 +19,7 @@ const commentController = {
 
     getById: async (req, res) => {
         try {
+            // Lấy dữ liệu từ request
             const id = parseInt(req.params.id);
             if (!id) {
                 return responseUtils.error(res, " Chưa truyền ID");
@@ -39,11 +39,12 @@ const commentController = {
 
     create: async (req, res) => {
         try {
+            // Kiểm tra validate trước khi xử lý
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 return responseUtils.error(res, errors.array());
             }
-
+            // Lấy dữ liệu từ request
             const { content, user_id, post_id } = req.body;
             
             if (!content || !user_id || !post_id) {
@@ -65,6 +66,12 @@ const commentController = {
 
     update: async (req, res) => {
         try {
+            // Kiểm tra validate trước khi xử lý
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return responseUtils.error(res, errors.array());
+            }
+            // Lấy dữ liệu từ request
             const id = parseInt(req.params.id);
             if (!id) {
                 return responseUtils.error(res, "Chưa truyền Comment ID");

@@ -61,6 +61,7 @@ const postService = {
                 where: whereClause,
                 include,
                 order: [["id", "DESC"]],
+                attributes: { exclude: ['user_id','lang_id'] },
                 offset,
                 limit,
                 distinct: true, // tránh bị nhân bản khi join nhiều bảng
@@ -83,6 +84,7 @@ const postService = {
         }
         const post = await Post.findOne({
             where: whereClause,
+            attributes: { exclude: ['user_id','lang_id'] },
             include: [
                 {
                     model: User,

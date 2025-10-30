@@ -38,11 +38,12 @@ const languageController = {
 
     create: async (req, res) => {
         try {
+            // Kiểm tra validate trước khi xử lý
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 return responseUtils.error(res, errors.array());
             }
-
+            // Lấy dữ liệu từ request
             const { lang_code, lang_name } = req.body;
             
             if (!lang_code || !lang_name) {

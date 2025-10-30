@@ -10,12 +10,7 @@ const userService = {
         const whereClause = {};
         const offset = (page - 1) * limit;
 
-        const include = [
-            {
-                model: Language,
-                attributes: ["id", "lang_name"],
-            }
-        ];
+        const include = [ ];
 
         if(id !== undefined && id !== null){
             whereClause.id = id;
@@ -33,6 +28,7 @@ const userService = {
             where: whereClause,
             include,
             order: [["id", "DESC"]],
+            attributes: { exclude: ['password'] },
             offset,
             limit,
             distinct: true, // tránh bị nhân bản khi join nhiều bảng
@@ -56,8 +52,8 @@ const userService = {
         }
         const user = await User.findOne({
             where: whereClause,
+            attributes: { exclude: ['password'] },
         })
-
         return user;
     }, 
     create: async (userData) => {

@@ -49,6 +49,7 @@ router.group("/auth", validate([]), (router) => {
 // Language module routes
 router.group("/language", validate([]), (router) => {
   router.get('/', languageController.all);
+  router.get('/:id', languageController.getById);
   router.post('/create', checkSchema(languageValidation.create), languageController.create);
   router.put('/edit/:id', checkSchema(languageValidation.update), languageController.update);
   router.delete('/delete/:id', languageController.delete);
@@ -65,6 +66,7 @@ router.group("/tag", validate([]), (router) => {
 // Comment module routes
 router.group("/comment", validate([]), (router) => {
   router.get('/', commentController.all);
+  router.get('/:id', commentController.getById);
   router.post('/create', commentController.create);
   router.put('/edit/:id', commentController.update);
   router.delete('/delete/:id', commentController.delete);

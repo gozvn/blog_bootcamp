@@ -21,6 +21,12 @@ const tagController = {
 
     create: async (req, res) => {
         try {
+            // Kiểm tra validate trước khi xử lý
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return responseUtils.invalidated(res, errors.array());
+            }
+            // Lấy dữ liệu từ request
             const { name } = req.body;
             
             if ( !name ) {
@@ -43,6 +49,11 @@ const tagController = {
 
     update: async (req, res) => {
         try {
+            // Kiểm tra validate trước khi xử lý
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return responseUtils.invalidated(res, errors.array());
+            }
             const id = parseInt(req.params.id) || null;
             // Check xem tag ton tai truoc roi moi xu ly
             const checkid = await tagService.getbyID(id);

@@ -1,6 +1,6 @@
 const responseUtils = require("utils/responseUtils")
 const postService = require("./postService.js");
-
+const { validationResult } = require("express-validator");
 const postController = {
     
     all: async (req, res) => {
@@ -45,7 +45,13 @@ const postController = {
     // tạo bài viết mới
     create: async (req, res) => {
         try {
-            const { title, thumbnail, featured, status, content, category, user_id, tags } = req.body;
+            // Kiểm tra validate trước khi xử lý
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return responseUtils.invalidated(res, errors.array());
+            }
+            // Lấy dữ liệu từ request
+            const { title, thumbnail, featured, status, content, category, user_id, tags, lang_id } = req.body;
             if (!title || !content || !category || !user_id) {
                 return responseUtils.error(res, {
                     error: 'Thiếu dữ liệu'
@@ -57,6 +63,7 @@ const postController = {
                 thumbnail: thumbnail || 'img/default-thumbnail.jpg',
                 featured: featured || false,
                 status: status || "draft",
+                lang_id : lang_id || "1",
                 content,
                 category: Array.isArray(category) ? category : [],
                 user_id,
@@ -64,10 +71,7 @@ const postController = {
                 created_at: new Date(),
                 updated_at: new Date(),
             });
-            return responseUtils.ok(res, {
-                message: 'Tạo bài viết thành công',
-                post: newPost
-            });
+            return responseUtils.ok(res, newPost);
         } catch (error) {
             console.log(error)
             return responseUtils.error(res, error)
@@ -75,10 +79,16 @@ const postController = {
     },
     // chỉnh sửa bài viết
     edit: async(req, res) => { 
+        // Kiểm tra validate trước khi xử lý
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return responseUtils.invalidated(res, errors.array());
+        }
+        // Lấy dữ liệu từ request
         const id = req.params.id;
-        const { title, thumbnail, content, category, tags } = req.body;
+        const { title, thumbnail, content, category, tags, lang_id } = req.body;
 
-        const checkPost = await postService.getbyID(id);
+        const checkPost = await postService.getbyId(id);
         if (!checkPost) {
             return responseUtils.notFound(res, "ID không tồn tại")
         }
@@ -89,7 +99,8 @@ const postController = {
             thumbnail: thumbnail || null,
             content: content || null,
             category: category || null,
-            tags: tags || null
+            tags: tags || null,
+            lang_id : lang_id || "1",
         };
 
         const updatedPost = await postService.update(id, updateData);
@@ -100,7 +111,19 @@ const postController = {
         });
     },
     delete: async(req, res) => {
-        // const postId = req.params.id;
+        const postId = req.params.id;
+        if (!postId) {
+            return responseUtils.error(res, "chưa truyền ID")
+        }
+        const checkPost = await postService.getbyId(postId);
+        if (!checkPost) {
+            return responseUtils.notFound(res, "ID không tồn tại")
+        }
+        
+        await postService.delete(postId);
+        return responseUtils.ok(res, {
+            message: "Xóa bài viết thành công"
+        });
     }
 
 }

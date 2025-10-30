@@ -1,5 +1,6 @@
 const responseUtils = require("utils/responseUtils")
 const userSerivce = require("./userService.js");
+const { validationResult } = require("express-validator");
 
 const bcrypt = require('bcryptjs');
 const { bcrypt: bcryptConfig } = require('../../configs/hashing'); 
@@ -10,10 +11,9 @@ const userController = {
         try {
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || parseInt(process.env.CATEGORY_PAGINATION_LIMIT);
-            const id = req.query.id || null;
             const role = req.query.role || null;
             const email = req.query.email || null;
-            const user = await userSerivce.list(page, limit, id,role,email);
+            const user = await userSerivce.list(page, limit,role,email);
 
             return responseUtils.ok(res,user)
 
@@ -26,6 +26,9 @@ const userController = {
         try {
             const id = req.params.id;
             const user = await userSerivce.getbyId(id);
+            if (!user){
+                return responseUtils.notFound(res, "Không tồn tại user");
+            }
             return responseUtils.ok(res, user);
         } catch (error) {
             console.error(error);
@@ -34,6 +37,12 @@ const userController = {
     },
     create: async (req, res) => {
         try {
+            // Kiểm tra validate trước khi xử lý
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return responseUtils.invalidated(res, errors.array());
+            }
+            //  
             const raw = req.body;
 
             if (!raw.username || !raw.email || !raw.password) {
@@ -62,12 +71,18 @@ const userController = {
     },
     update: async (req, res) => {
         try {
+            // Kiểm tra validate trước khi xử lý
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return responseUtils.invalidated(res, errors.array());
+            }
+            // Lấy dữ liệu từ request
             const userId = parseInt(req.params.id);
             const raw = req.body;
 
-            const checkuser = await userSerivce.getbyID(userId);
+            const checkuser = await userSerivce.getbyId(userId);
             if (!checkuser) {
-                return responseUtils.error(res, "Không có user hợp lệ !");
+                return responseUtils.notFound(res, "Không có user hợp lệ !");
             }
 
             if (!raw || Object.keys(raw).length === 0) {
@@ -96,11 +111,12 @@ const userController = {
     },
     delete: async (req, res) => {
         try {
+            // Lấy dữ liệu từ request
             const userId = parseInt(req.params.id);
             if (!userId) {
                 return responseUtils.error(res, "Không có user hợp lệ !");
             }
-            const checkuser = await userSerivce.getbyID(userId);
+            const checkuser = await userSerivce.getbyId(userId);
             if (!checkuser) {
                 return responseUtils.error(res, "Không có user hợp lệ !");
             }

@@ -1,5 +1,5 @@
-const user = require("models/user");
-
+const { User } = require('../../models');
+const unique = require('../../kernels/validations/uniqueValidator');
 const userValidation = {
     // Define validation schemas for user-related operations here
     createUser: {
@@ -8,6 +8,7 @@ const userValidation = {
             in: ['body'],
             isString: true,
             notEmpty: true,
+            custom: unique(User, 'username', 'validation.required'),
             isLength: {
                 options: { min: 3 },
             },
