@@ -1,0 +1,136 @@
+openapi: 3.0.0
+info:
+  title: User API
+  version: 1.0.0
+  description: API quản lý người dùng
+
+paths:
+  /api/v1/user:
+    get:
+      tags:
+        - Users
+      summary: Danh sách user
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: limit
+          schema:
+            type: integer
+        - in: query
+          name: role
+          schema:
+            type: string
+        - in: query
+          name: email
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Danh sách user
+
+  /api/v1/user/{id}:
+    get:
+      tags:
+        - Users
+      summary: Lấy user theo ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Thông tin user
+        '404':
+          description: Không tồn tại user
+
+  /api/v1/user/create:
+    post:
+      tags:
+        - Users
+      summary: Tạo user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - email
+                - password
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                role:
+                  type: string
+                avatar:
+                  type: string
+                lang_id:
+                  type: integer
+      responses:
+        '200':
+          description: Tạo thành công
+        '400':
+          description: Thiếu dữ liệu
+
+  /api/v1/user/edit/{id}:
+    put:
+      tags:
+        - Users
+      summary: Cập nhật user
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                role:
+                  type: string
+                avatar:
+                  type: string
+                lang_id:
+                  type: integer
+      responses:
+        '200':
+          description: Sửa thành công
+        '404':
+          description: Không tồn tại user
+
+  /api/v1/user/delete/{id}:
+    delete:
+      tags:
+        - Users
+      summary: Xoá user
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Xoá thành công
+        '404':
+          description: Không tồn tại user

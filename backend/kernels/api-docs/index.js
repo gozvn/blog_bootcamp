@@ -1,5 +1,7 @@
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
+const prefixPath = process.env.PREFIX_API_PATH || '/api/v1';
+const port = process.env.PORT || 3000;
 
 const options = {
     definition: {
@@ -10,7 +12,7 @@ const options = {
     },
     servers: [
         {
-        url: "http://localhost:3000",
+        url: `http://localhost:${port}${prefixPath}`,
         },
     ],
     },

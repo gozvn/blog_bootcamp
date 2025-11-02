@@ -1,0 +1,293 @@
+openapi: 3.0.0
+info:
+  title: Comment API
+  version: 1.0.0
+  description: API quản lý bình luận
+
+paths:
+  /comment:
+    get:
+      tags:
+        - Comments
+      summary: Danh sách bình luận
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: limit
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Danh sách bình luận
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      rows:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 1
+                            content:
+                              type: string
+                              example: "Bình luận hay quá"
+                            user_id:
+                              type: integer
+                              example: 5
+                            post_id:
+                              type: integer
+                              example: 12
+                            created_at:
+                              type: string
+                              format: date-time
+                              example: "2025-10-30T08:44:07.000Z"
+                            updated_at:
+                              type: string
+                              format: date-time
+                              example: "2025-10-30T08:44:07.000Z"
+                      pagination:
+                        type: object
+                        properties:
+                          total:
+                            type: integer
+                            example: 9
+                          page:
+                            type: integer
+                            example: 1
+                          limit:
+                            type: integer
+                            example: 10
+                          totalPages:
+                            type: integer
+                            example: 1
+  /comment/{id}:
+    get:
+      tags:
+        - Comments
+      summary: Lấy bình luận theo ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Thông tin bình luận
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      content:
+                        type: string
+                        example: "Bình luận hay quá"
+                      user_id:
+                        type: integer
+                        example: 5
+                      post_id:
+                        type: integer
+                        example: 12
+                      created_at:
+                        type: string
+                        format: date-time
+                        example: "2025-10-30T08:44:07.000Z"
+                      updated_at:
+                        type: string
+                        format: date-time
+                        example: "2025-10-30T08:44:07.000Z"
+        '404':
+          description: Không tồn tại Comment
+
+  /comment/create:
+    post:
+      tags:
+        - Comments
+      summary: Tạo bình luận
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - content
+                - user_id
+                - post_id
+              properties:
+                content:
+                  type: string
+                user_id:
+                  type: integer
+                post_id:
+                  type: integer
+      responses:
+        '200':
+          description: Tạo thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      content:
+                        type: string
+                        example: "Bình luận hay quá"
+                      user_id:
+                        type: integer
+                        example: 5
+                      post_id:
+                        type: integer
+                        example: 12
+                      created_at:
+                        type: string
+                        format: date-time
+                        example: "2025-10-30T08:44:07.000Z"
+                      updated_at:
+                        type: string
+                        format: date-time
+                        example: "2025-10-30T08:44:07.000Z"
+        '402':
+          description: Thiếu dữ liệu
+
+  /comment/edit/{id}:
+    put:
+      tags:
+        - Comments
+      summary: Sửa bình luận
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+      responses:
+        '200':
+          description: Sửa thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      content:
+                        type: string
+                        example: "Nội dung đã cập nhật"
+                      user_id:
+                        type: integer
+                        example: 5
+                      post_id:
+                        type: integer
+                        example: 12
+                      created_at:
+                        type: string
+                        format: date-time
+                        example: "2025-10-30T08:44:07.000Z"
+                      updated_at:
+                        type: string
+                        format: date-time
+                        example: "2025-10-30T08:44:07.000Z"
+        '404':
+          description: Không tồn tại comment
+
+  /comment/delete/{id}:
+    delete:
+      tags:
+        - Comments
+      summary: Xoá bình luận
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Xoá thành công
+        '404':
+          description: Không tồn tại comment
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: "Không tồn tại comment"

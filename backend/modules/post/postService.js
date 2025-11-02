@@ -1,5 +1,6 @@
-const { getbyID } = require("modules/category/categoryService");
 const { Post, User,Comment, Category, Tag, Language } = require("../../models");
+const { validationResult } = require("express-validator");
+const responseUtils = require("utils/responseUtils")
 
 const postService = {
     async list(page = 1, limit = 10, categoryId = null, tagId = null, userId = null, langId = null, status = null, featured = null) {
@@ -150,11 +151,17 @@ const postService = {
     },
 
     update: async (id, updateData) => {
+        // validation 
+        const errors = validationResult(updateData);
+        if (!errors.isEmpty()) {
+            return responseUtils.error(res, errors.array());
+        }
         const { tags, category, ...restData } = updateData;
 
         const whereClause = {
             id: id
         };
+
         const post = await Post.update(restData, {
             where: whereClause
         });

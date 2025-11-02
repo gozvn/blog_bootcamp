@@ -2,6 +2,7 @@ const responseUtils = require("utils/responseUtils")
 const categoryService = require("./categoryService.js");
 const { validationResult } = require("express-validator");
 
+
 const categoryController = {
     all: async (req, res) => {
         try {

@@ -1,0 +1,324 @@
+openapi: 3.0.0
+info:
+  title: Category API
+  version: 1.0.0
+  description: API quản lý danh mục bài viết
+
+paths:
+  /category:
+    get:
+      tags:
+        - Categories
+      summary: Lấy danh sách tất cả danh mục
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: limit
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Danh sách categories
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      rows:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 9
+                            cat_name:
+                              type: string
+                              example: "Chính Trị"
+                            thumbnail:
+                              type: string
+                              example: "img/default-category.png"
+                            description:
+                              type: string
+                              example: "Tin tức về Trump"
+                            cat_slug:
+                              type: string
+                              example: "chnh-tr"
+                            created_at:
+                              type: string
+                              format: date-time
+                              example: "2025-10-30T08:44:07.000Z"
+                            updated_at:
+                              type: string
+                              format: date-time
+                              example: "2025-10-30T08:44:07.000Z"
+                      pagination:
+                        type: object
+                        properties:
+                          total:
+                            type: integer
+                            example: 9
+                          page:
+                            type: integer
+                            example: 1
+                          limit:
+                            type: integer
+                            example: 10
+                          totalPages:
+                            type: integer
+                            example: 1
+  /category/create:
+    post:
+      tags:
+        - Categories
+      summary: Tạo danh mục mới
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  minLength: 5
+                  maxLength: 100
+                  example: "Thể thao"
+                description:
+                  type: string
+                  example: "Mô tả danh mục"
+                thumbnail:
+                  type: string
+                  example: "img/default-category.png"
+      responses:
+        '200':
+          description: Tạo thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      cat_name:
+                        type: string
+                        example: "Thể thao"
+                      description:
+                        type: string
+                        example: "Mô tả danh mục"
+                      thumbnail:
+                        type: string
+                        example: "img/default-category.png"
+                      cat_slug:
+                        type: string
+                        example: "the-thao"
+                      created_at:
+                        type: string
+                        format: date-time
+                        example: "2025-10-30T08:44:07.000Z"
+                      updated_at:
+                        type: string
+                        format: date-time
+                        example: "2025-10-30T08:44:07.000Z"
+        '500':
+          description: Dữ liệu không hợp lệ
+
+  /category/{id}:
+    get:
+      tags:
+        - Categories
+      summary: Lấy danh mục theo ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID danh mục
+      responses:
+        '200':
+          description: Thông tin danh mục
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      cat_name:
+                        type: string
+                        example: "Chính trị"
+                      cat_slug:
+                        type: string
+                        example: "chinh-tri"
+                      description:
+                        type: string
+                        example: "Mô tả danh mục"
+                      thumbnail:
+                        type: string
+                        example: "img/default-category.png"
+                      created_at:
+                        type: string
+                        format: date-time
+                        example: "2025-10-30T08:44:07.000Z"
+                      updated_at:
+                        type: string
+                        format: date-time
+                        example: "2025-10-30T08:44:07.000Z"
+        '404':
+          description: Không tìm thấy category
+        '500':
+          description: Lỗi server
+
+  /category/edit/{id}:
+    put:
+      tags:
+        - Categories
+      summary: Cập nhật danh mục
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                thumbnail:
+                  type: string
+      responses:
+        '200':
+          description: Cập nhật thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: "Thể thao"
+                      cat_slug:
+                        type: string
+                        example: "the-thao"
+                      description:
+                        type: string
+                        example: "Mô tả danh mục"
+                      thumbnail:
+                        type: string
+                        example: "img/default-category.png"
+        '500':
+          description: Dữ liệu không hợp lệ
+        '404':
+          description: Không tìm thấy category
+
+  /category/delete/{id}:
+    delete:
+      tags:
+        - Categories
+      summary: Xóa danh mục
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Xóa thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: "ok"
+        '404':
+          description: Không tìm thấy category
+          content :
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: "Không tìm thấy category"
+              

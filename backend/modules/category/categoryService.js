@@ -6,13 +6,7 @@ const categoryService ={
         // Logic to list categories with pagination and filters
         const whereClause = {};
         const offset = (page - 1) * limit;
-        const include = [
-            {
-                model: Post,
-                attributes: ["id", "title"],
-                through: { attributes: [] },
-            }
-        ];
+        const include = [    ];
 
         const { count, rows } = await Category.findAndCountAll({
             where: whereClause,

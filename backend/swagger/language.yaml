@@ -1,0 +1,115 @@
+openapi: 3.0.0
+info:
+  title: Language API
+  version: 1.0.0
+  description: API quản lý ngôn ngữ
+
+paths:
+  /api/v1/language:
+    get:
+      tags:
+        - Languages
+      summary: Danh sách ngôn ngữ
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: integer
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: limit
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Danh sách ngôn ngữ
+
+  /api/v1/language/{id}:
+    get:
+      tags:
+        - Languages
+      summary: Lấy ngôn ngữ theo ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Thông tin ngôn ngữ
+        '404':
+          description: Không tồn tại ngôn ngữ này
+
+  /api/v1/language/create:
+    post:
+      tags:
+        - Languages
+      summary: Tạo ngôn ngữ
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - lang_code
+                - lang_name
+              properties:
+                lang_code:
+                  type: string
+                lang_name:
+                  type: string
+      responses:
+        '200':
+          description: Tạo thành công
+        '400':
+          description: Thiếu dữ liệu
+
+  /api/v1/language/edit/{id}:
+    put:
+      tags:
+        - Languages
+      summary: Cập nhật ngôn ngữ
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                lang_code:
+                  type: string
+                lang_name:
+                  type: string
+      responses:
+        '200':
+          description: Sửa thành công
+        '404':
+          description: Không tồn tại ngôn ngữ
+
+  /api/v1/language/delete/{id}:
+    delete:
+      tags:
+        - Languages
+      summary: Xoá ngôn ngữ
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Xoá thành công
+        '404':
+          description: Không tồn tại ngôn ngữ

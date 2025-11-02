@@ -92,16 +92,30 @@ const postController = {
         if (!checkPost) {
             return responseUtils.notFound(res, "ID không tồn tại")
         }
+        // Danh sách field cho phép update
+        const allowedFields = ['title', 'thumbnail', 'content', 'lang_id', 'category', 'tags'];
+        // Chỉ giữ field hợp lệ và có giá trị
+        const filteredBody = Object.fromEntries(
+            Object.entries(req.body).filter(([k, v]) => allowedFields.includes(k) && v !== undefined)
+        );
+        //  Kiểm tra field không hợp lệ
+        const invalidFields = Object.keys(req.body).filter(key => !allowedFields.includes(key));
+        if (invalidFields.length > 0) {
+            return responseUtils.invalidated(res, "validation.requỉed");
+        }
+
+        const updateData = {};
+
+        if (filteredBody.title !== undefined) {
+            updateData.title = filteredBody.title;
+            updateData.slug = filteredBody.title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+        }
         
-        const updateData = {
-            title: title || null,
-            slug: title ? title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '') : null,
-            thumbnail: thumbnail || null,
-            content: content || null,
-            category: category || null,
-            tags: tags || null,
-            lang_id : lang_id || "1",
-        };
+        if (filteredBody.thumbnail !== undefined) updateData.thumbnail = filteredBody.thumbnail;
+        if (filteredBody.content !== undefined) updateData.content = filteredBody.content;
+        if (filteredBody.lang_id !== undefined) updateData.lang_id = filteredBody.lang_id;
+        if (filteredBody.category !== undefined) updateData.category = filteredBody.category;
+        if (filteredBody.tags !== undefined) updateData.tags = filteredBody.tags;
 
         const updatedPost = await postService.update(id, updateData);
 

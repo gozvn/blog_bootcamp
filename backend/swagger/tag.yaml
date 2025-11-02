@@ -1,0 +1,95 @@
+openapi: 3.0.0
+info:
+  title: Tag API
+  version: 1.0.0
+  description: API quản lý thẻ (tag)
+
+paths:
+  /api/v1/tag:
+    get:
+      tags:
+        - Tags
+      summary: Danh sách tag
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: integer
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: limit
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Danh sách tag
+
+  /api/v1/tag/create:
+    post:
+      tags:
+        - Tags
+      summary: Tạo tag
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+      responses:
+        '200':
+          description: Tạo thành công
+        '400':
+          description: Thiếu dữ liệu
+
+  /api/v1/tag/edit/{id}:
+    put:
+      tags:
+        - Tags
+      summary: Cập nhật tag
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+      responses:
+        '200':
+          description: Sửa thành công
+        '404':
+          description: Không tìm thấy tag
+
+  /api/v1/tag/delete/{id}:
+    delete:
+      tags:
+        - Tags
+      summary: Xoá tag
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Xoá thành công
+        '404':
+          description: Không tìm thấy tag
