@@ -5,16 +5,12 @@ info:
   description: API quản lý thẻ (tag)
 
 paths:
-  /api/v1/tag:
+  /tag:
     get:
       tags:
         - Tags
       summary: Danh sách tag
       parameters:
-        - in: query
-          name: id
-          schema:
-            type: integer
         - in: query
           name: page
           schema:
@@ -26,8 +22,50 @@ paths:
       responses:
         '200':
           description: Danh sách tag
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  status:
+                    type: integer
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      rows:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            slug:
+                              type: string
+                            created_at:
+                              type: string
+                              format: date-time
+                            updated_at:
+                              type: string
+                              format: date-time
+                      pagination:
+                        type: object
+                        properties:
+                          total:
+                            type: integer
+                          page:
+                            type: integer
+                          limit:
+                            type: integer
+                          totalPages:
+                            type: integer
 
-  /api/v1/tag/create:
+  /tag/create:
     post:
       tags:
         - Tags
@@ -46,10 +84,63 @@ paths:
       responses:
         '200':
           description: Tạo thành công
-        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  status:
+                    type: integer
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      slug:
+                        type: string
+                      created_at:
+                        type: string
+                        format: date-time
+                      updated_at:
+                        type: string
+                        format: date-time
+        '422':
           description: Thiếu dữ liệu
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  status:
+                    type: integer
+                    example: 422
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                        msg:
+                          type: string
+                          example: validation.required
+                        path:
+                          type: string
+                          example: name
+                        location:
+                          type: string
+                          example: body
 
-  /api/v1/tag/edit/{id}:
+  /tag/edit/{id}:
     put:
       tags:
         - Tags
@@ -74,10 +165,38 @@ paths:
       responses:
         '200':
           description: Sửa thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: "ok"
         '404':
           description: Không tìm thấy tag
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: "Không tìm thấy tag"
 
-  /api/v1/tag/delete/{id}:
+  /tag/delete/{id}:
     delete:
       tags:
         - Tags
@@ -91,5 +210,33 @@ paths:
       responses:
         '200':
           description: Xoá thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: "ok"
         '404':
           description: Không tìm thấy tag
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: "Không tìm thấy tag"

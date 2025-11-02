@@ -32,16 +32,7 @@ const languageService = {
     async getById(id) {
         const language = await Language.findOne({
             where: { id },
-            include: [
-                {
-                    model: User,
-                    attributes: ["id", "username"],
-                },
-                {
-                    model: Post,
-                    attributes: ["id", "title"],
-                }
-            ]
+            include: []
         });
         return language;
     },

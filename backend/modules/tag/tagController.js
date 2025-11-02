@@ -1,6 +1,6 @@
 const responseUtils = require("utils/responseUtils");
 const tagService = require("./tagService");
-
+const {validationResult} = require("express-validator");
 const tagController = {
     all: async (req, res) => {
         try {

@@ -116,7 +116,7 @@ const categoryController = {
                 return responseUtils.notFound(res, "Không tìm thấy category");
             }
             const category = categoryService.delete(cat_id);
-            return responseUtils.ok(res, category);
+            return responseUtils.ok(res, "ok");
         } catch (error) {
             console.log(error);
             return responseUtils.error(res, "Lỗi server");

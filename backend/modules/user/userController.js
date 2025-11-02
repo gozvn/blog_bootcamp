@@ -88,6 +88,13 @@ const userController = {
             if (!raw || Object.keys(raw).length === 0) {
                 return responseUtils.error(res, " Chua điền đủ thông tin !");
             }
+            
+            if (raw.email){
+                const checkExisting = await userSerivce.checkExisting(raw.email);
+                if (checkExisting) {
+                    return responseUtils.invalidated(res, "Email đã tồn tại!");
+                }
+            }
 
             const userData = { 
                 username: raw.username,

@@ -46,7 +46,7 @@ const userService = {
             }
         };
     },
-    async getbyId(id){
+    getbyId: async (id) => {
         const whereClause = {
             id: id
         }
@@ -55,10 +55,23 @@ const userService = {
             attributes: { exclude: ['password'] },
         })
         return user;
+    },
+
+    checkExisting: async (email) => {
+        const whereClause = {
+            email: email,
+        }
+        const user = await User.findOne({
+            where: whereClause,
+            attributes: { exclude: ['password'] },
+        })
+        return user;
     }, 
+
     create: async (userData) => {
         const newUser = await User.create(userData);
-        return newUser;
+        const { password, ...userWithoutPassword } = newUser.get({ plain: true });
+        return userWithoutPassword;
     },
 
     update: async (userId, userData) => {
@@ -68,7 +81,10 @@ const userService = {
         await User.update(userData, {
             where: whereClause
         });
-        const updatedUser = await User.findOne({ where: whereClause });
+        const updatedUser = await User.findOne({ 
+            where: whereClause,
+            attributes: { exclude: ['password'] },
+        });
         return updatedUser;
     },
     delete: async (userId) => {

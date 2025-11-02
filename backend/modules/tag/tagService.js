@@ -8,14 +8,7 @@ const tagService = {
     
     const whereClause = {};
     const offset = (page - 1) * limit;
-    const include = [
-      {
-        model: Post,
-        as: 'posts',
-        attributes: ["id", "title"],
-        through: { attributes: [] },
-      },
-    ];
+    const include = [ ];
     if (id !== undefined && id !== null) {
       whereClause.id = id;
     }

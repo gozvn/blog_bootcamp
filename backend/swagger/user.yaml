@@ -5,7 +5,7 @@ info:
   description: API quản lý người dùng
 
 paths:
-  /api/v1/user:
+  /user:
     get:
       tags:
         - Users
@@ -30,8 +30,54 @@ paths:
       responses:
         '200':
           description: Danh sách user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  status:
+                    type: integer
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      rows:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            username:
+                              type: string
+                            email:
+                              type: string
+                            lang_id:
+                              type: integer
+                            role:
+                              type: string
+                            created_at:
+                              type: string
+                              format: date-time
+                            updated_at:
+                              type: string
+                              format: date-time
+                      pagination:
+                        type: object
+                        properties:
+                          total:
+                            type: integer
+                          page:
+                            type: integer
+                          limit:
+                            type: integer
+                          totalPages:
+                            type: integer
 
-  /api/v1/user/{id}:
+  /user/{id}:
     get:
       tags:
         - Users
@@ -45,10 +91,55 @@ paths:
       responses:
         '200':
           description: Thông tin user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  status:
+                    type: integer
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      username:
+                        type: string
+                      email:
+                        type: string
+                      lang_id:
+                        type: integer
+                      role:
+                        type: string
+                      created_at:
+                        type: string
+                        format: date-time
+                      updated_at:
+                        type: string
+                        format: date-time
         '404':
           description: Không tồn tại user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  status:
+                    type: integer
+                  message:
+                    type: string
+                example:
+                  success: false
+                  status: 404
+                  message: "Không tồn tại user"
 
-  /api/v1/user/create:
+  /user/create:
     post:
       tags:
         - Users
@@ -72,17 +163,90 @@ paths:
                   type: string
                 role:
                   type: string
-                avatar:
-                  type: string
                 lang_id:
                   type: integer
       responses:
         '200':
           description: Tạo thành công
-        '400':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  status:
+                    type: integer
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      username:
+                        type: string
+                      email:
+                        type: string
+                      role:
+                        type: string
+                      lang_id:
+                        type: integer
+                      created_at:
+                        type: string
+                        format: date-time
+                      updated_at:
+                        type: string
+                        format: date-time
+                example:
+                  success: true
+                  status: 200
+                  message: "ok"
+                  data:
+                    id: 5
+                    username: "us22er"
+                    email: "asd@yss.com"
+                    role: "4"
+                    lang_id: 1
+                    created_at: "2025-11-02T03:37:08.919Z"
+                    updated_at: "2025-11-02T03:37:08.920Z"
+        '422':
           description: Thiếu dữ liệu
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  status:
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                        value:
+                          type: string
+                        msg:
+                          type: string
+                        path:
+                          type: string
+                        location:
+                          type: string
+                example:
+                  success: false
+                  status: 422
+                  data:
+                    - type: field
+                      value: ""
+                      msg: validation.required
+                      path: username
+                      location: body
 
-  /api/v1/user/edit/{id}:
+  /user/edit/{id}:
     put:
       tags:
         - Users
@@ -115,10 +279,62 @@ paths:
       responses:
         '200':
           description: Sửa thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  status:
+                    type: integer
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      username:
+                        type: string
+                      email:
+                        type: string
+                      lang_id:
+                        type: integer
+                      role:
+                        type: string
+                      created_at:
+                        type: string
+                        format: date-time
+                      updated_at:
+                        type: string
+                        format: date-time
+                example:
+                  success: true
+                  status: 200
+                  message: "ok"
+                  data:
+                    id: 6
+                    username: "Metal slug"
         '404':
-          description: Không tồn tại user
+          description: Không có user hợp lệ !
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  status:
+                    type: integer
+                  message:
+                    type: string
+                example:
+                  success: false
+                  status: 404
+                  message: "Không có user hợp lệ !"
 
-  /api/v1/user/delete/{id}:
+  /user/delete/{id}:
     delete:
       tags:
         - Users
@@ -132,5 +348,35 @@ paths:
       responses:
         '200':
           description: Xoá thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  status:
+                    type: integer
+                  message:
+                    type: string
+                example:
+                  success: true
+                  status: 200
+                  message: "ok"
         '404':
           description: Không tồn tại user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  status:
+                    type: integer
+                  message:
+                    type: string
+                example:
+                  success: false
+                  status: 404
+                  message: "Không tồn tại user"
