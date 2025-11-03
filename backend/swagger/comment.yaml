@@ -195,7 +195,7 @@ paths:
                         type: string
                         format: date-time
                         example: "2025-10-30T08:44:07.000Z"
-        '402':
+        '422':
           description: Thiếu dữ liệu
 
   /comment/edit/{id}:

@@ -186,7 +186,7 @@ paths:
                         type: string
                         format: date-time
                         example: "2025-11-02T03:17:04.635Z"
-        '402':
+        '422':
           description: Thiếu dữ liệu
           content:
             application/json:
@@ -198,7 +198,7 @@ paths:
                     example: false
                   status:
                     type: integer
-                    example: 402
+                    example: 422
                   message:
                     type: string
                     example: "chưa truyền ID"
