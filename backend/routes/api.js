@@ -34,7 +34,7 @@ const { checkSchema } = require("express-validator");
 // }
 // );
 
-router.get("/", (req, res) => {
+router.get("/", authMiddleware, (req, res) => {
   res.send("Hello world");
 });
 

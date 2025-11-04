@@ -28,7 +28,26 @@ paths:
                   example: secret
       responses:
         '200':
-          description: Đăng nhập thành công, trả về access token và cookie refresh_token
+          description: Đăng nhập thành công
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: ok
+                  data:
+                    type: object
+                    properties:
+                      accessToken:
+                        type: string
         '404':
           description: Email hoặc mật khẩu không đúng
 
