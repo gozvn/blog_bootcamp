@@ -9,10 +9,20 @@ const authMiddleware = (req, res, next) => {
                 return responseUtils.error(res, "Unauthorized");
             }
             req.user = decoded;
+            console.log(req.user)
             next();
         } catch (error) {
             return responseUtils.error(res, "Unauthorized");
         }
 }
 
-module.exports = authMiddleware;
+const checkRole = (role) => {
+    return (req, res, next) => {
+        if (parseInt(req.user.role) > parseInt(role)) {
+            return responseUtils.error(res, "Unauthorized");
+        }
+        next();
+    }
+}
+
+module.exports = {authMiddleware, checkRole};

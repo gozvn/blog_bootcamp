@@ -108,7 +108,7 @@ const authController = {
             const refreshToken = req?.cookies?.refresh_token || req?.body?.refresh_token;
 
             if (!refreshToken) {
-            return responseUtils.error(res, "Chưa có refresh Token");
+            return responseUtils.notFound(res, "Chưa có refresh Token");
             }
 
             // Tìm token trong DB

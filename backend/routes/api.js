@@ -5,7 +5,7 @@ const { validate } = require("kernels/validations");
 const exampleController = require("modules/examples/controllers/exampleController");
 const router = express.Router({ mergeParams: true });
 
-const authMiddleware  = require("../modules/middleware/authMiddleware")
+const { authMiddleware, checkRole }  = require("../modules/middleware/authMiddleware")
 
 const tagController = require("modules/tag/tagController");
 const tagValidation = require("modules/tag/tagValidation");
@@ -34,7 +34,7 @@ const { checkSchema } = require("express-validator");
 // }
 // );
 
-router.get("/", authMiddleware, (req, res) => {
+router.get("/", authMiddleware,checkRole(1), (req, res) => {
   res.send("Hello world");
 });
 
@@ -51,52 +51,52 @@ router.group("/auth", validate([]), (router) => {
 router.group("/language", validate([]), (router) => {
   router.get('/', languageController.all);
   router.get('/:id', languageController.getById);
-  router.post('/create', checkSchema(languageValidation.create), languageController.create);
-  router.put('/edit/:id', checkSchema(languageValidation.update), languageController.update);
-  router.delete('/delete/:id', languageController.delete);
+  router.post('/create',authMiddleware,checkRole(1), checkSchema(languageValidation.create), languageController.create);
+  router.put('/edit/:id',authMiddleware,checkRole(1), checkSchema(languageValidation.update), languageController.update);
+  router.delete('/delete/:id',authMiddleware,checkRole(1), languageController.delete);
 });
 
 // Tag module routes
 router.group("/tag", validate([]), (router) => {
   router.get('/', tagController.all);
-  router.post('/create', checkSchema(tagValidation.create), tagController.create);
-  router.put('/edit/:id', checkSchema(tagValidation.update), tagController.update);
-  router.delete('/delete/:id', tagController.delete);
+  router.post('/create',authMiddleware,checkRole(1), checkSchema(tagValidation.create), tagController.create);
+  router.put('/edit/:id',authMiddleware,checkRole(1), checkSchema(tagValidation.update), tagController.update);
+  router.delete('/delete/:id',authMiddleware,checkRole(1), tagController.delete);
 });
 
 // Comment module routes
 router.group("/comment", validate([]), (router) => {
   router.get('/', commentController.all);
   router.get('/:id', commentController.getById);
-  router.post('/create', commentController.create);
-  router.put('/edit/:id', commentController.update);
-  router.delete('/delete/:id', commentController.delete);
+  router.post('/create',authMiddleware,checkRole(1), commentController.create);
+  router.put('/edit/:id',authMiddleware,checkRole(1), commentController.update);
+  router.delete('/delete/:id',authMiddleware,checkRole(1), commentController.delete);
 });
 
 // Module Post routes
 router.group("/post", validate([]), (router) => {
   router.get('/', postController.all);
   router.get('/:id', postController.getbyId);
-  router.post('/create', checkSchema(postValidation.createPost), postController.create);
-  router.put('/edit/:id', checkSchema(postValidation.editPost), postController.edit);
-  router.delete('/delete/:id', postController.delete);
+  router.post('/create',authMiddleware,checkRole(1), checkSchema(postValidation.createPost), postController.create);
+  router.put('/edit/:id',authMiddleware,checkRole(1), checkSchema(postValidation.editPost), postController.edit);
+  router.delete('/delete/:id',authMiddleware,checkRole(1), postController.delete);
 })
 // User routes
 router.group("/user", validate([]), (router) => {
   router.get('/', userController.all);
   router.get('/:id', userController.getbyId);
-  router.post('/create', checkSchema(userValidation.createUser), userController.create);
-  router.put('/edit/:id', checkSchema(userValidation.updateUser), userController.update);
-  router.delete('/delete/:id', userController.delete);
+  router.post('/create',authMiddleware,checkRole(1), checkSchema(userValidation.createUser), userController.create);
+  router.put('/edit/:id',authMiddleware,checkRole(1), checkSchema(userValidation.updateUser), userController.update);
+  router.delete('/delete/:id',authMiddleware,checkRole(1), userController.delete);
 })
 
 // Module Category routes
 router.group("/category", validate([]), (router) => {
   router.get('/', categoryController.all);
   router.get('/:id', categoryController.getbyId);
-  router.put('/edit/:id', checkSchema(categoryValidation.updateCategory), categoryController.update);
-  router.post('/create',checkSchema(categoryValidation.createCategory),categoryController.create);
-  router.delete('/delete/:id',categoryController.delete);
+  router.put('/edit/:id',authMiddleware,checkRole(1), checkSchema(categoryValidation.updateCategory), categoryController.update);
+  router.post('/create',authMiddleware,checkRole(1), checkSchema(categoryValidation.createCategory),categoryController.create);
+  router.delete('/delete/:id',authMiddleware,checkRole(1), categoryController.delete);
 })
 
 router.group("/example", validate([]), (router) => {
