@@ -58,7 +58,8 @@ const authController = {
                     user: {
                         id: checkEmail.id,
                         email: checkEmail.email,
-                        name: checkEmail.name,
+                        username: checkEmail.username,
+                        role: checkEmail.role,
                     },
             };
 
@@ -125,7 +126,8 @@ const authController = {
 
             return responseUtils.ok(res, { accessToken : newAccessToken})
         } catch (error) {
-            
+            console.error(error);
+            return responseUtils.error(res, error);
         }
     
     }

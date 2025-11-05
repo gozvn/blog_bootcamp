@@ -50,14 +50,61 @@ paths:
                         type: string
         '404':
           description: Email hoặc mật khẩu không đúng
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: "Email hoặc mật khẩu không đúng !"
 
   /auth/refreshtoken:
     post:
       tags:
         - Auth
-      summary: Cấp mới access token từ refresh token
+      summary: Cấp mới access token từ refresh token ( Lấy refresh token từ cookie)
       responses:
         '200':
           description: Trả về access token mới
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: ok
+                  data:
+                    type: object
+                    properties:
+                      accessToken:
+                        type: string
         '404':
           description: Token không hợp lệ hoặc đã bị xoá
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  status:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: "Token không hợp lệ hoặc đã bị xoá"
