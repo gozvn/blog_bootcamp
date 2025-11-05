@@ -1,12 +1,12 @@
 const responseUtils = require("utils/responseUtils");
 const hash = require("kernels/hash/index.js");
 const authService = require("./authService");
-
+const userService = require("../user/userService");
+const passport = require("passport");
 const bcrypt = require('bcryptjs');
 const { bcrypt: bcryptConfig } = require('../../configs/hashing');
 // const jwt = require("configs/jwt");
 const jwtUtils = require("../../utils/jwtUtils")
-
 
 const authController = {
     login : async (req, res) => {
@@ -130,6 +130,18 @@ const authController = {
             return responseUtils.error(res, error);
         }
     
+    },
+    googleLogin: async (req, res) => {
+        try {
+            const { id_token } = req.body;
+            if (!id_token) return responseUtils.error(res, "Thiếu Google ID token");
+
+            const result = await authService.handleGoogleToken(id_token);
+            return responseUtils.ok(res,result);
+        } catch (error) {
+            console.error(error);
+            return responseUtils.error(res, error );
+        }
     }
 }
 

@@ -43,7 +43,9 @@ router.group("/auth", validate([]), (router) => {
   router.post('/login', authController.login);
   router.post('/logout', authController.logout);
   router.post('/refreshtoken', authController.refreshToken);
-});
+  router.post('/googleOAuth',authController.googleLogin) // Dành cho Google Login
+  
+})
 
 // router.group("/admin", dashboardRouter); 
 
