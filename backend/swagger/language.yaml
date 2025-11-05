@@ -3,7 +3,12 @@ info:
   title: Language API
   version: 1.0.0
   description: API quản lý ngôn ngữ
-
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 paths:
   /language:
     get:
@@ -19,6 +24,8 @@ paths:
           name: limit
           schema:
             type: integer
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: Danh sách ngôn ngữ
@@ -135,6 +142,8 @@ paths:
       tags:
         - Languages
       summary: Tạo ngôn ngữ
+      security:
+        - BearerAuth: []
       requestBody:
         required: true
         content:
@@ -280,6 +289,8 @@ paths:
           required: true
           schema:
             type: integer
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: Xoá thành công

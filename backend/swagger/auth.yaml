@@ -22,10 +22,10 @@ paths:
               properties:
                 email:
                   type: string
-                  example: user@example.com
+                  example: admin@example.com
                 password:
                   type: string
-                  example: secret
+                  example: 123456
       responses:
         '200':
           description: Đăng nhập thành công

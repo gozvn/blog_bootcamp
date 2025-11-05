@@ -3,7 +3,12 @@ info:
   title: Comment API
   version: 1.0.0
   description: API quản lý bình luận
-
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 paths:
   /comment:
     get:
@@ -90,6 +95,8 @@ paths:
           required: true
           schema:
             type: integer
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: Thông tin bình luận
@@ -138,6 +145,8 @@ paths:
       tags:
         - Comments
       summary: Tạo bình luận
+      security:
+        - BearerAuth: []
       requestBody:
         required: true
         content:
@@ -209,6 +218,8 @@ paths:
           required: true
           schema:
             type: integer
+      security:
+        - BearerAuth: []
       requestBody:
         required: true
         content:
@@ -272,6 +283,8 @@ paths:
           required: true
           schema:
             type: integer
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: Xoá thành công

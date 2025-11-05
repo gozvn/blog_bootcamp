@@ -3,7 +3,12 @@ info:
   title: Tag API
   version: 1.0.0
   description: API quản lý thẻ (tag)
-
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 paths:
   /tag:
     get:
@@ -70,6 +75,8 @@ paths:
       tags:
         - Tags
       summary: Tạo tag
+      security:
+        - BearerAuth: []
       requestBody:
         required: true
         content:
@@ -145,6 +152,8 @@ paths:
       tags:
         - Tags
       summary: Cập nhật tag
+      security:
+        - BearerAuth: []
       parameters:
         - in: path
           name: id
@@ -201,6 +210,8 @@ paths:
       tags:
         - Tags
       summary: Xoá tag
+      security:
+        - BearerAuth: []
       parameters:
         - in: path
           name: id

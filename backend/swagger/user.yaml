@@ -3,7 +3,12 @@ info:
   title: User API
   version: 1.0.0
   description: API quản lý người dùng
-
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 paths:
   /user:
     get:
@@ -144,6 +149,8 @@ paths:
       tags:
         - Users
       summary: Tạo user
+      security:
+        - BearerAuth: []
       requestBody:
         required: true
         content:
@@ -257,6 +264,8 @@ paths:
           required: true
           schema:
             type: integer
+      security:
+        - BearerAuth: []
       requestBody:
         required: true
         content:
@@ -345,6 +354,8 @@ paths:
           required: true
           schema:
             type: integer
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: Xoá thành công

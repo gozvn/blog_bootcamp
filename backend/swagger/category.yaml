@@ -3,7 +3,12 @@ info:
   title: Category API
   version: 1.0.0
   description: API quản lý danh mục bài viết
-
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 paths:
   /category:
     get:
@@ -87,6 +92,8 @@ paths:
       tags:
         - Categories
       summary: Tạo danh mục mới
+      security:
+        - BearerAuth: []
       requestBody:
         required: true
         content:
@@ -224,6 +231,8 @@ paths:
           required: true
           schema:
             type: integer
+      security:
+        - BearerAuth: []
       requestBody:
         required: true
         content:
@@ -288,6 +297,8 @@ paths:
           required: true
           schema:
             type: integer
+      security:
+        - BearerAuth: []
       responses:
         '200':
           description: Xóa thành công
