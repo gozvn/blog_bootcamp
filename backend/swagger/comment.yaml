@@ -95,8 +95,6 @@ paths:
           required: true
           schema:
             type: integer
-      security:
-        - BearerAuth: []
       responses:
         '200':
           description: Thông tin bình luận

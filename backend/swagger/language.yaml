@@ -24,8 +24,6 @@ paths:
           name: limit
           schema:
             type: integer
-      security:
-        - BearerAuth: []
       responses:
         '200':
           description: Danh sách ngôn ngữ
@@ -223,6 +221,8 @@ paths:
           required: true
           schema:
             type: integer
+      security:
+        - BearerAuth: []
       requestBody:
         required: true
         content:
