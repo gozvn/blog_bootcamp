@@ -8,10 +8,10 @@ import { map } from "rxjs";
 export class HomeService {
     constructor(private backendService: BackendService) { }
 
-    // getPosts(limit:number = 0) {
-    //     return this.backendService.get('post', {params: {limit}}), map((result: any) => {
-    //         return result?.list ?? [];
-    //     });
-    // }
+    getPosts(limit: number = 0) {
+        return this.backendService.get('post', { params: { limit } }).pipe(
+        map((result: any) => result?.data ?? [])
+        );
+    }
 
 }

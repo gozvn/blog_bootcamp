@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "../environments/environment.prod";
+import { Observable } from "rxjs";
 
 @Injectable(
     {
@@ -17,64 +18,66 @@ export class BackendService {
 
     _buildUrl( path:string){
 
-        const port = this.backendServer.port;
+        // const port = this.backendServer.port;
         const host = this.backendServer.host;
         const prefix = this.backendServer.prefix;
         const ssl = this.backendServer.ssl;
-
+        let port = "";
         let protocol = 'http://';
         if(ssl === true){
+            port = ":443";
             protocol = 'https://';
         }
-
-        return `${protocol}${host}:${port}${prefix}/${path}`;
+        const url = `${protocol}${host}${port}${prefix}/${path}`;
+        // console.log('URL:', url);
+        return url;
     }
-    get (path:string, options: any = {}, callback: any = null){
+    get (path:string, options: any = {}):Observable<any>{
 
         options.headers = {
             // 'xc-token': 'xg1z5ECTpAl98YWRFy6kQXnQP5KKtxeTAHNXFc0W',
         }
-
-        return this.http.get<any>(this._buildUrl(path), options).pipe(callback || '');
+        
+        return this.http.get<any>(this._buildUrl(path), options);
     }
 
-    post (path:string, body?: any, options: any = {}, callback: any = null){
-
-        options.headers = {
-            // 'xc-token': 'xg1z5ECTpAl98YWRFy6kQXnQP5KKtxeTAHNXFc0W',
-        }
-        body = body || {};
-
-        return this.http.post<any>(this._buildUrl(path), body, options).pipe(callback || '');
-    }
-
-    put (path:string, body?: any, options: any = {}, callback?: any){
+    post (path:string, body?: any, options: any = {}):Observable<any>{
 
         options.headers = {
             // 'xc-token': 'xg1z5ECTpAl98YWRFy6kQXnQP5KKtxeTAHNXFc0W',
         }
         body = body || {};
 
-        return this.http.put<any>(this._buildUrl(path), body, options).pipe(callback || '');
+        return this.http.post<any>(this._buildUrl(path), body, options);
     }
 
-    delete (path:string, options: any = {}, callback: any = null){
-
-        options.headers = {
-            // 'xc-token': 'xg1z5ECTpAl98YWRFy6kQXnQP5KKtxeTAHNXFc0W',
-        }
-
-        return this.http.delete<any>(this._buildUrl(path), options).pipe(callback || '');
-    }
-
-    postFile (path:string, body?: any, options: any = {}, callback: any = null){
+    put (path:string, body?: any, options: any = {}):Observable<any>{
 
         options.headers = {
             // 'xc-token': 'xg1z5ECTpAl98YWRFy6kQXnQP5KKtxeTAHNXFc0W',
         }
         body = body || {};
 
-        return this.http.post<any>(this._buildUrl(path), body, options).pipe(callback || '');
+        return this.http.put<any>(this._buildUrl(path), body, options);
+    }
+
+    delete (path:string, options: any = {}):Observable<any>{
+
+        options.headers = {
+            // 'xc-token': 'xg1z5ECTpAl98YWRFy6kQXnQP5KKtxeTAHNXFc0W',
+        }
+
+        return this.http.delete<any>(this._buildUrl(path), options);
+    }
+
+    postFile (path:string, body?: any, options: any = {}):Observable<any>{
+
+        options.headers = {
+            // 'xc-token': 'xg1z5ECTpAl98YWRFy6kQXnQP5KKtxeTAHNXFc0W',
+        }
+        body = body || {};
+
+        return this.http.post<any>(this._buildUrl(path), body, options);
     }
 
 }

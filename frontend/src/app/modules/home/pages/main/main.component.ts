@@ -7,14 +7,15 @@ import { HomeService } from '../../services/home.service';
   imports: [],
   templateUrl: './main.component.html',
 })
-export class mainHome {
-  listsNovelHome:any = [];
+
+export class mainHome implements OnInit {
+  listPost:any = [];
   constructor(private homeService: HomeService) { }
 
-  // ngOnInit(): void {
-  //   this.homeService.getPosts(6).subscribe((res: any) => {
-  //     console.log(res.data);
-  //     this.listsNovelHome = res.data;
-  //   })
-  // }
+  ngOnInit(): void {
+    this.homeService.getPosts(6).subscribe((res: any) => {
+      console.log(res);
+      this.listPost = res;
+    })
+  }
 }

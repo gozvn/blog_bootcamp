@@ -7,5 +7,5 @@ export const environment = {
         timeout : 30000,
         
     },
-    production: true,
+    production: false,
 };
