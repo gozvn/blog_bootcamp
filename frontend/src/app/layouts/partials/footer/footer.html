@@ -1,21 +1,67 @@
-    <!-- Footer -->
-    <footer class="bg-dark text-light py-5 mt-5">
-        <div class="container-md px-3">
-            <!-- Copyright -->
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <p class="mb-0 small">
-                        &copy; 2025 Gấu Trúc Audio. All rights reserved.
-                    </p>
-                </div>
-                <div class="col-md-6">
-                    <div class="d-flex justify-content-md-end justify-content-start gap-4 mt-2 mt-md-0">
-                        <a href="#" class="text-light text-decoration-none small">Chính sách</a>
-                        <a href="#" class="text-light text-decoration-none small">Điều khoản</a>
-                        <a href="#" class="text-light text-decoration-none small">Hỗ trợ</a>
-                        <a href="#" class="text-light text-decoration-none small">Sitemap</a>
-                    </div>
-                </div>
-            </div>
+<footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <div class="container">
+        <div class="col-md-4 d-flex align-items-center">
+          <span class="mb-3 mb-md-0 text-body-secondary">© 2025 Company, Inc</span>
         </div>
-    </footer>
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+          <li class="ms-3">
+            <a class="text-body-secondary" href="#" aria-label="Instagram"><svg class="bi" width="24" height="24" aria-hidden="true">
+                <use xlink:href="#instagram"></use></svg></a>
+          </li>
+          <li class="ms-3">
+            <a class="text-body-secondary" href="#" aria-label="Facebook"><svg class="bi" width="24" height="24">
+                <use xlink:href="#facebook"></use></svg></a>
+          </li>
+        </ul></div>
+</footer>
+    <!-- Language Selector Script -->
+    <script>
+        // Language selector functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const languageLinks = document.querySelectorAll('[data-lang]');
+            const currentLangDisplay = document.querySelector('.dropdown-toggle span');
+            const mobileLangButton = document.querySelector('.offcanvas .dropdown-toggle span');
+            
+            // Language options with flags and names
+            const languages = {
+                'en': '🇺🇸 English',
+                'vn': '🇻🇳 Vietnamese'
+            };
+            
+            // Get saved language or default to English
+            const savedLang = localStorage.getItem('selectedLanguage') || 'en';
+            updateLanguageDisplay(savedLang);
+            
+            // Add click event listeners to language links
+            languageLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const selectedLang = this.getAttribute('data-lang');
+                    
+                    // Save to localStorage
+                    localStorage.setItem('selectedLanguage', selectedLang);
+                    
+                    // Update display
+                    updateLanguageDisplay(selectedLang);
+                    
+                    // Here you could add logic to actually change the language
+                    // For example, redirect to a different URL or reload with language parameter
+                    console.log('Language changed to:', selectedLang);
+                });
+            });
+            
+            function updateLanguageDisplay(langCode) {
+                const langText = languages[langCode] || languages['en'];
+                
+                // Update desktop display
+                if (currentLangDisplay) {
+                    currentLangDisplay.textContent = langText.split(' ')[1]; // Just the language name
+                }
+                
+                // Update mobile display
+                if (mobileLangButton) {
+                    mobileLangButton.textContent = langText;
+                }
+            }
+        });
+    </script>

@@ -6,7 +6,7 @@ import { Footer } from '../partials/footer/footer';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [Header,Footer],
+  imports: [Header,Footer,RouterOutlet],
   templateUrl: './default.component.html',
   styleUrl: './default.component.scss'
 })
