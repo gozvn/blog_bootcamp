@@ -1,6 +1,6 @@
 export const environment = {
     backendServer : {
-        apiUrl : 'https://api.example.com',
+        host: 'localhost:3000',
         prefix : '/api/v1',
         port : 443,
         ssl : false,
