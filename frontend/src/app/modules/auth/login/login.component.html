@@ -34,7 +34,7 @@
                         <form id="loginForm" (ngSubmit)="onSubmit()" novalidate>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email Address</label>
-                                <input type="email" [(ngModel)]="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                                <input type="email" [(ngModel)]="email" class="form-control" id="email" name="email" placeholder="Enter your email" required [disabled]="loading">
                                 <div class="invalid-feedback">
                                     Please provide a valid email address.
                                 </div>
@@ -43,7 +43,7 @@
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
                                 <div class="input-group">
-                                    <input type="password" [(ngModel)]="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                                    <input type="password" [(ngModel)]="password" class="form-control" id="password" name="password" placeholder="Enter your password" required [disabled]="loading">
                                     <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                                         <i class="bi bi-eye" id="toggleIcon"></i>
                                     </button>
@@ -64,10 +64,15 @@
                             </div>
                             
                             <div class="d-grid">
-                                <button type="submit" class="btn btn-primary btn-lg" id="loginBtn">
-                                    <span class="spinner-border spinner-border-sm d-none me-2" id="loginSpinner" role="status" aria-hidden="true"></span>
-                                    Sign In
-                                </button>
+                                 <!-- Spinner khi loading -->
+                                    <button type="submit" class="btn btn-primary btn-lg" id="loginBtn" [disabled]="loading">
+                                        <span class="spinner-border spinner-border-sm me-2" id="loginSpinner" role="status" aria-hidden="true" [class.d-none]="!loading"></span>
+                                        @if (loading) {
+                                            Signing in...
+                                        } @else {
+                                            Sign In
+                                        }
+                                    </button>
                             </div>
                         </form>
                         

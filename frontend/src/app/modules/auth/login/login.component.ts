@@ -34,7 +34,7 @@ export class Login {
         this.loading = false;
         // Hiện toast success
         const msgEl = document.getElementById('successMessage');
-        if (msgEl) msgEl.textContent = 'Đăng nhập thành công!';
+        if (msgEl) msgEl.textContent = 'Success Login!';
         this.showToast('successToast');
 
         // Sau 1s điều hướng
@@ -42,7 +42,7 @@ export class Login {
       },
       error: (err) => {
         this.loading = false;
-        const msg = err.error?.message || 'Đăng nhập thất bại';
+        const msg = err.error?.message || 'Failed to login';
         this.errorMessage = msg;
 
         //  Hiện toast error
