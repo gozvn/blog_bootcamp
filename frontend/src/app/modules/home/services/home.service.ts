@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BackendService } from "../../../../services/backend.service";
+import { BackendService } from "../../../services/backend.service";
 import { map } from "rxjs";
 
 @Injectable({

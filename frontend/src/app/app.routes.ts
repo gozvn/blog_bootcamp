@@ -10,6 +10,12 @@ export const routes: Routes = [
         title : 'Trang Chủ'
     },
     {
+        path : 'auth',
+        component : defaultLayout,
+        loadChildren: () => import('./modules/auth/auth.routes').then(m => m.AuthRoutes),
+        title : 'Đăng nhập'
+    },
+    {
         path : 'dashboard',
         component : DashboardComponent,
         loadChildren: () => import('./modules/dashboard/dashboard.routes').then(m => m.DashboardRoutes),

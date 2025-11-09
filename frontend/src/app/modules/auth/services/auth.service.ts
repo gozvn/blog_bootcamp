@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BackendService } from '../../../../../../services/backend.service';
+import { BackendService } from '../../../services/backend.service';
 import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 
-export class LoginService {
+export class AuthService {
   constructor(private backendService: BackendService) {}
 
   login(email: string, password: string): Observable<any> {

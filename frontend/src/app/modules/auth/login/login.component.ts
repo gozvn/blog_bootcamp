@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoginService } from './services/login.service';
+import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Toast } from 'bootstrap';
@@ -10,13 +10,13 @@ import { Toast } from 'bootstrap';
   imports: [FormsModule],
   templateUrl: './login.component.html',
 })
-export class LoginHome {
+export class Login {
   email: string = '';
   password: string = '';
   errorMessage: string = '';
   loading: boolean = false;
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   private showToast(id: string) {
     const toastEl = document.getElementById(id);
@@ -29,10 +29,10 @@ export class LoginHome {
   onSubmit() {
     this.errorMessage = '';
     this.loading = true;
-    this.loginService.login(this.email, this.password).subscribe({
+    this.authService.login(this.email, this.password).subscribe({
       next: (res) => {
         this.loading = false;
-        // ✅ Hiện toast success
+        // Hiện toast success
         const msgEl = document.getElementById('successMessage');
         if (msgEl) msgEl.textContent = 'Đăng nhập thành công!';
         this.showToast('successToast');
@@ -45,7 +45,7 @@ export class LoginHome {
         const msg = err.error?.message || 'Đăng nhập thất bại';
         this.errorMessage = msg;
 
-        // ✅ Hiện toast error
+        //  Hiện toast error
         const msgEl = document.getElementById('errorMessage');
         if (msgEl) msgEl.textContent = msg;
         this.showToast('errorToast');
