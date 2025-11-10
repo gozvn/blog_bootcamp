@@ -37,7 +37,6 @@
                 formControlName="email"
                 class="form-control"
                 placeholder="Enter your email"
-                [disabled]="loading"
                 [class.is-invalid]="form.get('email')?.invalid && form.get('email')?.touched"
               />
               @if (form.get('email')?.errors?.['required'] && form.get('email')?.touched) {
@@ -58,14 +57,12 @@
                   class="form-control"
                   id="password"
                   placeholder="Enter your password"
-                  [disabled]="loading"
                   [class.is-invalid]="form.get('password')?.invalid && form.get('password')?.touched"
                 />
                 <button
                   class="btn btn-outline-secondary"
                   type="button"
                   (click)="togglePassword()"
-                  [disabled]="loading"
                 >
                   <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
                 </button>
@@ -91,7 +88,7 @@
 
             <!-- Submit -->
             <div class="d-grid">
-              <button type="submit" class="btn btn-primary btn-lg" [disabled]="loading">
+              <button type="submit" class="btn btn-primary btn-lg">
                 <span
                   class="spinner-border spinner-border-sm me-2"
                   role="status"

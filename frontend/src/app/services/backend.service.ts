@@ -34,18 +34,16 @@ export class BackendService {
     }
     get (path:string, options: any = {}):Observable<any>{
 
-        options.headers = {
-            // 'xc-token': 'xg1z5ECTpAl98YWRFy6kQXnQP5KKtxeTAHNXFc0W',
-        }
-        
+        options = options || {};
+        options.headers = options.headers || {};
+
         return this.http.get<any>(this._buildUrl(path), options);
     }
 
     post (path:string, body?: any, options: any = {}):Observable<any>{
 
-        options.headers = {
-            // 'xc-token': 'xg1z5ECTpAl98YWRFy6kQXnQP5KKtxeTAHNXFc0W',
-        }
+        options = options || {};
+        options.headers = options.headers || {};
         body = body || {};
 
         return this.http.post<any>(this._buildUrl(path), body, options);
@@ -53,9 +51,8 @@ export class BackendService {
 
     put (path:string, body?: any, options: any = {}):Observable<any>{
 
-        options.headers = {
-            // 'xc-token': 'xg1z5ECTpAl98YWRFy6kQXnQP5KKtxeTAHNXFc0W',
-        }
+        options = options || {};
+        options.headers = options.headers || {};
         body = body || {};
 
         return this.http.put<any>(this._buildUrl(path), body, options);
@@ -63,18 +60,16 @@ export class BackendService {
 
     delete (path:string, options: any = {}):Observable<any>{
 
-        options.headers = {
-            // 'xc-token': 'xg1z5ECTpAl98YWRFy6kQXnQP5KKtxeTAHNXFc0W',
-        }
+        options = options || {};
+        options.headers = options.headers || {};
 
         return this.http.delete<any>(this._buildUrl(path), options);
     }
 
     postFile (path:string, body?: any, options: any = {}):Observable<any>{
 
-        options.headers = {
-            // 'xc-token': 'xg1z5ECTpAl98YWRFy6kQXnQP5KKtxeTAHNXFc0W',
-        }
+        options = options || {};
+        options.headers = options.headers || {};
         body = body || {};
 
         return this.http.post<any>(this._buildUrl(path), body, options);
