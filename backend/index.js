@@ -12,13 +12,12 @@ const cors = require("cors");
 
 const app = express();
 
-app.use(cors({
-  origin: 'http://localhost:4200',
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'], 
-}));
-
+const corsOptions = {
+  origin: 'http://localhost:4200', // Không dùng '*'
+  credentials: true, // Cho phép gửi cookie, credentials
+};
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 app.disable("x-powered-by");
 // app.use(bodyParser.json()); 

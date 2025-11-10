@@ -49,7 +49,7 @@ const authController = {
             res.cookie("refresh_token", refreshToken, {
                 httpOnly: true,          // bảo vệ cookie khỏi truy cập từ JS (XSS)
                 secure: false,           // bật true nếu HTTPS
-                sameSite: "none",      // hạn chế gửi cookie sang domain khác
+                sameSite: "lax",      // hạn chế gửi cookie sang domain khác
                 maxAge: 7* 60 *60 *24 *1000 // 7 ngày
             });
 
@@ -94,7 +94,7 @@ const authController = {
             res.clearCookie("refresh_token", {
                 httpOnly: true,
                 secure: false,
-                sameSite: "strict",
+                sameSite: "lax",
             });
 
             return responseUtils.ok(res, "Đăng xuất thành công");

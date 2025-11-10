@@ -45,7 +45,7 @@ export class BackendService {
         options = options || {};
         options.headers = options.headers || {};
         body = body || {};
-
+        // console.log('POST options:', options);
         return this.http.post<any>(this._buildUrl(path), body, options);
     }
 
