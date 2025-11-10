@@ -43,7 +43,7 @@ export class LoginComponent {
     this.form.disable();
     
     const { email, password } = this.form.value;
-
+    
     this.authService.login(email, password).subscribe({
       next: async (res) => {
         this.loading = false;

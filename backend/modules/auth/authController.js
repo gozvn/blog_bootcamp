@@ -14,7 +14,7 @@ const authController = {
             const { email, password } = req.body;
 
             if (!email || !password ) {
-                responseUtils.error(res, " Chưa truyền email, password ")
+                return responseUtils.error(res, " Chưa truyền email, password ")
             }
             
             const checkEmail = await authService.checkEmail(email)

@@ -16,6 +16,7 @@ export class AuthService {
    */
   login(email: string, password: string): Observable<any> {
     // Gửi yêu cầu đăng nhập đến backend với email và password.
+
     return this.backendService.post('auth/login', { email, password }, { withCredentials: true }) 
     // withCredentials: true để gửi cookie cùng với yêu cầu.
       .pipe( // pipe: xử lý dữ liệu trả về từ backend.
