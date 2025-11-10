@@ -12,10 +12,17 @@ const cors = require("cors");
 
 const app = express();
 app.disable("x-powered-by");
-app.use(cors({
-  origin: 'http://localhost:4200',  // Cho phép frontend truy cập
-  credentials: true,                 // Nếu bạn dùng cookie cần true
-}));
+// Option cho CORS 
+const corsOptions = {
+  origin: 'http://localhost:4200',  // domain frontend cụ thể
+  credentials: true,                 // cho phép gửi cookie, header xác thực
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // các phương thức được phép
+  allowedHeaders: ['Content-Type', 'Authorization'],    // header được phép
+};
+
+app.use(cors(corsOptions)); // Sử dụng CORS với các option đã định nghĩa
+// Bắt OPTIONS preflight request với cấu hình cors giống trên
+app.options('*', cors(corsOptions));
 
 app.use(bodyParser.json());
 app.use(cookieParser());

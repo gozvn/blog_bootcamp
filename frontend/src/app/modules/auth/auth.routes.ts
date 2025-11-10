@@ -1,5 +1,5 @@
 import { Routes } from "@angular/router";
-import { Login } from "./login/login.component";
+import { LoginComponent } from "./login/login.component";
 
 export const AuthRoutes : Routes = [
     {
@@ -9,7 +9,7 @@ export const AuthRoutes : Routes = [
     },
     {
         path : 'login',
-        component : Login,
+        component : LoginComponent,
         title : 'Đăng nhập'
     }
 ]
