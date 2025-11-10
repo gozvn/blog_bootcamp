@@ -72,10 +72,10 @@ export class LoginComponent {
     // Gọi hàm login của authService và đăng ký callback
     this.authService.login(email, password).subscribe({
       // Nếu login thành công
-      next: () => {
+      next: (res) => {
         // Đặt trạng thái loading = false
         this.loading = false;
-
+        console.log(res);
         // Lấy thẻ HTML với id 'successMessage' và gán văn bản 'Đăng nhập thành công!'
         const msgEl = document.getElementById('successMessage');
         if (msgEl) msgEl.textContent = 'Success !! Logged in';
