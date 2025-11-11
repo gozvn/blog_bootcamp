@@ -1,0 +1,34 @@
+<div class="container">
+  <h2>🧪 Test CORS + Cookie Login</h2>
+
+  <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+    <div>
+      <label>Email:</label>
+      <input
+        type="email"
+        name="email"
+        [(ngModel)]="email"
+        required
+        placeholder="Nhập email"
+      />
+    </div>
+
+    <div>
+      <label>Password:</label>
+      <input
+        type="password"
+        name="password"
+        [(ngModel)]="password"
+        required
+        placeholder="Nhập mật khẩu"
+      />
+    </div>
+
+    <button type="submit" [disabled]="loading || loginForm.invalid">
+      {{ loading ? 'Đang gửi...' : 'Đăng nhập' }}
+    </button>
+  </form>
+
+  <h4>Kết quả:</h4>
+  <pre>{{ result | json }}</pre>
+</div>

@@ -27,6 +27,11 @@ export const routes: Routes = [
         title : 'Error'
     },
     {
+        path: 'test',
+        loadChildren: () => import('./modules/test/test.route').then(m => m.testRoutes),
+        title : 'Test'
+    },
+    {
         path: '**',
         redirectTo: 'error/404'
     }
