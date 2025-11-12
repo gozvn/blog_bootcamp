@@ -1,5 +1,5 @@
 module.exports = {
     secret : process.env.JWT_SECRET || 'secret',
 
-    ttl: '15m'
+    ttl: '1d', // thời gian sống của access token
 }

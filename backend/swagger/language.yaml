@@ -276,8 +276,6 @@ paths:
                           type: string
                         msg:
                           type: string
-                        path:
-
   /language/delete/{id}:
     delete:
       tags:

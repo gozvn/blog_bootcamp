@@ -4,6 +4,7 @@ const authService = require("./authService");
 const userService = require("../user/userService");
 const passport = require("passport");
 const bcrypt = require('bcryptjs');
+const { config } = require("configs");
 const { bcrypt: bcryptConfig } = require('../../configs/hashing');
 // const jwt = require("configs/jwt");
 const jwtUtils = require("../../utils/jwtUtils")
@@ -14,18 +15,18 @@ const authController = {
             const { email, password } = req.body;
 
             if (!email || !password ) {
-                return responseUtils.error(res, " Chưa truyền email, password ")
+                return responseUtils.invalidated(res, "validation.required")
             }
             
             const checkEmail = await authService.checkEmail(email)
 
             if (!checkEmail) {
-                return responseUtils.notFound(res, "Email hoặc mật khẩu không đúng !")
+                return responseUtils.invalidated(res, "validation.email")
             }
             // respone giống nhau
             const passwordMatches = await bcrypt.compare(password, checkEmail.password);
             if (!passwordMatches) {
-                return responseUtils.notFound(res, "Email hoặc mật khẩu không đúng !");
+                return responseUtils.invalidated(res, "validation.password");
             }
             
             const accessToken = jwtUtils.sign(checkEmail.id,checkEmail.role);
@@ -46,7 +47,7 @@ const authController = {
                 });
             }
 
-            res.cookie("refresh_token", refreshToken, {
+            res.cookie("refreshToken", refreshToken, {
                 httpOnly: true,          // bảo vệ cookie khỏi truy cập từ JS (XSS)
                 secure: false,           // bật true nếu HTTPS
                 sameSite: "lax",      // hạn chế gửi cookie sang domain khác
@@ -55,6 +56,7 @@ const authController = {
 
             const loginData = {
                     accessToken,
+                    expiredAt: config.jwt.ttl,
                     user: {
                         id: checkEmail.id,
                         email: checkEmail.email,

@@ -7,6 +7,8 @@ const router = express.Router({ mergeParams: true });
 
 const { authMiddleware, checkRole }  = require("../modules/middleware/authMiddleware")
 
+const publicController = require("modules/public/publicController");
+
 const tagController = require("modules/tag/tagController");
 const tagValidation = require("modules/tag/tagValidation");
 
@@ -38,6 +40,15 @@ router.get("/", authMiddleware,checkRole(1), (req, res) => {
   res.send("Hello world");
 });
 
+// Public routes
+router.group("/public", validate([]), (router) => {
+  router.get("/category", publicController.getCategories);
+  // router.get("/tag", publicController.getTags);
+  // router.get("/language", publicController.getLanguages);
+  // router.get("/post", publicController.getPosts);
+  // router.get("/user", publicController.getUsers);
+});
+
 // Authentication 
 router.group("/auth", validate([]), (router) => {
   router.post('/login', authController.login);
@@ -46,8 +57,6 @@ router.group("/auth", validate([]), (router) => {
   router.post('/googleOAuth',authController.googleLogin) // Dành cho Google Login
   
 })
-
-// router.group("/admin", dashboardRouter); 
 
 // Language module routes
 router.group("/language", validate([]), (router) => {
@@ -95,7 +104,7 @@ router.group("/user", validate([]), (router) => {
 // Module Category routes
 router.group("/category", validate([]), (router) => {
   router.get('/', categoryController.all);
-  router.get('/:id', categoryController.getbyId);
+  router.get('/:id', authMiddleware,checkRole(1), categoryController.getbyId);
   router.put('/edit/:id',authMiddleware,checkRole(1), checkSchema(categoryValidation.updateCategory), categoryController.update);
   router.post('/create',authMiddleware,checkRole(1), checkSchema(categoryValidation.createCategory),categoryController.create);
   router.delete('/delete/:id',authMiddleware,checkRole(1), categoryController.delete);

@@ -6,20 +6,20 @@ const authMiddleware = (req, res, next) => {
             const access_token = req.headers.authorization.split(" ")[1];
             const decoded = jwtUtils.verify(access_token);
             if (!decoded) {
-                return responseUtils.error(res, "Unauthorized");
+                return responseUtils.unauthorized(res, "Unauthorized");
             }
             req.user = decoded;
             console.log(req.user)
             next();
         } catch (error) {
-            return responseUtils.error(res, "Unauthorized");
+            return responseUtils.unauthorized(res, "Unauthorized");
         }
 }
 
 const checkRole = (role) => {
     return (req, res, next) => {
         if (parseInt(req.user.role) > parseInt(role)) {
-            return responseUtils.error(res, "Unauthorized");
+            return responseUtils.unauthorized(res, "Unauthorized");
         }
         next();
     }
