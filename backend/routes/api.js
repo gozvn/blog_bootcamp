@@ -1,8 +1,7 @@
 require("express-router-group");
 const express = require("express");
-const middlewares = require("kernels/middlewares");
+// const middlewares = require("kernels/middlewares");
 const { validate } = require("kernels/validations");
-const exampleController = require("modules/examples/controllers/exampleController");
 const router = express.Router({ mergeParams: true });
 
 const { authMiddleware, checkRole }  = require("../modules/middleware/authMiddleware")
@@ -43,10 +42,8 @@ router.get("/", authMiddleware,checkRole(1), (req, res) => {
 // Public routes
 router.group("/public", validate([]), (router) => {
   router.get("/category", publicController.getCategories);
-  // router.get("/tag", publicController.getTags);
-  // router.get("/language", publicController.getLanguages);
-  // router.get("/post", publicController.getPosts);
-  // router.get("/user", publicController.getUsers);
+  router.get("/post", publicController.getPosts);
+
 });
 
 // Authentication 
@@ -108,10 +105,6 @@ router.group("/category", validate([]), (router) => {
   router.put('/edit/:id',authMiddleware,checkRole(1), checkSchema(categoryValidation.updateCategory), categoryController.update);
   router.post('/create',authMiddleware,checkRole(1), checkSchema(categoryValidation.createCategory),categoryController.create);
   router.delete('/delete/:id',authMiddleware,checkRole(1), categoryController.delete);
-})
-
-router.group("/example", validate([]), (router) => {
-  router.get('/', exampleController.exampleRequest);
 })
 
 module.exports = router;

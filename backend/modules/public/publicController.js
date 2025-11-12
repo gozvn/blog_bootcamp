@@ -18,17 +18,26 @@ const publicController = {
             responseUtils.error(res, error);
         }
     },
-    getTags: async (req, res) => {
-        // Logic to get tags
-    },
-    getLanguages: async (req, res) => {
-        // Logic to get languages
-    },
     getPosts: async (req, res) => {
-        // Logic to get posts
-    },
-    getUsers: async (req, res) => {
-        // Logic to get users
+        try {
+            // chenf param ở đây
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || process.env.POST_PAGINATION_LIMIT;
+            const categoryId = req.query.category_id || null;
+            const tagId = req.query.tag_id || null;
+            const userId = req.query.user_id || null;
+            const langId = req.query.lang_id || null;
+            const status = req.query.status || null;
+            const featured = req.query.featured || null;
+            // const cat = parse Int(req.query.cat);
+
+            const post = await publicService.listPosts(page,limit,categoryId,tagId,userId,langId,status,featured);
+            // xử lý show all ở đây
+            return responseUtils.ok(res,post)
+        } catch (error) {
+            console.log(error)
+            return responseUtils.error(res,{ message : error })
+        }
     },
 };
 

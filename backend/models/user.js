@@ -1,5 +1,4 @@
 'use strict';
-const { post } = require('index');
 const {
   Model
 } = require('sequelize');

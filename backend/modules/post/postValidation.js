@@ -30,7 +30,7 @@ const postValidation = {
     },
     featured: {
       notEmpty: true,
-      isInteger: true,
+      isBoolean: true,
       errorMessage: 'Validation.required',
     },
     thumbnail: {
@@ -69,7 +69,7 @@ const postValidation = {
     },
     featured: {
       optional: true,
-      isInteger: true,
+      isBoolean: true,
       errorMessage: 'Validation.required',
     },
     thumbnail: {
