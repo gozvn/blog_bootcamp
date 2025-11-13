@@ -1,0 +1,76 @@
+openapi: 3.0.0
+info:
+  title: Public API
+  version: 1.0.0
+  description: Client Public API.
+
+paths:
+  /public/category:
+    get:
+      tags:
+        - Public Client API
+      summary: danh sách tất cả danh mục puclic
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: limit
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Danh sách categories
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: "ok"
+                  data:
+                    type: object
+                    properties:
+                      rows:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 9
+                            cat_name:
+                              type: string
+                              example: "Chính Trị"
+                            thumbnail:
+                              type: string
+                              example: "img/default-category.png"
+                            description:
+                              type: string
+                              example: "Tin tức về Trump"
+                            cat_slug:
+                              type: string
+                              example: "chnh-tr"
+                      pagination:
+                        type: object
+                        properties:
+                          total:
+                            type: integer
+                            example: 9
+                          page:
+                            type: integer
+                            example: 1
+                          limit:
+                            type: integer
+                            example: 10
+                          totalPages:
+                            type: integer
+                            example: 1

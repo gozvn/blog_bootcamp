@@ -11,6 +11,7 @@ const publicService = {
                 where: whereClause,
                 include,
                 order: [["id", "DESC"]],
+                attributes: { exclude: ['created_at','updated_at'] },
                 offset,
                 limit,
                 distinct: true, // tránh bị nhân bản khi join nhiều bảng

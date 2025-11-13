@@ -52,10 +52,17 @@ const postController = {
             }
             // Lấy dữ liệu từ request
             const { title, thumbnail, featured, status, content, category, user_id, tags, lang_id } = req.body;
-            if (!title || !content || !category || !user_id) {
-                return responseUtils.error(res, {
-                    error: 'Thiếu dữ liệu'
-                });
+            if (!title ) {
+                return responseUtils.invalidated(res, 'validation.title.required');
+            }
+            if ( !content ) {
+                return responseUtils.invalidated(res, 'validation.content.required');
+            }
+            if (!category ) {
+                return responseUtils.invalidated(res, 'validation.category.required');
+            }
+            if (!user_id ) {
+                return responseUtils.invalidated(res, 'validation.user_id.required');
             }
             const newPost = await postService.createPost({
                 title,

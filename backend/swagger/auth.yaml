@@ -2,14 +2,14 @@ openapi: 3.0.0
 info:
   title: Auth API
   version: 1.0.0
-  description: API xác thực người dùng
+  description: API xác thực người dùng và quản lý token.
 
 paths:
   /auth/login:
     post:
       tags:
         - Auth
-      summary: Đăng nhập
+      summary: Đăng nhập và nhận access token cùng refresh token
       requestBody:
         required: true
         content:
