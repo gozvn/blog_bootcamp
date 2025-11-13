@@ -7,5 +7,8 @@ export const environment = {
         timeout : 30000,
         
     },
+    cdn: {
+        baseimageUrl: 'http://localhost:4200/assets', // Lưu tạm ở đaay
+    },
     production: false,
 };

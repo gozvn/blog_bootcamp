@@ -18,7 +18,7 @@ const postService = {
                     {
                         as: 'categories',
                         model: Category,
-                        attributes: ["id", "cat_name"],
+                        attributes: ["id", "name"],
                         through: { attributes: [] },
                     },
                     {

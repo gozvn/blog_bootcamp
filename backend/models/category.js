@@ -18,10 +18,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Category.init({
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    cat_name: DataTypes.STRING(255),
+    name: DataTypes.STRING(255),
     thumbnail: DataTypes.STRING(100),
     description: DataTypes.TEXT,
-    cat_slug: DataTypes.STRING(100),
+    slug: DataTypes.STRING(100),
     created_at: DataTypes.DATE,
     updated_at: DataTypes.DATE
   }, {

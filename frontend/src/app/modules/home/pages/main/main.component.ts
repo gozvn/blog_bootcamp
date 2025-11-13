@@ -1,21 +1,15 @@
 import { Component,OnInit } from '@angular/core';
 import { HomeService } from '../../services/home.service';
+import { FeaturedPostComponent } from './featured-post/featured-post.component';
+import { LastestPostComponent } from './lastest-post/lastest-post.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @Component({
   selector: 'app-main',
   standalone:true,
-  imports: [],
+  imports: [FeaturedPostComponent,LastestPostComponent, SidebarComponent],
   templateUrl: './main.component.html',
 })
 
-export class mainHome implements OnInit {
-  listPost:any = [];
-  constructor(private homeService: HomeService) { }
-
-  ngOnInit(): void {
-    this.homeService.getPosts(6).subscribe((res: any) => {
-      console.log(res);
-      this.listPost = res;
-    })
-  }
+export class mainHome { 
 }

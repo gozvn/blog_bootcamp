@@ -4,11 +4,12 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { ToastService } from '../../../services/toast.service';
+import { ToastComponent } from '../../../layouts/partials/toast/toast.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, ToastComponent],
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
@@ -54,7 +55,12 @@ export class LoginComponent {
       error: async (err) => {
         this.loading = false;
         this.form.enable();
-        const msg = err.error?.message || 'Failed to login';
+        const errdata = err.error.data;
+        let msg ="Failed to login. Please try again.";
+        if (errdata === 'validation.email' || errdata === 'validation.password') {
+          msg = "Invalid email or password";
+        }
+        console.error('Login error:', err);
         await this.toastService.showMessage('errorToast', msg);
       },
     });
