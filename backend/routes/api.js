@@ -42,6 +42,7 @@ router.get("/", authMiddleware,checkRole(1), (req, res) => {
 // Public routes
 router.group("/public", validate([]), (router) => {
   router.get("/category", publicController.getCategories);
+  router.get("/category/:id", publicController.getCategoryById);
   router.get("/post", publicController.getPosts);
   router.get("/post/:id", publicController.getPostById);
 });

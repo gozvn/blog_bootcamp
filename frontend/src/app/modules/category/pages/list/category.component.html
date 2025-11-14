@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="container">
         <!-- Page Header -->
-        <div class="row mb-5">
+        <div class="row mb-2">
             <div class="col-12">
                 <div class="text-center">
                     <h1 class="display-4 fw-bold text-dark mb-3">Browse Categories</h1>
@@ -11,135 +11,28 @@
         </div>
 
         <!-- Categories Grid -->
-        <div class="row g-4 mb-5">
+        <div class="row g-4 mb-2">
             <!-- Technology Category -->
+            @for (category of listcategories; track category.id) {
             <div class="col-md-6 col-lg-4">
                 <div class="card h-100 shadow-sm border-0 category-card">
+                    <a [routerLink]="['/category', category.id, category.slug]" class="stretched-link">
                     <div class="category-icon mb-3">
-                            <img src="img/no_img.jpg" alt="" style="aspect-ratio: 3/2; width: 100%; object-fit: cover; border-radius: 0.5rem;">
+                            <img src="/assets/img/no_img.jpg" alt="" style="aspect-ratio: 3/2; width: 100%; object-fit: cover; border-radius: 0.5rem;">
                     </div>
+                    </a>
                     <div class="card-body text-center p-1">                       
-                        <h5 class="card-title fw-bold">Technology</h5>
-                        <p class="card-text text-muted">Latest trends in web development, AI, and software engineering</p>
-                        <div class="d-flex justify-content-between align-items-center mt-3">
+                        <h5 class="card-title fw-bold">{{category.name}}</h5>
+                        <p class="card-text text-muted">{{category.description}}</p>
+                        <!-- <div class="d-flex justify-content-between align-items-center mt-3">
                             <span class="badge bg-primary">24 Posts</span>
-                            <a href="post_category.html" class="btn btn-outline-primary btn-sm">View Posts</a>
-                        </div>
+                            <a [routerLink]="['/category', category.id, category.slug]" class="btn btn-outline-primary btn-sm">View Posts</a>
+                        </div> -->
                     </div>
                 </div>
             </div>
-
-            <!-- Design Category -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 shadow-sm border-0 category-card">
-                    <div class="category-icon mb-3">
-                            <img src="img/no_img.jpg" alt="" style="aspect-ratio: 3/2; width: 100%; object-fit: cover; border-radius: 0.5rem;">
-                    </div>
-                    <div class="card-body text-center p-1">
-
-                        <h5 class="card-title fw-bold">Design</h5>
-                        <p class="card-text text-muted">UI/UX design principles, graphic design, and creative inspiration</p>
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <span class="badge bg-success">18 Posts</span>
-                            <a href="post_category.html" class="btn btn-outline-success btn-sm">View Posts</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Business Category -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 shadow-sm border-0 category-card">
-                        <div class="category-icon mb-3">
-                            <img src="img/no_img.jpg" alt="" style="aspect-ratio: 3/2; width: 100%; object-fit: cover; border-radius: 0.5rem;">
-                        </div>
-                    <div class="card-body text-center p-1">
-                        
-                        <h5 class="card-title fw-bold">Business</h5>
-                        <p class="card-text text-muted">Entrepreneurship, marketing strategies</p>
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <span class="badge bg-warning">15 Posts</span>
-                            <a href="post_category.html" class="btn btn-outline-warning btn-sm">View Posts</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Lifestyle Category -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 shadow-sm border-0 category-card">
-                    <div class="category-icon mb-3">
-                            <img src="img/no_img.jpg" alt="" style="aspect-ratio: 3/2; width: 100%; object-fit: cover; border-radius: 0.5rem;">
-                        </div>
-                    <div class="card-body text-center p-1">
-                        
-                        <h5 class="card-title fw-bold">Lifestyle</h5>
-                        <p class="card-text text-muted">Health, wellness, productivity, and personal development</p>
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <span class="badge bg-danger">12 Posts</span>
-                            <a href="post_category.html" class="btn btn-outline-danger btn-sm">View Posts</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Travel Category -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 shadow-sm border-0 category-card">
-                       <div class="category-icon mb-3">
-                            <img src="img/no_img.jpg" alt="" style="aspect-ratio: 3/2; width: 100%; object-fit: cover; border-radius: 0.5rem;">
-                        </div>
-                    <div class="card-body text-center p-1">
-
-                        <h5 class="card-title fw-bold">Travel</h5>
-                        <p class="card-text text-muted">Travel guides, tips, and adventure stories from around the world</p>
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <span class="badge bg-info">9 Posts</span>
-                            <a href="post_category.html" class="btn btn-outline-info btn-sm">View Posts</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Food Category -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 shadow-sm border-0 category-card">
-                                          <div class="category-icon mb-3">
-                            <img src="img/no_img.jpg" alt="" style="aspect-ratio: 3/2; width: 100%; object-fit: cover; border-radius: 0.5rem;">
-                        </div>
-                    <div class="card-body text-center p-1">
-
-                        <h5 class="card-title fw-bold">Food &amp; Cooking</h5>
-                        <p class="card-text text-muted">Recipes, cooking tips, and culinary adventures</p>
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <span class="badge bg-teal">7 Posts</span>
-                            <a href="post_category.html" class="btn btn-outline-success btn-sm">View Posts</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            } 
         </div>
-
-        <!-- Popular Tags Section -->
-        <!-- <div class="row mb-5">
-            <div class="col-12">
-                <h3 class="mb-4">Popular Tags</h3>
-                <div class="d-flex flex-wrap gap-2">
-                    <span class="badge bg-primary fs-6 py-2 px-3">JavaScript</span>
-                    <span class="badge bg-secondary fs-6 py-2 px-3">React</span>
-                    <span class="badge bg-success fs-6 py-2 px-3">CSS</span>
-                    <span class="badge bg-danger fs-6 py-2 px-3">Node.js</span>
-                    <span class="badge bg-warning fs-6 py-2 px-3">Python</span>
-                    <span class="badge bg-info fs-6 py-2 px-3">UI/UX</span>
-                    <span class="badge bg-dark fs-6 py-2 px-3">Bootstrap</span>
-                    <span class="badge bg-primary fs-6 py-2 px-3">Web Development</span>
-                    <span class="badge bg-secondary fs-6 py-2 px-3">Mobile</span>
-                    <span class="badge bg-success fs-6 py-2 px-3">SEO</span>
-                    <span class="badge bg-danger fs-6 py-2 px-3">Marketing</span>
-                    <span class="badge bg-warning fs-6 py-2 px-3">Productivity</span>
-                </div>
-            </div>
-        </div> -->
 
     </div>
 <app-footer></app-footer>

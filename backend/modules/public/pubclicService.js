@@ -134,6 +134,50 @@ const publicService = {
             attributes: { exclude: ['user_id','lang_id'] },
         });
         return post;
+    },
+    async getCategoryById(categoryId, page = 1, limit = 10) {
+        page = parseInt(page);
+        limit = parseInt(limit);
+        const offset = (page - 1) * limit;
+
+        // Lấy thông tin category (không include posts)
+        const category = await Category.findOne({
+            where: { id: categoryId },
+            attributes: { exclude: ['created_at', 'updated_at'] },
+        });
+
+        if (!category) return null;
+
+        // Lấy posts thuộc category với phân trang
+        const { count, rows } = await Post.findAndCountAll({
+            include: [
+                {
+                    model: Category,
+                    as: 'categories',
+                    where: { id: categoryId },
+                    attributes: [], // không cần lấy thuộc tính category ở đây
+                    through: { attributes: [] }
+                }
+            ],
+            attributes: ["id", "title", "content", "slug"],
+            offset,
+            limit,
+            order: [["id", "DESC"]],
+            distinct: true,
+        });
+
+        // Gộp posts và pagination vào category.dataValues
+        category.dataValues.posts = {
+            rows,
+            pagination: {
+                total: count,
+                page,
+                limit,
+                totalPages: Math.ceil(count / limit),
+            }
+        };
+
+        return category;
     }
 };
 

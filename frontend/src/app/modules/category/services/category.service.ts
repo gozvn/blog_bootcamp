@@ -15,4 +15,13 @@ export class CategoryService  {
             })
         );
     }
+
+    getCategoryPosts(categoryId: number): Observable<any> {
+        return this.backendService.get(`public/category/${categoryId}/posts`).pipe(
+            tap((response: any) => {
+                // Xử lý dữ liệu nếu cần
+            })
+        );
+    }
+    
 }

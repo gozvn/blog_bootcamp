@@ -1,3 +1,4 @@
+const { get } = require("index");
 const publicService = require("./pubclicService");
 const responseUtils = require("utils/responseUtils");
 
@@ -47,6 +48,21 @@ const publicController = {
                 return responseUtils.notFound(res, "Không tìm thấy bài viết");
             }
             return responseUtils.ok(res,post)
+        } catch (error) {
+            console.log(error)
+            return responseUtils.error(res,{ message : error })
+        }
+    },
+    getCategoryById: async (req, res) => {
+        try {
+            const categoryId = parseInt(req.params.id)  || null;
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || parseInt(process.env.CATEGORY_PAGINATION_LIMIT) || 10;
+            const category = await publicService.getCategoryById(categoryId,page,limit);
+            if (!category) {
+                return responseUtils.notFound(res, "Không tìm thấy danh mục");
+            }
+            return responseUtils.ok(res,category)
         } catch (error) {
             console.log(error)
             return responseUtils.error(res,{ message : error })
