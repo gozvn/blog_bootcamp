@@ -1,4 +1,4 @@
-const { Category,Post } = require("../../models");
+const { Category,Post,User,Tag,Language } = require("../../models");
 
 const publicService = {
     async listCategories(page, limit) {
@@ -36,6 +36,7 @@ const publicService = {
             const whereClause ={};
             const include = [
                     {
+                        as : 'user',
                         model: User,
                         attributes: ["id", "username"],
                     },
@@ -52,6 +53,7 @@ const publicService = {
                         through : { attributes:[] }
                     },
                     {
+                        as : 'language',
                         model: Language,
                         attributes: ["id","lang_name"],
                     }
@@ -94,7 +96,7 @@ const publicService = {
 
             return {
                 rows,
-                pagniation: {
+                pagination: {
                     total: count,
                     page,
                     limit,
@@ -102,6 +104,37 @@ const publicService = {
                 }
             };
     },
+    async getPostById(postId) {
+        const post = await Post.findOne({
+            where: { id: postId },
+            include: [
+                {
+                    as : 'user',
+                    model: User,
+                    attributes: ["id", "username"],
+                },
+                {
+                    as: 'categories',
+                    model: Category,
+                    attributes: ["id", "name"],
+                    through: { attributes: [] },
+                },
+                {
+                    as: 'tags',
+                    model: Tag,
+                    attributes: ["id","name"],
+                    through : { attributes:[] }
+                },
+                {
+                    as : 'language',
+                    model: Language,
+                    attributes: ["id","lang_name"],
+                }
+            ],
+            attributes: { exclude: ['user_id','lang_id'] },
+        });
+        return post;
+    }
 };
 
 module.exports = publicService;

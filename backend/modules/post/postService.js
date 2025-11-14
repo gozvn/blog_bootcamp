@@ -12,6 +12,7 @@ const postService = {
             const whereClause ={};
             const include = [
                     {
+                        as : 'user',
                         model: User,
                         attributes: ["id", "username"],
                     },
@@ -28,6 +29,7 @@ const postService = {
                         through : { attributes:[] }
                     },
                     {
+                        as : 'language',
                         model: Language,
                         attributes: ["id","lang_name"],
                     }
@@ -88,6 +90,7 @@ const postService = {
             attributes: { exclude: ['user_id','lang_id'] },
             include: [
                 {
+                    as : 'user',
                     model: User,
                     attributes: ["id", "username"],
                 },
@@ -104,6 +107,7 @@ const postService = {
                     through : { attributes:[] }
                 },
                 {
+                    as : 'language',
                     model: Language,
                     attributes: ["id","lang_name"],
                 },

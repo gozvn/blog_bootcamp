@@ -8,18 +8,22 @@ import { map } from "rxjs";
 export class HomeService {
     constructor(private backendService: BackendService) { }
 
-    getPosts(limit: number = 0) {
+    getPosts(limit: number = 0, page : number = 1) {
         const params:any ={};
         if (limit > 0) {
             params.limit = limit;
         }
-        return this.backendService.get('post', { params}).pipe(
-        map((result: any) => result?.data ?? [])
+        if (page > 0) {
+            params.page = page;
+        }
+        return this.backendService.get('public/post', { params}).pipe(
+        map((result: any) => result?.data ?? { rows: [], pagination: null })
         );
     }
+    
     getfeaturedPosts(limit: number = 0, featured: boolean = true) {
-        return this.backendService.get('post', { params: { limit, featured }}).pipe(
-        map((result: any) => result?.data ?? [])
+        return this.backendService.get('public/post', { params: { limit, featured }}).pipe(
+        map((result: any) => result?.data.rows ?? [])
         );
     }
 

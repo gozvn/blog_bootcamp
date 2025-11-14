@@ -16,19 +16,17 @@
               Categories
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownCategories">
-              <li><a class="dropdown-item" href="categories.html">All Categories</a></li>
-              <li><a class="dropdown-item" href="post_category.html">Technology</a></li>
-              <li><a class="dropdown-item" href="post_category.html">Design</a></li>
-              <li><a class="dropdown-item" href="post_category.html">Business</a></li>
-              <li><a class="dropdown-item" href="post_category.html">Lifestyle</a></li>
-              <li><a class="dropdown-item" href="post_category.html">Travel</a></li>
+              <li><a class="dropdown-item" routerLink="/category">All Categories</a></li>
+              @for ( category of listcategories; track category.id) {
+              <li><a class="dropdown-item" [routerLink]="['/category', category.id, category.slug]">{{ category.name }}</a></li>
+              }
             </ul>
           </li>
           <li>
-            <a routerLink="auth/login" class="nav-link px-2 link-secondary">Login</a>
+            <a routerLink="/auth/login" class="nav-link px-2 link-secondary">Login</a>
           </li>
           <li>
-            <a routerLink="auth/signup" class="nav-link px-2 link-secondary">Sign Up</a>
+            <a routerLink="/auth/signup" class="nav-link px-2 link-secondary">Sign Up</a>
           </li>
         </ul>
         

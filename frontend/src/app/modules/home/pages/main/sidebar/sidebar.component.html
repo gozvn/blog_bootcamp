@@ -23,45 +23,21 @@
         <div>
           <h4 class="fst-italic">Recent Posts</h4>
           <ul class="list-unstyled">
+          @for (post of recentPosts; track post.id) {
             <li>
               <div class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 border-top">
-                <a href="detail_blog.html">
+                <a href="posts/{{post.id}}/{{post.slug}}">
                   <img src="assets/img/no_img.jpg" alt="Post thumbnail" class="rounded" width="100" height="60">
                 </a>
                 <div class="col-lg-8">
                   <h6 class="mb-0">
-                    <a href="detail_blog.html" class="text-decoration-none text-dark">The Future of Web Development</a>
+                    <a href="posts/{{post.id}}/{{post.slug}}" class="text-decoration-none text-dark">{{post.title}}</a>
                   </h6>
-                  <small class="text-body-secondary">October 12, 2025 • 2:30 PM</small>
+                  <small class="text-body-secondary">{{ post.created_at | date:'MMM d, y • h:mm a' }}</small>
                 </div>
               </div>
             </li>
-            <li>
-              <div class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 border-top">
-                <a href="detail_blog.html">
-                  <img src="assets/img/no_img.jpg" alt="Post thumbnail" class="rounded" width="100" height="60">
-                </a>
-                <div class="col-lg-8">
-                  <h6 class="mb-0">
-                    <a href="detail_blog.html" class="text-decoration-none text-dark">UI/UX Design Principles</a>
-                  </h6>
-                  <small class="text-body-secondary">October 11, 2025 • 10:15 AM</small>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 border-top">
-                <a href="detail_blog.html">
-                  <img src="assets/img/no_img.jpg" alt="Post thumbnail" class="rounded" width="100" height="60">
-                </a>
-                <div class="col-lg-8">
-                  <h6 class="mb-0">
-                    <a href="detail_blog.html" class="text-decoration-none text-dark">Work-Life Balance Tips</a>
-                  </h6>
-                  <small class="text-body-secondary">October 10, 2025 • 4:45 PM</small>
-                </div>
-              </div>
-            </li>
+          }
           </ul>
         </div>
         <!-- Social Links -->

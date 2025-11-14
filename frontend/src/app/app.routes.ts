@@ -22,6 +22,16 @@ export const routes: Routes = [
         title : 'Dashboard'
     },
     {
+        path : 'post',
+        loadChildren: () => import('./modules/post/post.routes').then(m => m.PostRoutes),
+        title : 'Bài viết'
+    },
+    {
+        path : 'category',
+        loadChildren: () => import('./modules/category/category.routes').then(m => m.categoryRoutes),
+        title : 'Danh mục'
+    },
+    {
         path: 'error',
         loadChildren: () => import('./modules/errors/errors.routes').then(m => m.ErrorsRoutes),
         title : 'Error'

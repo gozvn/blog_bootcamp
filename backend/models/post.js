@@ -18,8 +18,8 @@ module.exports = (sequelize, DataTypes) => {
           through : models.PostTag, foreignKey : 'post_id', as : 'tags'
       });
       Post.hasMany(models.Comment, { foreignKey: 'post_id'});
-      Post.belongsTo(models.User, { foreignKey : 'user_id'});
-      Post.belongsTo(models.Language, {foreignKey : 'lang_id'});
+      Post.belongsTo(models.User, { foreignKey : 'user_id', as : 'user' });
+      Post.belongsTo(models.Language, {foreignKey : 'lang_id', as : 'language' });
     }
   }
   Post.init({

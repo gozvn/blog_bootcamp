@@ -39,6 +39,19 @@ const publicController = {
             return responseUtils.error(res,{ message : error })
         }
     },
+    getPostById: async (req, res) => {
+        try {
+            const postId = parseInt(req.params.id)  || null;
+            const post = await publicService.getPostById(postId);
+            if (!post) {
+                return responseUtils.notFound(res, "Không tìm thấy bài viết");
+            }
+            return responseUtils.ok(res,post)
+        } catch (error) {
+            console.log(error)
+            return responseUtils.error(res,{ message : error })
+        }
+    }
 };
 
 module.exports = publicController

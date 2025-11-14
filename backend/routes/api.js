@@ -43,7 +43,7 @@ router.get("/", authMiddleware,checkRole(1), (req, res) => {
 router.group("/public", validate([]), (router) => {
   router.get("/category", publicController.getCategories);
   router.get("/post", publicController.getPosts);
-
+  router.get("/post/:id", publicController.getPostById);
 });
 
 // Authentication 
