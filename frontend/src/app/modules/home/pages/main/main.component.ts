@@ -1,8 +1,7 @@
 import { Component,OnInit } from '@angular/core';
-import { HomeService } from '../../services/home.service';
 import { FeaturedPostComponent } from './featured-post/featured-post.component';
 import { LastestPostComponent } from './lastest-post/lastest-post.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
+import { SidebarComponent } from '../../../../layouts/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-main',

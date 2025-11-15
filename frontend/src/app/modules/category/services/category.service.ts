@@ -16,8 +16,8 @@ export class CategoryService  {
         );
     }
 
-    getCategoryPosts(categoryId: number): Observable<any> {
-        return this.backendService.get(`public/category/${categoryId}/posts`).pipe(
+    getCategoryPosts(categoryId: number, page: number): Observable<any> {
+        return this.backendService.get(`public/category/${categoryId}?page=${page}`).pipe(
             tap((response: any) => {
                 // Xử lý dữ liệu nếu cần
             })

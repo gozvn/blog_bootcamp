@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HomeService } from '../../../services/home.service';
+import { HomeService } from '../../modules/home/services/home.service';
 import { CommonModule } from '@angular/common';
 
 @Component({

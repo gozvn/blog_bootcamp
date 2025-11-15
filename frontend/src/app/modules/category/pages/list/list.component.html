@@ -1,0 +1,150 @@
+<app-header></app-header>
+<div class="container">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="categories.html">Categories</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Technology</li>
+            </ol>
+        </nav>
+
+        <!-- Category Header -->
+        <div class="row mb-2">
+            <div class="col-12">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="category-icon me-3">
+                        <i class="bi bi-laptop" style="font-size: 3rem; color: #0d6efd;"></i>
+                    </div>
+                    <div>
+                        <h1 class="display-5 fw-bold mb-2">{{detailCategory.name}}</h1>
+                        <p class="lead text-muted mb-0">{{detailCategory.description}}</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                <!-- Featured Post -->
+                <!-- <div class="card border-0 shadow-sm mb-5 featured-post">
+                    <div class="row g-0">
+                        <div class="col-md-5">
+                            <a href="detail_blog.html">
+                              <img src="img/no_img.jpg" class="img-fluid rounded-start h-100 object-fit-cover" alt="Featured">
+                            </a>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="card-body d-flex flex-column h-100">
+                                <div class="mb-3">
+                                    <span class="badge bg-warning text-dark">Featured</span>
+                                    <span class="badge bg-primary ms-2">Technology</span>
+                                </div>
+                                <h3 class="card-title fw-bold mb-3">
+                                  <a href="detail_blog.html" class="text-decoration-none text-dark">The Future of Web Development: Trends and Technologies to Watch in 2025</a>
+                                </h3>
+                                <p class="card-text text-muted">
+                                    Web development continues to evolve at a rapid pace, with new technologies and frameworks emerging constantly. As we move through 2025, developers need to stay ahead...
+                                </p>
+                                <div class="mt-auto">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <img src="img/no_img.jpg" alt="Author" width="32" height="32" class="rounded-circle me-2">
+                                            <div>
+                                                <small class="fw-semibold">John Doe</small>
+                                                <small class="text-muted d-block">Oct 12, 2025 • 2:30 PM • 8 min read</small>
+                                            </div>
+                                        </div>
+                                        <a href="detail_blog.html" class="btn btn-primary">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- Posts List -->
+                <div class="row g-4">
+                    <!-- Post 1 -->
+                @if (listPosts.length === 0) {
+                    <div class="col-12">
+                        <p class="text-center text-muted">No posts available in this category.</p>
+                    </div>
+                } @else {
+                    @for (post of listPosts; track post.id) {
+                        <div class="col-md-6">
+                            <article class="card border-0 shadow-sm h-100 post-card">
+                                <a routerLink="/post/{{post.id}}/{{post.slug}}">
+                                <img src="/assets/img/no_img.jpg" class="card-img-top" alt="JavaScript Frameworks">
+                                </a>
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title fw-semibold">
+                                        <a routerLink="/post/{{post.id}}/{{post.slug}}" class="text-decoration-none text-dark">{{post.title}}</a>
+                                    </h5>
+                                    <p class="card-text text-muted flex-grow-1">
+                                        {{ post.content | truncate:150}}
+                                    </p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">{{ post.createdAt | date:'MMM d, y • h:mm a' }}</small>
+                                        <div class="d-flex align-items-center">
+                                            <button class="btn btn-sm btn-primary">Read more </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    }
+                }
+                </div>
+                @if (listPosts.length !== 0 && totalPages > 1) {
+                <!-- Pagination -->
+                <nav aria-label="Page navigation" class="mt-5">
+                    <ul class="pagination justify-content-center">
+
+                        <li class="page-item" [class.disabled]="currentPage <= 1">
+                            <a class="page-link" [routerLink]="['/category', id, slug, 'page', currentPage - 1]" 
+        tabindex="-1" tabindex="-1">Previous</a>
+                        </li>                                                
+                        <!-- Page numbers -->
+                            @if (currentPage > 1) {
+                            <li class="page-item" >
+                                <a
+                                class="page-link"
+                                [routerLink]="['/category', id, slug, 'page', currentPage - 1]">
+                                {{ currentPage-1 }}
+                                </a>
+                            </li>
+                            }
+                            <li class="page-item" [class.active]="currentPage">
+                                <a
+                                class="page-link"
+                                [routerLink]="['/category', id, slug, 'page', currentPage]">
+                                {{ currentPage }}
+                                </a>
+                            </li>
+                            @if (currentPage < totalPages) {
+                            <li class="page-item">
+                                <a
+                                class="page-link"
+                                [routerLink]="['/category', id, slug, 'page']">
+                                {{ currentPage+1 }}
+                                </a>
+                            </li>
+                            }
+                        <li class="page-item">
+                            <a class="page-link" [class.disabled]="currentPage >= totalPages" [routerLink]="['/category', id, slug, 'page', currentPage + 1]">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+                }
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <app-sidebar></app-sidebar>
+            </div>
+        </div>
+    </div>
+<app-footer></app-footer>
