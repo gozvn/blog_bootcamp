@@ -23,11 +23,26 @@ export class AuthService {
         tap((response: any) => { // tap là toán tử xử lý dữ liệu để xử lý dữ liệu trả về từ backend.
           // Kiểm tra xem backend trả về accessToken hay không.
           if (response?.data?.accessToken) {
-            // Lưu accessToken vào session storage.
-            sessionStorage.setItem('accessToken', response.data.accessToken);
+            // Lưu accessToken vào local storage.
+            localStorage.setItem('accessToken', response.data.accessToken);
+            // Lưu thông tin người dùng vào local storage.
+            localStorage.setItem('user', JSON.stringify({
+              id: response.data.user.id,
+              email: response.data.user.email,
+              username: response.data.user.username,
+              role: response.data.user.role
+            }));
           }
         })
       );
   }
+
+  logout(): void {
+    localStorage.removeItem('accessToken');
+    // this.backendService.delete('auth/logout', { withCredentials: true }).subscribe();
+  }
+
+
 }
+
 

@@ -50,7 +50,7 @@ export class LoginComponent {
         this.loading = false;
         this.form.enable();
         await this.toastService.showMessage('successToast', 'Success! Logged in');
-        setTimeout(() => this.router.navigate(['/dashboard']), 1000);
+        setTimeout(() => this.router.navigate(['/']), 1000);
       },
       error: async (err) => {
         this.loading = false;

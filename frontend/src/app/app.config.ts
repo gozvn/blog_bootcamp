@@ -3,8 +3,15 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideHttpClient(withFetch()),provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration()]
+  providers: [provideHttpClient(
+                    withFetch(),
+                    withInterceptors([JwtInterceptor])
+                  ), 
+              provideZoneChangeDetection({ eventCoalescing: true }), 
+              provideRouter(routes), 
+              provideClientHydration()]
 };
