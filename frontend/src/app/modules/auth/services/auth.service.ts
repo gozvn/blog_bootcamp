@@ -36,6 +36,16 @@ export class AuthService {
         })
       );
   }
+  
+  getUserInfo(): any {
+    if (typeof window !== 'undefined') {
+      const user = localStorage.getItem('user');
+      if (user) {
+        return JSON.parse(user);
+      }
+    }
+    return null;
+  }
 
   logout(): void {
     localStorage.removeItem('accessToken');

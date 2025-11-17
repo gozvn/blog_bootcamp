@@ -11,8 +11,5 @@ export const AuthRoutes : Routes = [
         path : 'login',
         component : LoginComponent,
         title : 'Đăng nhập'
-    },
-    {
-        path : 'logout',
     }
 ]
