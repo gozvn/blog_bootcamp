@@ -46,6 +46,9 @@ export class AuthService {
     }
     return null;
   }
+  signup(email: string, username: string, password: string): Observable<any> {
+    return this.backendService.post('user/create', { email, username, password });
+  }
 
   logout(): void {
     localStorage.removeItem('accessToken');

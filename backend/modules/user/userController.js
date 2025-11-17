@@ -48,7 +48,10 @@ const userController = {
             if (!raw.username || !raw.email || !raw.password) {
                 return responseUtils.error(res, " Chua điền đủ thông tin !");
             }
-
+            const checkExisting = await userSerivce.checkExisting(raw.email);
+            if (checkExisting) {
+                return responseUtils.invalidated(res, "validation.email.exists");
+            }
             const hashedPassword = await bcrypt.hash(raw.password, bcryptConfig.rounds);
 
             const userData = {

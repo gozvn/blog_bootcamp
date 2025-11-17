@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { ToastService } from '../../../services/toast.service';
 import { ToastComponent } from '../../../layouts/partials/toast/toast.component';
@@ -9,7 +9,7 @@ import { ToastComponent } from '../../../layouts/partials/toast/toast.component'
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, ToastComponent],
+  imports: [ReactiveFormsModule, CommonModule, ToastComponent, RouterLink],
   templateUrl: './login.component.html',
 })
 export class LoginComponent {

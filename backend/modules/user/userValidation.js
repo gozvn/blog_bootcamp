@@ -8,7 +8,6 @@ const userValidation = {
             in: ['body'],
             isString: true,
             notEmpty: true,
-            custom: unique(User, 'username', 'validation.required'),
             isLength: {
                 options: { min: 3 },
             },

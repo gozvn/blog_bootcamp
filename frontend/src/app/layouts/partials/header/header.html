@@ -22,12 +22,15 @@
               }
             </ul>
           </li>
+          @if (isLoggedIn == false) {
+          
           <li>
             <a routerLink="/auth/login" class="nav-link px-2 link-secondary">Login</a>
           </li>
           <li>
             <a routerLink="/auth/signup" class="nav-link px-2 link-secondary">Sign Up</a>
           </li>
+        }
         </ul>
         
         <div class="d-flex align-items-center">
@@ -82,15 +85,16 @@
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
+    @if (isLoggedIn == true) {
     <!-- User Profile Section -->
     <div class="d-flex align-items-center mb-4 pb-3 border-bottom">
       <img src="assets/img/no_img.jpg" alt="User Avatar" width="48" height="48" class="rounded-circle me-3">
       <div>
-        <h6 class="mb-0">John Doe</h6>
-        <small class="text-muted">john.doe[at]example.com</small>
+        <h6 class="mb-0">{{ user.username }}</h6>
+        <small class="text-muted">{{ user.email }}</small>
       </div>
     </div>
-    
+    }
     <!-- Navigation Links -->
     <ul class="navbar-nav flex-grow-1 pe-3 mb-4">
       <li class="nav-item">
@@ -98,37 +102,28 @@
           <i class="bi bi-house-door me-2"></i>Home
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="categories.html">
-          <i class="bi bi-box-seam me-2"></i>Categories
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="post_category.html">
-          <i class="bi bi-laptop me-2"></i>Technology
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="auth/login">
-          <i class="bi bi-person me-2"></i>Login
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="auth/signup">
-          <i class="bi bi-person-plus me-2"></i>Sign Up
-        </a>
-      </li>
+      @if (isLoggedIn == true) {
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="bi bi-three-dots me-2"></i>More
+          <i class="bi bi-three-dots me-2"></i>User Menu
         </a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#"><i class="bi bi-info-circle me-2"></i>About</a></li>
-          <li><a class="dropdown-item" href="#"><i class="bi bi-envelope me-2"></i>Contact</a></li>
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+          <li><a class="dropdown-item" href="my-posts.html">My post...</a></li>
+              <li><a class="dropdown-item" href="./dashboard/index.html">Admin Dashboard</a></li>
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Sign out</a></li>
         </ul>
       </li>
+      }
+      @for ( category of listcategories; track category.id) {
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/category', category.id, category.slug]">
+          <i class="bi bi-box-seam me-2"></i>{{category.name}}
+        </a>
+      </li>
+      }
+      
     </ul>
     
     <!-- Search form in offcanvas -->
@@ -155,17 +150,6 @@
       </div>
     </div>
     
-    <!-- User Actions -->
-    <div class="mt-auto">
-      <hr class="mb-3">
-      <ul class="list-unstyled">
-        <li><a class="dropdown-item py-2" href="#"><i class="bi bi-plus-circle me-2"></i>New project...</a></li>
-        <li><a class="dropdown-item py-2" href="#"><i class="bi bi-person-circle me-2"></i>Profile</a></li>
-        <li><a class="dropdown-item py-2" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
-        <li><hr class="dropdown-divider my-2"></li>
-        <li><a class="dropdown-item py-2 text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i>Sign out</a></li>
-      </ul>
-    </div>
   </div>
 </div>
 <!-- End Header -->
