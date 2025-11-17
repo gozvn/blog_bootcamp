@@ -45,6 +45,7 @@ router.group("/public", validate([]), (router) => {
   router.get("/category/:id", publicController.getCategoryById);
   router.get("/post", publicController.getPosts);
   router.get("/post/:id", publicController.getPostById);
+  router.get("/comment/:id", publicController.getCommentsByPostId);
 });
 
 // Authentication 

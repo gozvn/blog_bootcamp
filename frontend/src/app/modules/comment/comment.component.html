@@ -1,0 +1,61 @@
+<section class="mt-5">
+    <h3 class="mb-4">Comments </h3>
+    @if (listComments.length != 0){
+
+    <!-- Comment -->
+    @for (let comment of listComments; track comment.id) {
+    <div class="d-flex mb-4">
+        <img src="img/no_img.jpg" alt="Commenter" width="50" height="50" class="rounded-circle me-3">
+        <div class="flex-grow-1">
+        <div class="bg-light p-3 rounded">
+            <h6 class="mb-1">{{ comment.user.username }}</h6>
+            <small class="text-muted">{{comment.updated_at | date }}</small>
+            <p class="mb-0 mt-2">{{comment.content}}</p>
+        <button type="button" class="btn btn-sm btn-outline-primary mt-2">Reply</button>
+        </div>
+
+            <!-- Reply -->
+            <div class="d-flex mt-3 ms-5">
+                <img src="img/no_img.jpg" alt="Commenter" width="40" height="40" class="rounded-circle me-3">
+                <div class="flex-grow-1">
+                <div class="bg-white border p-3 rounded">
+                    <h6 class="mb-1">John Doe <span class="badge bg-primary ms-2">Author</span></h6>
+                    <small class="text-muted">Oct 13, 2025 • 12:10 PM</small>
+                    <p class="mb-0 mt-2">Thanks Alice! WebAssembly is definitely a game-changer for performance-critical web apps.</p>
+                    <button type="button" class="btn btn-sm btn-outline-primary mt-2">Reply</button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    }
+    
+    <!-- Comment Form -->
+    @if (user != null){
+    <div class="mt-4">
+        <h4 class="mb-3">Leave a Comment</h4>
+        <form>
+            <div class="mb-3">
+                <div class="d-flex align-items-center">
+                <img src="img/no_img.jpg" alt="User Avatar" width="40" height="40" class="rounded-circle me-2">
+                <span class="fw-semibold">John Doe</span>
+                <small class="text-muted ms-2">john.doe-example.com</small>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="commentText" class="form-label">Comment</label>
+                <textarea class="form-control" id="commentText" rows="4" required=""></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Post Comment</button>
+        </form>
+    </div>
+    } @else{
+    <div class="mt-4">
+        <p>Please <a routerLink="/auth/login">log in</a> to leave a comment.</p>
+    </div>
+    }
+}@else{
+    <p>No comments yet. Be the first to comment!</p>
+    }
+</section>

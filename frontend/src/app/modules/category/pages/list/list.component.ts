@@ -32,15 +32,15 @@ export class ListComponent implements OnInit {
       this.id = parseInt(paramMap.get('id') ?? '0');
       this.slug = paramMap.get('slug') ?? '';
       this.currentPage = parseInt(paramMap.get('page') ?? '1');
-      console.log('Category ID:', this.id);
-      console.log('Page Number:', this.currentPage);
+      // console.log('Category ID:', this.id);
+      // console.log('Page Number:', this.currentPage);
 
       this.categoryService.getCategoryPosts(this.id, this.currentPage).subscribe(data => {
         this.detailCategory = data.data;
         this.listPosts = data.data.posts.rows ?? [];
         this.totalPages = data.data.posts.pagination.totalPages ?? 0;
         this.currentPage = data.data.posts.pagination.page ?? 1;
-        console.log("API DATA:", this.listPosts);
+        // console.log("API DATA:", this.listPosts);
       });
     });
   }

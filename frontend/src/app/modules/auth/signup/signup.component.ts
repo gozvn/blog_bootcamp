@@ -50,7 +50,7 @@ export class SignupComponent {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
-    }
+  }
 
     const { email, username, password } = this.form.value;
 

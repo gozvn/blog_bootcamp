@@ -1,4 +1,4 @@
-const { Category,Post,User,Tag,Language } = require("../../models");
+const { Category,Post,User,Tag,Language,Comment } = require("../../models");
 
 const publicService = {
     async listCategories(page, limit) {
@@ -178,6 +178,36 @@ const publicService = {
         };
 
         return category;
+    },
+    getCommentsByPostId: async (postId, page = 1, limit = 10) => {
+        page = parseInt(page);
+        limit = parseInt(limit);
+        const offset = (page - 1) * limit;
+        const { count, rows } = await Comment.findAndCountAll({
+            where: { post_id: postId },
+            include: [
+                {
+                    as : 'user',
+                    model: User,
+                    attributes: ["username"],
+                }
+            ],
+            order: [["id", "ASC"]],
+            attributes: { exclude: ['user_id','post_id'] },
+            offset,
+            limit,
+        });
+        const comment = {
+            rows,
+            pagination: {
+                total: count,
+                page,
+                limit,
+                totalPages : Math.ceil(count / limit),
+            }
+        };
+        
+        return comment;
     }
 };
 

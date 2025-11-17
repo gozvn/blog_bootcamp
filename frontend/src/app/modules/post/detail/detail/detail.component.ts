@@ -4,11 +4,12 @@ import { PostService } from '../../services/post.service';
 import { Header } from '../../../../layouts/partials/header/header';
 import { Footer } from '../../../../layouts/partials/footer/footer';
 import { ActivatedRoute } from '@angular/router';
+import { CommentComponent } from '../../../comment/comment.component';
 
 @Component({
   selector: 'app-detail',
   standalone: true,
-  imports: [CommonModule,Header,Footer],
+  imports: [CommonModule,Header,Footer,CommentComponent],
   templateUrl: './detail.component.html',
 })
 export class DetailPostComponent implements OnInit {

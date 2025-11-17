@@ -67,6 +67,22 @@ const publicController = {
             console.log(error)
             return responseUtils.error(res,{ message : error })
         }
+    },
+    getCommentsByPostId: async (req, res) => {
+        try {
+            const postId = parseInt(req.params.id)  || null;
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || parseInt(process.env.COMMENT_PAGINATION_LIMIT) || 10;
+            const comments = await publicService.getCommentsByPostId(postId,page,limit);
+
+            if (!comments || comments.length === 0) {
+                return responseUtils.notFound(res, "Bài viết chưa có bình luận nào");
+            }
+            return responseUtils.ok(res,comments)
+        } catch (error) {
+            console.log(error)
+            return responseUtils.error(res, error)
+        }
     }
 };
 
