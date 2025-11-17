@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     content: DataTypes.TEXT,
     user_id: DataTypes.INTEGER,
+    parent_id: DataTypes.INTEGER,
     post_id: DataTypes.INTEGER,
     created_at: DataTypes.DATE,
     updated_at: DataTypes.DATE

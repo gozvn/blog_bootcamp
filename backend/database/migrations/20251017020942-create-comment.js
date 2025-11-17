@@ -10,6 +10,10 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       content: { type: Sequelize.TEXT },
+      parent_id: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
       user_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
