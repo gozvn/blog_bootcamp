@@ -10,5 +10,5 @@ import { SidebarComponent } from '../../../../layouts/partials/sidebar/sidebar.c
   templateUrl: './main.component.html',
 })
 
-export class mainHome { 
+export class MainHome { 
 }

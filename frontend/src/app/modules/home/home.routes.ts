@@ -1,10 +1,10 @@
 import { Routes } from "@angular/router";
-import { mainHome } from "./pages/main/main.component";
+import { MainHome } from "./pages/main/main.component";
 
 export const HomeRoutes : Routes = [
     {
         path : '',
-        component : mainHome,
+        component : MainHome,
         title : 'Trang chủ'
     }
 ]

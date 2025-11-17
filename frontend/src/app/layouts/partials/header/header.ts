@@ -29,6 +29,6 @@ export class Header implements OnInit {
       this.user = user;
     }
     
-    console.log('User Info:', user);
+    // console.log('User Info:', user);
   }
 }
