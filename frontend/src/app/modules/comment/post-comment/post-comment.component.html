@@ -1,17 +1,21 @@
+<app-toast></app-toast>
 <div class="mt-4">
     <h4 class="mb-3">Leave a Comment</h4>
-    <form>
+    <form [formGroup]="commentForm" (ngSubmit)="onSubmitComment()">
         <div class="mb-3">
             <div class="d-flex align-items-center">
-            <img src="img/no_img.jpg" alt="User Avatar" width="40" height="40" class="rounded-circle me-2">
-            <span class="fw-semibold">John Doe</span>
-            <small class="text-muted ms-2">john.doe-example.com</small>
+            <img src="/assets/img/no_img.jpg" alt="User Avatar" width="40" height="40" class="rounded-circle me-2">
+            <span class="fw-semibold">{{user.username}}</span>
+            <small class="text-muted ms-2">{{user.email}}</small>
             </div>
         </div>
         <div class="mb-3">
             <label for="commentText" class="form-label">Comment</label>
-            <textarea class="form-control" id="commentText" rows="4" required=""></textarea>
+            <textarea class="form-control" id="commentText" rows="4" formControlName="content" required></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Post Comment</button>
+        @if (commentForm.get('content')?.errors?.['required'] && commentForm.get('content')?.touched) {
+                <div class="invalid-feedback d-block">Content is required and must be at least 10 characters long.</div>
+        }
+        <button type="submit" [disabled]="commentForm.invalid" class="btn btn-primary">Post Comment</button>
     </form>
 </div>

@@ -55,4 +55,12 @@ export class CommentComponent implements OnInit {
 
   }
 
+  loadComments() {
+    this.commentService.getCommentsByPostId(this.postId, 1, 10).subscribe(res => {
+      this.listComments = res.rows ?? [];
+      this.totalPages = res.pagination.totalPages ?? 0;
+      this.currentPage = res.pagination.page ?? 1;
+    });
+  }
+
 }

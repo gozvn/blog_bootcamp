@@ -5,7 +5,7 @@
     <!-- Comment -->
     @for (comment of listComments; track comment.id) {
     <div class="d-flex mb-4">
-        <img src="img/no_img.jpg" alt="Commenter" width="50" height="50" class="rounded-circle me-3">
+        <img src="/assets/img/no_img.jpg" alt="Commenter" width="50" height="50" class="rounded-circle me-3">
         <div class="flex-grow-1">
         <div class="bg-light p-3 rounded">
             <h6 class="mb-1">{{ comment.user.username }}</h6>
@@ -26,7 +26,7 @@
     }
     <!-- Comment Form -->
     @if (user != null){
-    <app-post-comment [user]="user" [postId]="postId"></app-post-comment>
+    <app-post-comment [user]="user" [postId]="postId" (submitComment)="loadComments()"></app-post-comment>
     } @else{
     <div class="mt-4">
         <p>Please <a routerLink="/auth/login">log in</a> to leave a comment.</p>
