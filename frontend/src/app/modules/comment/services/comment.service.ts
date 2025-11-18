@@ -18,9 +18,11 @@ export class CommentService {
     }
 
     getCommentsByPostId(post_id: number, page:number, limit:number): Observable<any> {
+        // console.log(`Fetching comments for post_id: ${post_id}, page: ${page}, limit: ${limit}`);
         return this.backendService.get(`public/comment/${post_id}?page=${page}&limit=${limit}`).pipe(
             map(response => response.data)
         );
+        
     }
 
 }

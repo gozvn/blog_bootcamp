@@ -41,7 +41,7 @@ export class CommentComponent implements OnInit {
   ngOnInit(): void {
     // Lấy postId từ route parameters
     this.route.paramMap.subscribe(params => {
-      this.postId = Number(params.get('postId'));
+      this.postId = Number(params.get('id'));
     });
 
     const user = this.authService.getUserInfo();
@@ -56,8 +56,9 @@ export class CommentComponent implements OnInit {
         this.listComments = data.rows ?? [];
         this.totalPages = data.pagination.totalPages ?? 0;
         this.currentPage = data.pagination.page ?? 1;
-        console.log(this.listComments);
-      });
+        // console.log(this.listComments);
+    });
+
   }
 
   // Hàm Xử lý khi người dùng gửi bình luận
@@ -79,5 +80,6 @@ export class CommentComponent implements OnInit {
         await this.toastService.showMessage('errorToast', 'Failed to post comment. Please try again.');
       }
     });
+
   }
 }
