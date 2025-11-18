@@ -27,13 +27,6 @@
                             </div>
                         </div>
 
-                        <!-- Tags -->
-                        <div class="mb-4">
-                            @for (tag of detail.tags ; track tag.id) {
-                            <span class="badge bg-primary me-2">{{ tag.name }}</span>
-                            }
-                        </div>
-
                         <!-- Featured Image -->
                         <div class="mb-4">
                             <img src="img/no_img.jpg" alt="Featured Image" class="img-fluid rounded shadow">
@@ -44,9 +37,14 @@
                     <div class="article-content">
                         {{ detail.content }}
                     </div>
-
+                    <!-- Tags -->
+                    <div class="mb-2 mt-4">
+                        @for (tag of detail.tags ; track tag.id) {
+                        <span class="badge bg-primary me-2">{{ tag.name }}</span>
+                        }
+                    </div>
                     <!-- Social Share -->
-                    <div class="d-flex align-items-center mt-5 pt-4 border-top">
+                    <div class="d-flex align-items-center mt-2 pt-4 border-top">
                         <span class="me-3 fw-semibold">Share this article:</span>
                         <div class="btn-group" role="group">
                           <button type="button" class="btn btn-outline-primary btn-sm">
