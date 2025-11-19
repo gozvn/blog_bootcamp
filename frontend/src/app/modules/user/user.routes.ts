@@ -7,6 +7,11 @@ export const UserRoutes: Route[] = [
         component: MainComponent,
         title: 'User Posts'
     },
+    {
+        path: 'page/:page',
+        component: MainComponent,
+        title: 'User Posts - Page'
+    }
     // {
     //     path: 'add',
     //     component: MainComponent,

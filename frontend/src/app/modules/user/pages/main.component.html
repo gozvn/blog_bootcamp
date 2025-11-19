@@ -164,6 +164,52 @@
             </div>
             }
         </div>
+        <!-- Pagination -->
+        @if (posts.length > 0 && totalPages > 1) {
+        <nav aria-label="Page navigation" class="mt-5">
+            <ul class="pagination justify-content-center">
+
+            <li class="page-item" [class.disabled]="page <= 1">
+                <a class="page-link" 
+                [routerLink]="page > 1 ? ['/user', 'page', page - 1] : null"
+                [attr.aria-disabled]="page <= 1 ? 'true' : null"
+                [attr.tabindex]="page <= 1 ? -1 : null">
+                Previous
+                </a>
+            </li>
+
+            @if (page > 1) {
+                <li class="page-item">
+                <a class="page-link" [routerLink]="['/user', 'page', page - 1]">
+                    {{ page - 1 }}
+                </a>
+                </li>
+            }
+
+            <li class="page-item active" aria-current="page">
+                <span class="page-link">{{ page }}</span>
+            </li>
+
+            @if (page < totalPages) {
+                <li class="page-item">
+                <a class="page-link" [routerLink]="['/user', 'page', page + 1]">
+                    {{ page + 1 }}
+                </a>
+                </li>
+            }
+
+            <li class="page-item" [class.disabled]="page >= totalPages">
+                <a class="page-link" 
+                [routerLink]="page < totalPages ? ['/user', 'page', page + 1] : null"
+                [attr.aria-disabled]="page >= totalPages ? 'true' : null"
+                [attr.tabindex]="page >= totalPages ? -1 : null">
+                Next
+                </a>
+            </li>
+
+            </ul>
+        </nav>
+        }
 
         <!-- Empty State -->
         <div class="text-center py-5" id="emptyState" style="display: none;">
