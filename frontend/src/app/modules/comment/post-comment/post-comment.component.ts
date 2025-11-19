@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommentService } from '../services/comment.service';
 import { ToastService } from '../../../services/toast.service';
-import { ToastComponent } from '../../../layouts/partials/toast/toast.component';
+import { ToastComponent } from '../../../layouts/default/partials/toast/toast.component';
 import { min } from 'rxjs';
 
 @Component({

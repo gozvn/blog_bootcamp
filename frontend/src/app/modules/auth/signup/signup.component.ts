@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 import { ToastService } from '../../../services/toast.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ToastComponent } from '../../../layouts/partials/toast/toast.component';
+import { ToastComponent } from '../../../layouts/default/partials/toast/toast.component';
 import { CommonModule } from '@angular/common';
 import { passwordMatchValidator } from '../../../validations/password.validation';
 

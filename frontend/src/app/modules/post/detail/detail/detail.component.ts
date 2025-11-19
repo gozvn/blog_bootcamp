@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component,OnInit } from '@angular/core';
 import { PostService } from '../../services/post.service';
-import { Header } from '../../../../layouts/partials/header/header';
-import { Footer } from '../../../../layouts/partials/footer/footer';
+import { Header } from '../../../../layouts/default/partials/header/header';
+import { Footer } from '../../../../layouts/default/partials/footer/footer';
 import { ActivatedRoute } from '@angular/router';
 import { CommentComponent } from '../../../comment/comment.component';
 

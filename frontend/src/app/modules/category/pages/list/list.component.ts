@@ -1,9 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Header } from '../../../../layouts/partials/header/header';
-import { Footer } from '../../../../layouts/partials/footer/footer';
+import { Header } from '../../../../layouts/default/partials/header/header';
+import { Footer } from '../../../../layouts/default/partials/footer/footer';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { SidebarComponent } from '../../../../layouts/partials/sidebar/sidebar.component';
+import { SidebarComponent } from '../../../../layouts/default/partials/sidebar/sidebar.component';
 import { CategoryService } from '../../services/category.service';
 import { TruncatePipe } from '../../../../helper/truncate.pipe';
 

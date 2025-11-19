@@ -85,8 +85,8 @@ router.group("/comment", validate([]), (router) => {
 
 // Module Post routes
 router.group("/post", validate([]), (router) => {
-  router.get('/', postController.all);
-  router.get('/:id', postController.getbyId);
+  router.get('/',authMiddleware,checkRole(1), postController.all);
+  router.get('/:id',authMiddleware,checkRole(1), postController.getbyId);
   router.post('/create',authMiddleware,checkRole(1), checkSchema(postValidation.createPost), postController.create);
   router.put('/edit/:id',authMiddleware,checkRole(1), checkSchema(postValidation.editPost), postController.edit);
   router.delete('/delete/:id',authMiddleware,checkRole(1), postController.delete);

@@ -6,6 +6,6 @@ export const PostRoutes : Routes = [
     {
         path : ':id/:slug',
         component : DetailPostComponent,
-        title : 'Trang chủ'
+        title : 'Post Detail'
     }
 ]

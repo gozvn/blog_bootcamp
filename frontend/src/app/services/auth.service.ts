@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BackendService } from '../../../services/backend.service';
+import { BackendService } from './backend.service';
 import { Observable, tap } from 'rxjs';
 
 @Injectable({
@@ -52,6 +52,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('user');
     // this.backendService.delete('auth/logout', { withCredentials: true }).subscribe();
   }
 

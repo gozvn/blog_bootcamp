@@ -59,11 +59,11 @@
               <img src="assets/img/no_img.jpg" alt="mdo" width="32" height="32" class="rounded-circle"> Hi, {{ user.username }}
             </a>
             <ul class="dropdown-menu text-small">
-              <li><a class="dropdown-item" href="my-posts.html">My post...</a></li>
-              <li><a class="dropdown-item" href="./dashboard/index.html">Admin Dashboard</a></li>
-              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><a class="dropdown-item" routerLink="/user">My post...</a></li>
+              <li><a class="dropdown-item" routerLink="/dashboard">Admin Dashboard</a></li>
+              <li><a class="dropdown-item" routerLink="/user/setting">Profile</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Sign out</a></li>
+              <li><a class="dropdown-item" (click)="onLogout()" href="#">Sign out</a></li>
             </ul>            
           </div>
           }
@@ -99,7 +99,7 @@
     <!-- Navigation Links -->
     <ul class="navbar-nav flex-grow-1 pe-3 mb-4">
       <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="index.html">
+        <a class="nav-link active" aria-current="page" [routerLink]="['/']">
           <i class="bi bi-house-door me-2"></i>Home
         </a>
       </li>
@@ -109,11 +109,11 @@
           <i class="bi bi-three-dots me-2"></i>User Menu
         </a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="my-posts.html">My post...</a></li>
-              <li><a class="dropdown-item" href="./dashboard/index.html">Admin Dashboard</a></li>
+          <li><a class="dropdown-item" [routerLink]="['/user']">My post...</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/dashboard']">Admin Dashboard</a></li>
               <li><a class="dropdown-item" href="#">Profile</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Sign out</a></li>
+              <li><a class="dropdown-item" (click)="onLogout()">Sign out</a></li>
         </ul>
       </li>
       }

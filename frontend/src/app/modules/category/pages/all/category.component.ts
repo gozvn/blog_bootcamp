@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Header } from '../../../../layouts/partials/header/header';
-import { Footer } from '../../../../layouts/partials/footer/footer';
+import { Header } from '../../../../layouts/default/partials/header/header';
+import { Footer } from '../../../../layouts/default/partials/footer/footer';
 import { CommonModule } from '@angular/common';
 import { CategoryService } from '../../services/category.service';
 import { RouterLink } from '@angular/router';

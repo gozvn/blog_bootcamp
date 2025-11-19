@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { CategoryService } from '../../../modules/category/services/category.service';
-import { AuthService } from '../../../modules/auth/services/auth.service';
+import { Router, RouterLink } from '@angular/router';
+import { CategoryService } from '../../../../modules/category/services/category.service';
+import { AuthService } from '../../../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +11,7 @@ import { AuthService } from '../../../modules/auth/services/auth.service';
   // styleUrl: './header.scss'
 })
 export class Header implements OnInit {
-  constructor(private categoryService: CategoryService, private authService: AuthService) { }
+  constructor(private categoryService: CategoryService, private authService: AuthService, private router: Router) { }
   listcategories: any[] = [];
   isLoggedIn: boolean = false;
   user: any = null;
@@ -28,7 +28,14 @@ export class Header implements OnInit {
       this.isLoggedIn = true;
       this.user = user;
     }
-    
     // console.log('User Info:', user);
   }
+    // Log out 
+  onLogout() {
+    this.authService.logout();
+    // Sau logout, chuyển hướng về trang login hoặc homepage
+    this.router.navigate(['/']);
+  }
+
+
 }

@@ -5,6 +5,6 @@ export const HomeRoutes : Routes = [
     {
         path : '',
         component : MainHome,
-        title : 'Trang chủ'
+        title : 'Home Page'
     }
 ]
