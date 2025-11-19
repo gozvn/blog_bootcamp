@@ -25,11 +25,11 @@ export class MainComponent implements OnInit {
     userInfo: any;
     total: number = 0;
     posts: any[] = [];
-
+    
     ngOnInit(): void {
         this.userInfo = this.authService.getUserInfo();
         this.userService.getPostByUser(this.userInfo.id, this.page, this.limit).subscribe((data) => {
-        this.posts = data;
+        this.posts = data.rows || [];
         this.page = data.pagination.page;
         this.limit = data.pagination.limit;
         this.total = data.pagination.total;

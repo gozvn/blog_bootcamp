@@ -72,7 +72,7 @@ const postService = {
 
             return {
                 rows,
-                pagniation: {
+                pagination: {
                     total: count,
                     page,
                     limit,
