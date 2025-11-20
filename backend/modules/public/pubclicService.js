@@ -33,7 +33,9 @@ const publicService = {
             limit = parseInt(limit);
 
             const offset = (page -1) * limit;
-            const whereClause ={};
+            const whereClause = {
+                status: "published"
+            };
             const include = [
                     {
                         as : 'user',
@@ -61,10 +63,6 @@ const publicService = {
             // loc ngôn ngữ
             if (langId){
                 whereClause.lang_id = langId;
-            }
-            // loc trạng thái
-            if (status){
-                whereClause.status = status;
             }
             // loc nổi bật
             if (featured !== null){

@@ -30,6 +30,8 @@ export class ToastService {
    * Cập nhật nội dung và hiển thị toast
    */
   async showMessage(id: string, message: string): Promise<void> {
+    // showMessage(successToast, 'Operation completed successfully.');
+    // showMessage(errorToast, 'An error occurred.'); 
     if (typeof document === 'undefined') return;
 
     const toastEl = document.getElementById(id);

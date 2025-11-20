@@ -24,8 +24,11 @@ export class UserService {
        //   return this.backendService.put<any>(`/users/${userId}/posts/${postId}`, post);
     }
 
-    deletePost(userId: number, postId: number){
+    deletePost(postId: number){
         //   return this.backendService.delete<void>(`/users/${userId}/posts/${postId}`);
+        return this.backendService.delete(`post/delete/${postId}`).pipe(
+            map((result: any) => result?.data ?? null)
+        );
     }
 
 }
