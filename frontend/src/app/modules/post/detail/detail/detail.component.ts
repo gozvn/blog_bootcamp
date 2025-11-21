@@ -5,6 +5,7 @@ import { Header } from '../../../../layouts/default/partials/header/header';
 import { Footer } from '../../../../layouts/default/partials/footer/footer';
 import { ActivatedRoute } from '@angular/router';
 import { CommentComponent } from '../../../comment/comment.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-detail',
@@ -15,7 +16,8 @@ import { CommentComponent } from '../../../comment/comment.component';
 export class DetailPostComponent implements OnInit {
   constructor(
     private postService: PostService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private title: Title
   ) { }
 
   detail: any = null;
@@ -24,6 +26,7 @@ export class DetailPostComponent implements OnInit {
     // Lấy ID từ route và gọi dịch vụ để lấy chi tiết bài viết
     this.postService.getPost(id).subscribe(post => {
       this.detail = post;
+      this.title.setTitle(post.title);
     });
   }
 }
