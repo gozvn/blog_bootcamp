@@ -1,5 +1,6 @@
 import { Route } from "@angular/router";
 import { MainComponent } from "./pages/main.component";
+import { PostComponent } from "./pages/post/post.component";
 
 export const UserRoutes: Route[] = [
     {
@@ -11,12 +12,12 @@ export const UserRoutes: Route[] = [
         path: 'page/:page',
         component: MainComponent,
         title: 'User Posts - Page'
-    }
-    // {
-    //     path: 'add',
-    //     component: MainComponent,
-    //     title: 'Add Post'
-    // },
+    },
+    {
+        path: 'addpost',
+        component: PostComponent,
+        title: 'Add Post'
+    },
     // {
     //     path: 'edit/:id',
     //     component: MainComponent,
