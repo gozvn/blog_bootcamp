@@ -6,7 +6,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SidebarComponent } from '../../../../layouts/default/partials/sidebar/sidebar.component';
 import { CategoryService } from '../../services/category.service';
 import { TruncatePipe } from '../../../../helper/truncate.pipe';
-
+import { Title, Meta } from '@angular/platform-browser';
 @Component({
   selector: 'app-posts',
   standalone: true,
@@ -17,7 +17,9 @@ import { TruncatePipe } from '../../../../helper/truncate.pipe';
 export class ListComponent implements OnInit {
   constructor(
     private categoryService: CategoryService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private title: Title,
+    private meta: Meta
   ) { }
 
   id: number = 0;
@@ -41,6 +43,9 @@ export class ListComponent implements OnInit {
         this.totalPages = data.data.posts.pagination.totalPages ?? 0;
         this.currentPage = data.data.posts.pagination.page ?? 1;
         // console.log("API DATA:", this.listPosts);
+        // Set SEO meta tags
+        this.title.setTitle(`Category: ${this.detailCategory.name} | My Blog`);
+        this.meta.updateTag({ name: 'description', content: `Browse posts in the ${this.detailCategory.name} category.` });
       });
     });
   }

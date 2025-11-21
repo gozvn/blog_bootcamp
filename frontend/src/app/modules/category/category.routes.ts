@@ -5,16 +5,16 @@ export const categoryRoutes: Route[] = [
     {
         path: '',
         component: CategoryComponent,
-        title: 'Danh mục'
+        title: 'All Categories'
     },
     {
         path: ':id/:slug',
         loadComponent: () => import('./pages/list/list.component').then(m => m.ListComponent),
-        title: 'Danh mục'
+        title: 'Category'
     },
     {
         path: ':id/:slug/page/:page',
         loadComponent: () => import('./pages/list/list.component').then(m => m.ListComponent),
-        title: 'Danh mục'
+        title: 'Category - Paginated'
     }   
 ];
