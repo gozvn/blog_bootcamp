@@ -1,9 +1,9 @@
 module.exports = {
-  ok: (res, data) => {
+  ok: (res, data, message) => {
     return res.status(200).send({
       success: true,
       status: 200,
-      message: "ok",
+      message: message || "ok",
       data,
     });
   },
@@ -40,7 +40,7 @@ module.exports = {
     })
   },
 
-  token: (res, message,accessToken, refreshToken) => {
+  token: (res, message, accessToken, refreshToken) => {
     res.cookie("refreshtoken", token, {
       httpOnly: true,          // bảo vệ cookie khỏi truy cập từ JS (XSS)
       secure: false,           // bật true nếu HTTPS
@@ -51,8 +51,8 @@ module.exports = {
       success: false,
       status: 200,
       message: {
-          message : message,
-          accessToken : accessToken
+        message: message,
+        accessToken: accessToken
       },
     });
   }
