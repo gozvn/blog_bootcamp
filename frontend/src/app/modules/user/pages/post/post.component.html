@@ -1,41 +1,43 @@
 <app-header></app-header>
 <!-- Body -->
-<div class="container my-5">
+<div class="container my-2">
   <div class="card shadow-sm">
     <div class="card-header d-flex justify-content-between align-items-center">
       <h5 class="mb-0">Create New Post</h5>
-      <div>
+      <div class="d-flex align-items-center">
+        <button type="button" class="btn btn-outline-secondary me-2"> Cancel </button>
         <button type="button" class="btn btn-outline-primary me-2" onclick="saveDraft()">Save Draft</button>
-        <button type="button" class="btn btn-primary" onclick="savePost()">Save Post</button>
+        <button type="button" class="btn btn-primary" onclick="savePost()">Publish Post</button>
       </div>
     </div>
 
     <div class="card-body">
       <form id="postForm" novalidate>
         <input type="hidden" id="postId" value="">
-
         <div class="row mb-3">
           <div class="col-md-8">
-            <label for="postTitle" class="form-label">Title <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" id="postTitle" placeholder="Enter post title" required>
+            <div class="mb-3">
+              <label for="postTitle" class="form-label">Title <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="postTitle" placeholder="Enter post title" required>
+            </div>
+            <div class="mb-3">
+              <label for="postCategory" class="form-label">Category <span class="text-danger">*</span></label>
+              <select class="form-select" id="postCategory" required>
+                <option value="">Select Category</option>
+                @for (category of categories; track category.id) {
+                <option value="{{category.id}}">{{category.name}}</option>
+                }
+              </select>
+            </div>
           </div>
           <div class="col-md-4">
-            <label for="postCategory" class="form-label">Category <span class="text-danger">*</span></label>
-            <select class="form-select" id="postCategory" required>
-              <option value="">Select Category</option>
-              <option value="technology">Technology</option>
-              <option value="design">Design</option>
-              <option value="business">Business</option>
-              <option value="lifestyle">Lifestyle</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="mb-3">
-          <label for="postImage" class="form-label">Featured Image <span class="text-danger">*</span></label>
-          <input type="file" class="form-control" id="postImage" accept="image/*" required>
-          <div id="imagePreview" class="mt-2 d-none">
-            <img id="previewImg" src="" alt="Preview" class="img-thumbnail" style="max-height: 200px;">
+            <div class="mb-3">
+              <label for="postImage" class="form-label">Featured Image <span class="text-danger">*</span></label>
+              <input type="file" class="form-control" id="postImage" accept="image/*" required>
+              <div id="imagePreview" class="mt-2 d-none">
+                <img id="previewImg" src="" alt="Preview" class="img-thumbnail" style="max-height: 200px;">
+              </div>
+            </div>
           </div>
         </div>
 
@@ -47,19 +49,13 @@
             <label for="postTags" class="form-label">Tags</label>
             <div id="selectedTags" class="my-2"></div>
             <div class="position-relative">
-              <input type="text" class="form-control" id="postTags" placeholder="Start typing to add tags..." autocomplete="off">
-              <div id="tagSuggestions" class="dropdown-menu w-100" style="display:none; max-height:200px; overflow-y:auto;"></div>
+              <input type="text" class="form-control" id="postTags" placeholder="Start typing to add tags..."
+                autocomplete="off">
+              <div id="tagSuggestions" class="dropdown-menu w-100"
+                style="display:none; max-height:200px; overflow-y:auto;"></div>
             </div>
-            <small class="form-text text-muted">Popular tags: JavaScript, React, CSS, Design, Business, Lifestyle</small>
-          </div>
-
-          <div class="col-md-6">
-            <label for="postStatus" class="form-label">Status</label>
-            <select class="form-select" id="postStatus">
-              <option value="draft">Save as Draft</option>
-              <option value="published">Publish Now</option>
-              <option value="pending">Submit for Review</option>
-            </select>
+            <small class="form-text text-muted">Popular tags: JavaScript, React, CSS, Design, Business,
+              Lifestyle</small>
           </div>
         </div>
       </form>
