@@ -1,14 +1,14 @@
 export const environment = {
-    backendServer : {
+    backendServer: {
         host: 'localhost:3000',
-        prefix : '/api/v1',
-        port : 443,
-        ssl : false,
-        timeout : 30000,
-        
+        prefix: '/api/v1',
+        port: 443,
+        ssl: false,
+        timeout: 30000,
+
     },
     cdn: {
-        baseimageUrl: 'http://localhost:4200/assets', // Lưu tạm ở đaay
+        baseimageUrl: 'http://localhost:3000/uploads/', // Lưu tạm ở đaay
     },
     production: false,
 };

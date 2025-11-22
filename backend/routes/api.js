@@ -6,6 +6,8 @@ const router = express.Router({ mergeParams: true });
 
 const { authMiddleware, checkRole } = require("../modules/middleware/authMiddleware")
 
+const rateLimit = require('../modules/middleware/limitMiddleware');
+
 const publicController = require("modules/public/publicController");
 
 const uploadController = require("modules/upload/uploadController");
@@ -44,21 +46,21 @@ router.get("/", (req, res) => {
 
 //Upload file
 router.group("/upload", validate([]), (router) => {
-  router.post("/", authMiddleware, checkRole(1), uploadMiddleware.single('image'), uploadController.uploadImage)
+  router.post("/", rateLimit.limitUpload, authMiddleware, checkRole(1), uploadMiddleware.single('image'), uploadController.uploadImage)
 });
 
 // Public routes
 router.group("/public", validate([]), (router) => {
-  router.get("/category", publicController.getCategories);
-  router.get("/category/:id", publicController.getCategoryById);
-  router.get("/post", publicController.getPosts);
-  router.get("/post/:id", publicController.getPostById);
+  router.get("/category", rateLimit.limitPublic, publicController.getCategories);
+  router.get("/category/:id", rateLimit.limitPublic, publicController.getCategoryById);
+  router.get("/post", rateLimit.limitPublic, publicController.getPosts);
+  router.get("/post/:id", rateLimit.limitPublic, publicController.getPostById);
   router.get("/comment/:id", publicController.getCommentsByPostId);
 });
 
 // Authentication 
 router.group("/auth", validate([]), (router) => {
-  router.post('/login', authController.login);
+  router.post('/login', rateLimit.limitLogin, authController.login);
   router.post('/logout', authController.logout);
   router.post('/refreshtoken', authController.refreshToken);
   router.post('/googleOAuth', authController.googleLogin) // Dành cho Google Login
