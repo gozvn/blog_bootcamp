@@ -1,10 +1,10 @@
 import { Routes } from "@angular/router";
-import { DashboardComponent } from "../../layouts/dashboard/dashboard.component";
+import { MainComponent } from "./main/main.component";
 
-export const DashboardRoutes : Routes = [
+export const DashboardRoutes: Routes = [
     {
-        path : '',
-        component : DashboardComponent,
-        title : 'Dashboard'
+        path: '',
+        component: MainComponent,
+        title: 'Dashboard'
     }
 ]
