@@ -16,7 +16,9 @@ export class UserService {
         );
     }
     uploadImage(image: File): Observable<any> {
-        return this.backendService.post(`upload`, image).pipe(
+        const formData = new FormData();
+        formData.append('image', image);
+        return this.backendService.post(`upload`, formData).pipe(
             map((result: any) => result?.data ?? null)
         );
     }

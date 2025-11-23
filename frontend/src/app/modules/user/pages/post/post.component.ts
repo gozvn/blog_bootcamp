@@ -15,19 +15,21 @@ import { ReactiveFormsModule } from '@angular/forms';
   styleUrl: './post.component.scss'
 })
 export class PostComponent implements OnInit {
-  fb: FormGroup
+  // Khởi tạo form  submitContentForm từ FormGroup
+  submitContentForm: FormGroup
 
   constructor(
     private userService: UserService,
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.fb = new FormGroup({
+    this.submitContentForm = new FormGroup({
       id: new FormControl(''),
       title: new FormControl('', [Validators.required]),
       content: new FormControl('', [Validators.required]),
       category_id: new FormControl('', [Validators.required]),
       tags: new FormControl('', [Validators.required]),
+      imagePreview: new FormControl(''),
       image: new FormControl('', [Validators.required, Validators.pattern(/\.(jpg|jpeg|png|gif)$/)]),
     })
   }
@@ -36,6 +38,7 @@ export class PostComponent implements OnInit {
   imagePreview: string | null = null;
 
   ngOnInit(): void {
+    // Lấy danh sách category
     this.userService.getCategories().subscribe((res) => {
       if (res.status === 200 && res.success === 'true') {
         this.categories = res.rows;
@@ -43,33 +46,42 @@ export class PostComponent implements OnInit {
     })
   }
 
+  // Tải ảnh lên
   uploadImage(image: File) {
     this.userService.uploadImage(image).subscribe({
       next: (res) => {
-        this.imagePreview = res.data.path || null;
-        this.fb.get('image')?.setValue(this.imagePreview);
+        this.imagePreview = res.file.path || null;
+        this.submitContentForm.get('imagePreview')?.setValue(this.imagePreview);
       },
       error: (err) => {
-        this.fb.get('image')?.setErrors({ uploadFailed: true });
+        this.submitContentForm.get('imagePreview')?.setErrors({ uploadFailed: true });
       }
     })
   }
 
+  // Xử lý khi chọn file
   onFileChange(event: any) {
     const file = event.target.files[0];
     this.image = file;
     if (file) {
+      this.submitContentForm.get('image')?.setValue(file); // set file object cho control 'image'
       this.uploadImage(file);
+    } else {
+      this.submitContentForm.get('image')?.setValue(null);
     }
   }
 
-  // savePost() {
-  //   if (this.fb.valid) {
-  //     this.userService.createPost(this.fb.value).subscribe((res) => {
-  //       if (res.status === 200 && res.success === 'true') {
-  //         this.router.navigate(['/user/post']);
-  //       }
-  //     })
-  //   }
-  // }
+  savePost() {
+    //   if (this.fb.valid) {
+    //     this.userService.createPost(this.fb.value).subscribe((res) => {
+    //       if (res.status === 200 && res.success === 'true') {
+    //         this.router.navigate(['/user/post']);
+    //       }
+    //     })
+    //   }
+  }
+
+  saveDraft() {
+
+  }
 }

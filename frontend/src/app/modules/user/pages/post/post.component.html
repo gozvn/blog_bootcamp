@@ -6,13 +6,13 @@
       <h5 class="mb-0">Create New Post</h5>
       <div class="d-flex align-items-center">
         <button type="button" class="btn btn-outline-secondary me-2"> Cancel </button>
-        <button type="button" class="btn btn-outline-primary me-2" onclick="saveDraft()">Save Draft</button>
-        <button type="button" class="btn btn-primary" onclick="savePost()">Publish Post</button>
+        <button type="button" class="btn btn-outline-primary me-2" (click)="saveDraft()">Save Draft</button>
+        <button type="button" class="btn btn-primary" (click)="savePost()">Publish Post</button>
       </div>
     </div>
 
     <div class="card-body">
-      <form id="postForm" novalidate>
+      <form id="postForm" [formGroup]="submitContentForm" novalidate>
         <input type="hidden" id="postId" value="">
         <div class="row mb-3">
           <div class="col-md-8">
@@ -35,10 +35,12 @@
               <label for="postImage" class="form-label">Featured Image <span class="text-danger">*</span></label>
               <input type="file" formControlName="image" class="form-control" id="postImage"
                 (change)="onFileChange($event)" accept="image/*">
-              @if (fb.get('image')?.hasError('uploadFailed')) {
+              @if (submitContentForm.get('image')?.hasError('uploadFailed') && (submitContentForm.get('image')?.touched
+              || submitContentForm.get('image')?.dirty)) {
               <div class="text-danger">Failed to upload image.</div>
               }
-              @if (fb.get('image')?.hasError('required')) {
+              @if (submitContentForm.get('image')?.hasError('required') && (submitContentForm.get('image')?.touched ||
+              submitContentForm.get('image')?.dirty)) {
               <div class="text-danger">Image is required.</div>
               }
               @if (imagePreview) {
