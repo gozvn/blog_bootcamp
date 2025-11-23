@@ -33,10 +33,19 @@
           <div class="col-md-4">
             <div class="mb-3">
               <label for="postImage" class="form-label">Featured Image <span class="text-danger">*</span></label>
-              <input type="file" class="form-control" id="postImage" accept="image/*" required>
-              <div id="imagePreview" class="mt-2 d-none">
-                <img id="previewImg" src="" alt="Preview" class="img-thumbnail" style="max-height: 200px;">
+              <input type="file" formControlName="image" class="form-control" id="postImage"
+                (change)="onFileChange($event)" accept="image/*">
+              @if (fb.get('image')?.hasError('uploadFailed')) {
+              <div class="text-danger">Failed to upload image.</div>
+              }
+              @if (fb.get('image')?.hasError('required')) {
+              <div class="text-danger">Image is required.</div>
+              }
+              @if (imagePreview) {
+              <div class="mt-2">
+                <img [src]="imagePreview" class="img-thumbnail" style="max-height: 200px;">
               </div>
+              }
             </div>
           </div>
         </div>

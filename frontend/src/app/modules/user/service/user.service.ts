@@ -15,6 +15,11 @@ export class UserService {
             map((result: any) => result?.data ?? null)
         );
     }
+    uploadImage(image: File): Observable<any> {
+        return this.backendService.post(`upload`, image).pipe(
+            map((result: any) => result?.data ?? null)
+        );
+    }
     getCategories(): Observable<any> {
         return this.backendService.get(`public/category`).pipe(
             map((result: any) => result?.data ?? null)

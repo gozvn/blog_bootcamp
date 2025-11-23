@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../../../services/home.service';
-import { TruncatePipe } from '../../../../../helper/truncate.pipe';
+import { TruncatePipe } from '../../../../../pipes/truncate.pipe';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -19,7 +19,7 @@ export class LastestPostComponent implements OnInit {
   totalPages = 1;
   loading = false;
 
-  constructor(private homeService: HomeService) {}
+  constructor(private homeService: HomeService) { }
 
   ngOnInit(): void {
     this.loadPosts();
@@ -42,5 +42,5 @@ export class LastestPostComponent implements OnInit {
     this.page++;
     this.loadPosts();
   }
-  
+
 }

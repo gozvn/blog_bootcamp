@@ -5,12 +5,12 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SidebarComponent } from '../../../../layouts/default/partials/sidebar/sidebar.component';
 import { CategoryService } from '../../services/category.service';
-import { TruncatePipe } from '../../../../helper/truncate.pipe';
+import { TruncatePipe } from '../../../../pipes/truncate.pipe';
 import { Title, Meta } from '@angular/platform-browser';
 @Component({
   selector: 'app-posts',
   standalone: true,
-  imports: [Header,Footer,SidebarComponent, CommonModule, RouterLink, TruncatePipe],
+  imports: [Header, Footer, SidebarComponent, CommonModule, RouterLink, TruncatePipe],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
