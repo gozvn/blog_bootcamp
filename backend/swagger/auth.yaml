@@ -48,6 +48,25 @@ paths:
                     properties:
                       accessToken:
                         type: string
+                        example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiINzYzODkzODEwLCJleHAiOjE3NjM5ODAyMTB9.SHGxQ4-kKwqA4rkXL0l8dnYCMMsR_jDVtOZFh8LX7YI"
+                      expiredAt:
+                        type: string
+                        example: "1d"
+                      user:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          email:
+                            type: string
+                            example: "admin@example.com"
+                          username:
+                            type: string
+                            example: "admin"
+                          role:
+                            type: string
+                            example: "1"
         '404':
           description: Email hoặc mật khẩu không đúng
           content:
