@@ -40,6 +40,31 @@ paths:
                     properties:
                       file:
                         type: object
+                        properties:
+                          fieldname:
+                            type: string
+                            example: file-123.png
+                          originalname:
+                            type: string
+                            example: file-123.png
+                          encoding:
+                            type: string
+                            example: 7bit
+                          mimetype:
+                            type: string
+                            example: image/png
+                          size:
+                            type: integer
+                            example: 123456
+                          filename:
+                            type: string
+                            example: file-123.png 
+                          destination:
+                            type: string
+                            example: /uploads
+                          path:
+                            type: string
+                            example: /uploads/file-123.png
                       url:
                         type: string
                         example: http://localhost:3000/uploads/file-123.png
