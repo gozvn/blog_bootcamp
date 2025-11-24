@@ -1,9 +1,13 @@
-#layoutSidenav_nav {
-    flex-basis: 225px;
-    flex-shrink: 0;
-    transition: transform 0.15s ease-in-out;
-    z-index: 1038;
-    height: 100vh;
+#sidebarWrapper {
+    --bs-offcanvas-width: 250px;
+
+    @media (min-width: 992px) {
+        height: calc(100vh - 56px); // Adjust if header height is different
+        position: sticky;
+        top: 56px; // Height of header
+        z-index: 1000;
+        flex-shrink: 0;
+    }
 }
 
 .sb-sidenav {
@@ -17,7 +21,6 @@
     .sb-sidenav-menu {
         flex-grow: 1;
         overflow-y: auto;
-        padding-top: 1.5rem;
 
         .nav {
             flex-direction: column;
@@ -59,9 +62,8 @@
                     transition: transform 0.15s ease-in-out;
                     color: var(--bs-gray-600);
 
-                    svg {
-                        height: 0.8em;
-                        width: 0.8em;
+                    i {
+                        font-size: 0.8em;
                     }
                 }
 
