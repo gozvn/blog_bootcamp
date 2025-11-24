@@ -7,14 +7,17 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { environment } from '../../../../../environments/environment.prod';
-import { QuillModule } from 'ngx-quill';
+import { ToastService } from '../../../../services/toast.service';
+import { ToastComponent } from '../../../../layouts/default/partials/toast/toast.component';
+import { ModalService } from '../../../../services/modal.service';
+import { AuthService } from '../../../../services/auth.service';
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [Header, Footer, ReactiveFormsModule, CommonModule, QuillModule],
+  imports: [Header, Footer, ReactiveFormsModule, CommonModule, ToastComponent],
   templateUrl: './post.component.html',
-  styleUrls: ['./post.component.scss', 'quill.scss']
+  styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit {
   // Khởi tạo form  submitContentForm từ FormGroup
@@ -23,10 +26,14 @@ export class PostComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastService: ToastService,
+    private modalService: ModalService,
+    private authService: AuthService
   ) {
     this.submitContentForm = new FormGroup({
       id: new FormControl(''),
+      featured: new FormControl(false),
       title: new FormControl('', [Validators.required]),
       content: new FormControl('', [Validators.required]),
       category_id: new FormControl('', [Validators.required]),
@@ -38,6 +45,10 @@ export class PostComponent implements OnInit {
   categories: any[] = [];
   image: File | null = null;
   imagePreview: string | null = null;
+  tags: any[] = [];
+  tagName: string = '';
+  tagId: number = 0;
+  userInfo: any;
 
   ngOnInit(): void {
     // console.log(" Bắt đầu chạy component post ")
@@ -75,17 +86,132 @@ export class PostComponent implements OnInit {
     this.uploadImage(file);
   }
 
+  // Xử lý khi chọn tag
+  onTagChange(event: KeyboardEvent) {
+    const input = event.target as HTMLInputElement;
+    // Lấy giá trị tag từ Enter 
+    const tag = input.value.trim();
+    if ((event.key === 'Enter' || event.key === ',') && input) {
+      event.preventDefault(); // ngăn form submit hoặc dấu , xuất hiện trong input
+      this.addTag(tag);
+      input.value = '';
+    }
+  }
+
+  addTag(tag: string) {
+    this.userService.createTags(tag).subscribe((res) => {
+      // console.log(res);
+      this.tagName = res.name;
+      this.tagId = res.id;
+      this.tags.push({ id: this.tagId, name: this.tagName });
+      this.submitContentForm.get('tags')?.setValue(this.tags);
+      this.submitContentForm.get('tags')?.markAsDirty();
+    })
+  }
+
+  removeTag(index: number) {
+    this.tags.splice(index, 1);
+    this.submitContentForm.get('tags')?.setValue(this.tags); // cập nhật form control
+  }
+
   savePost() {
-    //   if (this.fb.valid) {
-    //     this.userService.createPost(this.fb.value).subscribe((res) => {
-    //       if (res.status === 200 && res.success === 'true') {
-    //         this.router.navigate(['/user/post']);
-    //       }
-    //     })
-    //   }
+
+    // Prepare data for submission
+    const formValue = this.submitContentForm.value;
+    this.userInfo = this.authService.getUserInfo();
+    const postData = {
+      title: formValue.title,
+      content: formValue.content,
+      thumbnail: this.imagePreview,
+      status: 'published', // hoặc 'draft' tùy vào button nào được click
+      featured: formValue.featured || false,
+      category: [parseInt(formValue.category_id)], // Convert to array of numbers
+      lang_id: 1, // Default language ID
+      user_id: this.userInfo.id, // TODO: Get from auth service
+      tags: this.tags.map(tag => tag.id) // Extract tag IDs
+    };
+
+    console.log('Submitting post:', postData);
+
+    // Submit to backend
+    this.userService.createPost(postData).subscribe({
+      next: (res) => {
+        console.log('Post created successfully:', res);
+        this.toastService.showMessage('successToast', 'Post created successfully');
+        // Redirect to post list or detail page
+        this.router.navigate(['/user/posts']);
+      },
+      error: (err) => {
+        console.error('Error creating post:', err);
+        this.toastService.showMessage('errorToast', 'Failed to create post. Please try again.');
+      }
+    });
   }
 
   saveDraft() {
+    // Similar to savePost but with status = 'draft'
+    if (!this.submitContentForm.get('title')?.value) {
+      this.toastService.showMessage('errorToast', 'Please enter a title for the draft');
+      return;
+    }
+    this.userInfo = this.authService.getUserInfo();
+    const formValue = this.submitContentForm.value;
 
+    const draftData = {
+      title: formValue.title,
+      content: formValue.content || '',
+      thumbnail: this.imagePreview || '',
+      status: 'draft',
+      featured: formValue.featured || false,
+      category: formValue.category_id ? [parseInt(formValue.category_id)] : [],
+      lang_id: 1,
+      user_id: this.userInfo.id, // TODO: Get from auth service
+      tags: this.tags.map(tag => tag.id)
+    };
+
+    console.log('Saving draft:', draftData);
+
+    this.userService.createPost(draftData).subscribe({
+      next: (res) => {
+        console.log('Draft saved successfully:', res);
+        this.toastService.showMessage('successToast', 'Draft saved successfully');
+      },
+      error: (err) => {
+        console.error('Error saving draft:', err);
+        this.toastService.showMessage('errorToast', 'Failed to save draft. Please try again.');
+      }
+    });
   }
+
+  submitPost() {
+    this.modalService.confirm({
+      title: 'Confirm',
+      message: 'Are you sure you want to submit this post?',
+      confirmText: 'Submit',
+      cancelText: 'Cancel',
+      status: 'warning'
+    }).then((result) => {
+      if (result) {
+        this.savePost();
+      }
+    });
+  }
+
+  submitDraft() {
+    this.modalService.confirm({
+      title: 'Confirm',
+      message: 'Are you sure you want to submit this draft?',
+      confirmText: 'Submit',
+      cancelText: 'Cancel',
+      status: 'warning'
+    }).then((result) => {
+      if (result) {
+        this.saveDraft();
+      }
+    });
+  }
+
+
+
+
 }

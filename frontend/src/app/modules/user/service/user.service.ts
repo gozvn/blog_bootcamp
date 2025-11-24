@@ -27,10 +27,19 @@ export class UserService {
             map((result: any) => result?.data ?? null)
         );
     }
-    createPost(userId: number, post: any) {
-        //   return this.backendService.post<any>(`/users/${userId}/posts`, post);
+    createPost(post: any): Observable<any> {
+        return this.backendService.post(`post/create`, post).pipe(
+            map((result: any) => result?.data ?? null)
+        );
     }
-
+    createTags(tags: any): Observable<any> {
+        const body = {
+            name: tags
+        }
+        return this.backendService.post(`tag/create`, body).pipe(
+            map((result: any) => result?.data ?? null)
+        );
+    }
     editPost(userId: number, postId: number, post: any) {
         //   return this.backendService.put<any>(`/users/${userId}/posts/${postId}`, post);
     }
