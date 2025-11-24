@@ -39,11 +39,11 @@ export class PostComponent implements OnInit {
   imagePreview: string | null = null;
 
   ngOnInit(): void {
+    // console.log(" Bắt đầu chạy component post ")
     // Lấy danh sách category
     this.userService.getCategories().subscribe((res) => {
-      if (res.status === 200 && res.success === 'true') {
-        this.categories = res.rows;
-      }
+      // console.log(res);
+      this.categories = res.rows;
     })
   }
 
