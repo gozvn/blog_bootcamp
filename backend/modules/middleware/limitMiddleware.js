@@ -3,7 +3,7 @@ const responseUtils = require("utils/responseUtils");
 
 const limitPublic = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 100,
+    max: 10000,
     handler: (req, res) => {
         // handler này được gọi khi vượt quá rate limit
         return responseUtils.invalidated(res, {
@@ -15,7 +15,7 @@ const limitPublic = rateLimit({
 
 const limitPrivate = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 200,
+    max: 10000,
     handler: (req, res) => {
         return responseUtils.invalidated(res, {
             status: 429,

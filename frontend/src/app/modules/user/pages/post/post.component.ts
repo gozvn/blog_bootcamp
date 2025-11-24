@@ -115,31 +115,45 @@ export class PostComponent implements OnInit {
   }
 
   savePost() {
-
     // Prepare data for submission
     const formValue = this.submitContentForm.value;
     this.userInfo = this.authService.getUserInfo();
+
+    // Validate category_id
+    if (!formValue.category_id) {
+      this.toastService.showMessage('errorToast', 'Please select a category');
+      return;
+    }
+
+    // Validate tags
+    if (!this.tags || this.tags.length === 0) {
+      this.toastService.showMessage('errorToast', 'Please add at least one tag');
+      return;
+    }
+
+    // Validate image
+    if (!this.imagePreview) {
+      this.toastService.showMessage('errorToast', 'Please upload an image');
+      return;
+    }
+
     const postData = {
       title: formValue.title,
       content: formValue.content,
       thumbnail: this.imagePreview,
-      status: 'published', // hoặc 'draft' tùy vào button nào được click
+      status: 'published',
       featured: formValue.featured || false,
-      category: [parseInt(formValue.category_id)], // Convert to array of numbers
-      lang_id: 1, // Default language ID
-      user_id: this.userInfo.id, // TODO: Get from auth service
-      tags: this.tags.map(tag => tag.id) // Extract tag IDs
+      category: [parseInt(formValue.category_id)],
+      lang_id: 1,
+      user_id: this.userInfo.id,
+      tags: this.tags.map(tag => tag.id)
     };
-
-    console.log('Submitting post:', postData);
 
     // Submit to backend
     this.userService.createPost(postData).subscribe({
       next: (res) => {
-        console.log('Post created successfully:', res);
         this.toastService.showMessage('successToast', 'Post created successfully');
-        // Redirect to post list or detail page
-        this.router.navigate(['/user/posts']);
+        this.router.navigate(['/user']);
       },
       error: (err) => {
         console.error('Error creating post:', err);
@@ -175,6 +189,7 @@ export class PostComponent implements OnInit {
       next: (res) => {
         console.log('Draft saved successfully:', res);
         this.toastService.showMessage('successToast', 'Draft saved successfully');
+        this.router.navigate(['/user']);
       },
       error: (err) => {
         console.error('Error saving draft:', err);
