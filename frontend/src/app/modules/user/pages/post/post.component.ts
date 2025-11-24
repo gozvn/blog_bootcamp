@@ -6,6 +6,7 @@ import { UserService } from '../../service/user.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { environment } from '../../../../../environments/environment.prod';
 
 @Component({
   selector: 'app-post',
@@ -17,7 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 export class PostComponent implements OnInit {
   // Khởi tạo form  submitContentForm từ FormGroup
   submitContentForm: FormGroup
-
+  loading: boolean = false;
   constructor(
     private userService: UserService,
     private router: Router,
@@ -48,13 +49,18 @@ export class PostComponent implements OnInit {
 
   // Tải ảnh lên
   uploadImage(image: File) {
+    this.loading = true;
     this.userService.uploadImage(image).subscribe({
       next: (res) => {
-        this.imagePreview = res.file.path || null;
+        this.imagePreview = res?.file?.path
+          ? environment.cdn.baseimageUrl + res.file.path
+          : null;
         this.submitContentForm.get('imagePreview')?.setValue(this.imagePreview);
+        this.loading = false;
       },
       error: (err) => {
         this.submitContentForm.get('imagePreview')?.setErrors({ uploadFailed: true });
+        this.loading = false;
       }
     })
   }
@@ -62,13 +68,10 @@ export class PostComponent implements OnInit {
   // Xử lý khi chọn file
   onFileChange(event: any) {
     const file = event.target.files[0];
+    if (!file) return;
     this.image = file;
-    if (file) {
-      this.submitContentForm.get('image')?.setValue(file); // set file object cho control 'image'
-      this.uploadImage(file);
-    } else {
-      this.submitContentForm.get('image')?.setValue(null);
-    }
+    this.submitContentForm.get('image')?.markAsDirty();
+    this.uploadImage(file);
   }
 
   savePost() {

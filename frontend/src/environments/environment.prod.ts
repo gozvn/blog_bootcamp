@@ -8,7 +8,7 @@ export const environment = {
 
     },
     cdn: {
-        baseimageUrl: 'http://localhost:3000/uploads/', // Lưu tạm ở đaay
+        baseimageUrl: 'http://localhost:3000/', // Lưu tạm ở đaay
     },
     production: false,
 };
