@@ -7,13 +7,14 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { environment } from '../../../../../environments/environment.prod';
+import { QuillModule } from 'ngx-quill';
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [Header, Footer, ReactiveFormsModule, CommonModule],
+  imports: [Header, Footer, ReactiveFormsModule, CommonModule, QuillModule],
   templateUrl: './post.component.html',
-  styleUrl: './post.component.scss'
+  styleUrls: ['./post.component.scss', 'quill.scss']
 })
 export class PostComponent implements OnInit {
   // Khởi tạo form  submitContentForm từ FormGroup
