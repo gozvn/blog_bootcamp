@@ -1,0 +1,121 @@
+<app-header></app-header>
+<!-- Body -->
+<div class="container my-2">
+    <div class="card shadow-sm">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Create New Post</h5>
+            <div class="d-flex align-items-center">
+                <button type="button" class="btn btn-outline-secondary me-2"> Cancel </button>
+                <button type="button" class="btn btn-outline-primary me-2" (click)="submitDraft()">Save Draft</button>
+                <button type="button" class="btn btn-primary" (click)="submitPost()">Publish Post</button>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <form id="postForm" [formGroup]="submitContentForm" novalidate>
+                <input type="hidden" id="postId" value="">
+                <div class="row mb-3">
+                    <div class="col-md-8">
+                        <div class="mb-3">
+                            <label for="postTitle" class="form-label">Title <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="postTitle" formControlName="title"
+                                placeholder="Enter post title" required>
+                            @if (submitContentForm.get('title')?.hasError('required') &&
+                            (submitContentForm.get('title')?.touched || submitContentForm.get('title')?.dirty)) {
+                            <div class="text-danger mt-1">Title is required.</div>
+                            }
+                        </div>
+                        <div class="mb-3">
+                            <label for="postCategory" class="form-label">Category <span
+                                    class="text-danger">*</span></label>
+                            <select class="form-select" id="postCategory" formControlName="category_id" required>
+                                <option value="">Select Category</option>
+                                @for (category of categories; track category.id) {
+                                <option value="{{category.id}}">{{category.name}}</option>
+                                }
+                            </select>
+                            @if (submitContentForm.get('category_id')?.hasError('required') &&
+                            (submitContentForm.get('category_id')?.touched ||
+                            submitContentForm.get('category_id')?.dirty)) {
+                            <div class="text-danger mt-1">Category is required.</div>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="postFeatured" formControlName="featured" class="form-label">Featured </label>
+                            &nbsp;<input type="checkbox" id="postFeatured" formControlName="featured">
+                        </div>
+                        <div class="mb-3">
+                            <label for="postImage" class="form-label">Featured Image <span
+                                    class="text-danger">*</span></label>
+                            <input type="file" formControlName="image" class="form-control" id="postImage"
+                                (change)="onFileChange($event)" accept="image/*">
+                            @if (loading) {
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            }
+                            @if (submitContentForm.get('image')?.hasError('uploadFailed') &&
+                            (submitContentForm.get('image')?.touched
+                            || submitContentForm.get('image')?.dirty)) {
+                            <div class="text-danger">Failed to upload image.</div>
+                            }
+                            @if (submitContentForm.get('image')?.hasError('required') &&
+                            (submitContentForm.get('image')?.touched ||
+                            submitContentForm.get('image')?.dirty)) {
+                            <div class="text-danger">Image is required.</div>
+                            }
+                            @if (imagePreview) {
+                            <div class="mt-2">
+                                <img [src]="imagePreview" class="img-thumbnail" style="max-height: 200px;">
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <!--  editor -->
+                <div class="mb-3">
+                    <label for="postContent" class="form-label">Content <span class="text-danger">*</span></label>
+                    <textarea formControlName="content" class="form-control" id="postContent" rows="3"></textarea>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label for="postTags" class="form-label">Tags</label>
+                        <div id="selectedTags" class="my-2">
+                            @for (tag of tags; track $index) {
+                            <span class="badge bg-primary me-2 mb-2">
+                                {{ tag.name }}
+                                <button type="button" class="btn-close btn-close-white ms-1" (click)="removeTag($index)"
+                                    aria-label="Remove tag" style="font-size: 0.7rem; vertical-align: middle;"></button>
+                            </span>
+                            }
+                        </div>
+                        @if (submitContentForm.get('tags')?.hasError('required') &&
+                        (submitContentForm.get('tags')?.touched || submitContentForm.get('tags')?.dirty)) {
+                        <div class="text-danger mt-1">At least one tag is required.</div>
+                        }
+                        <div class="position-relative">
+                            <input type="text" class="form-control" id="postTags"
+                                placeholder="Start typing to add tags..." autocomplete="off"
+                                (keydown)="onTagChange($event)">
+                            <div id="tagSuggestions" class="dropdown-menu w-100"
+                                style="display:none; max-height:200px; overflow-y:auto;"></div>
+                        </div>
+                        <small class="form-text text-muted">Popular tags: JavaScript, React, CSS, Design, Business,
+                            Lifestyle</small>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="card-footer text-muted d-flex justify-content-between">
+            <small>Last edited: <span id="lastEdited">—</span></small>
+            <small class="text-muted">You can continue editing your post here.</small>
+        </div>
+    </div>
+</div>
+<app-toast></app-toast>
+<app-footer></app-footer>
