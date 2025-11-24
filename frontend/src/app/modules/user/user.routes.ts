@@ -1,6 +1,7 @@
 import { Route } from "@angular/router";
 import { MainComponent } from "./pages/main.component";
 import { PostComponent } from "./pages/post/post.component";
+import { EditpostComponent } from "./pages/editpost/editpost.component";
 
 export const UserRoutes: Route[] = [
     {
@@ -18,10 +19,10 @@ export const UserRoutes: Route[] = [
         component: PostComponent,
         title: 'Add Post'
     },
-    // {
-    //     path: 'edit/:id',
-    //     component: MainComponent,
-    //     title: 'User Detail'
-    // },
+    {
+        path: 'editPost/:id',
+        component: EditpostComponent,
+        title: 'Edit Post'
+    },
 
 ];

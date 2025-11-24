@@ -15,6 +15,11 @@ export class UserService {
             map((result: any) => result?.data ?? null)
         );
     }
+    getPostById(postId: number): Observable<any> {
+        return this.backendService.get(`post/${postId}`).pipe(
+            map((result: any) => result?.data ?? null)
+        );
+    }
     uploadImage(image: File): Observable<any> {
         const formData = new FormData();
         formData.append('image', image);
@@ -40,12 +45,13 @@ export class UserService {
             map((result: any) => result?.data ?? null)
         );
     }
-    editPost(userId: number, postId: number, post: any) {
-        //   return this.backendService.put<any>(`/users/${userId}/posts/${postId}`, post);
+    editPost(postId: number, post: any) {
+        return this.backendService.put(`/post/edit/${postId}`, post).pipe(
+            map((result: any) => result?.data ?? null)
+        );
     }
 
     deletePost(postId: number) {
-        //   return this.backendService.delete<void>(`/users/${userId}/posts/${postId}`);
         return this.backendService.delete(`post/delete/${postId}`).pipe(
             map((result: any) => result?.data ?? null)
         );

@@ -3,25 +3,25 @@
 <div class="container my-2">
     <div class="card shadow-sm">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Create New Post</h5>
+            <h5 class="mb-0">Edit Post</h5>
             <div class="d-flex align-items-center">
-                <button type="button" class="btn btn-outline-secondary me-2"> Cancel </button>
+                <button type="button" class="btn btn-outline-secondary me-2">Cancel</button>
                 <button type="button" class="btn btn-outline-primary me-2" (click)="submitDraft()">Save Draft</button>
-                <button type="button" class="btn btn-primary" (click)="submitPost()">Publish Post</button>
+                <button type="button" class="btn btn-primary" (click)="submitPost()">Update Post</button>
             </div>
         </div>
 
         <div class="card-body">
-            <form id="postForm" [formGroup]="submitContentForm" novalidate>
-                <input type="hidden" id="postId" value="">
+            <form id="postForm" [formGroup]="editPostForm" novalidate>
+                <input type="hidden" id="postId" [value]="postId">
                 <div class="row mb-3">
                     <div class="col-md-8">
                         <div class="mb-3">
                             <label for="postTitle" class="form-label">Title <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="postTitle" formControlName="title"
                                 placeholder="Enter post title" required>
-                            @if (submitContentForm.get('title')?.hasError('required') &&
-                            (submitContentForm.get('title')?.touched || submitContentForm.get('title')?.dirty)) {
+                            @if (editPostForm.get('title')?.hasError('required') &&
+                            (editPostForm.get('title')?.touched || editPostForm.get('title')?.dirty)) {
                             <div class="text-danger mt-1">Title is required.</div>
                             }
                         </div>
@@ -30,40 +30,39 @@
                                     class="text-danger">*</span></label>
                             <select class="form-select" id="postCategory" formControlName="category_id" required>
                                 <option value="">Select Category</option>
-                                @for (category of categories; track category.id) {
-                                <option value="{{category.id}}">{{category.name}}</option>
-                                }
+                                <option value="category.id">s</option>
+
                             </select>
-                            @if (submitContentForm.get('category_id')?.hasError('required') &&
-                            (submitContentForm.get('category_id')?.touched ||
-                            submitContentForm.get('category_id')?.dirty)) {
+                            @if (editPostForm.get('category_id')?.hasError('required') &&
+                            (editPostForm.get('category_id')?.touched ||
+                            editPostForm.get('category_id')?.dirty)) {
                             <div class="text-danger mt-1">Category is required.</div>
                             }
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
-                            <label for="postFeatured" formControlName="featured" class="form-label">Featured </label>
+                            <label for="postFeatured" class="form-label">Featured</label>
                             &nbsp;<input type="checkbox" id="postFeatured" formControlName="featured">
                         </div>
                         <div class="mb-3">
                             <label for="postImage" class="form-label">Featured Image <span
                                     class="text-danger">*</span></label>
-                            <input type="file" formControlName="image" class="form-control" id="postImage"
-                                (change)="onFileChange($event)" accept="image/*">
+                            <input type="file" class="form-control" id="postImage" (change)="onFileChange($event)"
+                                accept="image/*">
                             @if (loading) {
                             <div class="spinner-border text-primary" role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                             }
-                            @if (submitContentForm.get('image')?.hasError('uploadFailed') &&
-                            (submitContentForm.get('image')?.touched
-                            || submitContentForm.get('image')?.dirty)) {
+                            @if (editPostForm.get('image')?.hasError('uploadFailed') &&
+                            (editPostForm.get('image')?.touched
+                            || editPostForm.get('image')?.dirty)) {
                             <div class="text-danger">Failed to upload image.</div>
                             }
-                            @if (submitContentForm.get('image')?.hasError('required') &&
-                            (submitContentForm.get('image')?.touched ||
-                            submitContentForm.get('image')?.dirty)) {
+                            @if (editPostForm.get('image')?.hasError('required') &&
+                            (editPostForm.get('image')?.touched ||
+                            editPostForm.get('image')?.dirty)) {
                             <div class="text-danger">Image is required.</div>
                             }
                             @if (imagePreview) {
@@ -78,7 +77,11 @@
                 <!--  editor -->
                 <div class="mb-3">
                     <label for="postContent" class="form-label">Content <span class="text-danger">*</span></label>
-                    <textarea formControlName="content" class="form-control" id="postContent" rows="3"></textarea>
+                    <textarea formControlName="content" class="form-control" id="postContent" rows="10"></textarea>
+                    @if (editPostForm.get('content')?.hasError('required') &&
+                    (editPostForm.get('content')?.touched || editPostForm.get('content')?.dirty)) {
+                    <div class="text-danger mt-1">Content is required.</div>
+                    }
                 </div>
 
                 <div class="row mt-3">
@@ -93,10 +96,6 @@
                             </span>
                             }
                         </div>
-                        @if (submitContentForm.get('tags')?.hasError('required') &&
-                        (submitContentForm.get('tags')?.touched || submitContentForm.get('tags')?.dirty)) {
-                        <div class="text-danger mt-1">At least one tag is required.</div>
-                        }
                         <div class="position-relative">
                             <input type="text" class="form-control" id="postTags"
                                 placeholder="Start typing to add tags..." autocomplete="off"
@@ -104,8 +103,7 @@
                             <div id="tagSuggestions" class="dropdown-menu w-100"
                                 style="display:none; max-height:200px; overflow-y:auto;"></div>
                         </div>
-                        <small class="form-text text-muted">Popular tags: JavaScript, React, CSS, Design, Business,
-                            Lifestyle</small>
+                        <small class="form-text text-muted">Press Enter to add a tag</small>
                     </div>
                 </div>
             </form>

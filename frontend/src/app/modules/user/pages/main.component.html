@@ -144,7 +144,7 @@
                                 <span class="badge fs-6 bg-info my-2 me-2">{{post.status}}</span>
                             </div>
                             <h5 class="card-title fw-bold">
-                                <a [routerLink]="['edit/', post.id]"
+                                <a [routerLink]="['editPost/', post.id]"
                                     class="text-decoration-none text-dark">{{post.title}}</a>
                             </h5>
                             <p class="card-text text-muted">
@@ -158,10 +158,12 @@
                                     </small>
                                 </div>
                                 <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="viewPost(1)">
+                                    <button type="button" class="btn btn-sm btn-outline-primary"
+                                        [routerLink]="['post/', post.id]">
                                         <i class="bi bi-eye"></i>
                                     </button>
-                                    <button type="button" class="btn btn-sm btn-outline-success" onclick="editPost(1)">
+                                    <button type="button" class="btn btn-sm btn-outline-success"
+                                        [routerLink]="['editPost/', post.id]">
                                         <i class="bi bi-pencil"></i>
                                     </button>
                                     <button type="button" class="btn btn-sm btn-outline-danger"
