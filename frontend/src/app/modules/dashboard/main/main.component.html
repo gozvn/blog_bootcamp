@@ -1,1 +1,78 @@
-<p>main works!</p>
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Dashboard</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            </ol>
+        </nav>
+
+        <!-- Welcome Section -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-white">
+                        <i class="bi bi-house me-2"></i>
+                        Welcome to Blog Dashboard
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center py-4">
+                            <h2 class="text-primary mb-3">Welcome to Your Blog Administration</h2>
+                            <p class="lead text-muted mb-5">
+                                Manage your blog content, users, and settings from this central dashboard.
+                            </p>
+
+                            <!-- Feature Cards -->
+                            <div class="row g-4 mb-5">
+                                <div class="col-sm-6 col-md-3">
+                                    <div class="text-center p-3">
+                                        <i class="bi bi-people fs-1 text-primary mb-3 d-block"></i>
+                                        <h5 class="fw-bold">User Management</h5>
+                                        <p class="text-muted small mb-0">Manage user accounts and permissions</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                    <div class="text-center p-3">
+                                        <i class="bi bi-newspaper fs-1 text-success mb-3 d-block"></i>
+                                        <h5 class="fw-bold">Post Management</h5>
+                                        <p class="text-muted small mb-0">Create and edit blog posts</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                    <div class="text-center p-3">
+                                        <i class="bi bi-tags fs-1 text-warning mb-3 d-block"></i>
+                                        <h5 class="fw-bold">Categories</h5>
+                                        <p class="text-muted small mb-0">Organize content with categories</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                    <div class="text-center p-3">
+                                        <i class="bi bi-chat-dots fs-1 text-info mb-3 d-block"></i>
+                                        <h5 class="fw-bold">Comments</h5>
+                                        <p class="text-muted small mb-0">Monitor and moderate comments</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="d-flex flex-wrap justify-content-center gap-3">
+                                <a routerLink="/dashboard/posts" class="btn btn-outline-primary btn-lg">
+                                    <i class="bi bi-plus-circle me-2"></i>Manager Posts
+                                </a>
+                                <a routerLink="/dashboard/users" class="btn btn-outline-primary btn-lg">
+                                    <i class="bi bi-people me-2"></i>Manage Users
+                                </a>
+                                <a routerLink="/dashboard/categories" class="btn btn-outline-primary btn-lg">
+                                    <i class="bi bi-tags me-2"></i>Manage Categories
+                                </a>
+                                <a routerLink="/dashboard/comments" class="btn btn-outline-primary btn-lg">
+                                    <i class="bi bi-chat-dots me-2"></i>Manage Comments
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

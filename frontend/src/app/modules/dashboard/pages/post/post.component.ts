@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-main',
+  selector: 'app-post',
   standalone: true,
   imports: [RouterLink],
-  templateUrl: './main.component.html',
-  styleUrl: './main.component.scss'
+  templateUrl: './post.component.html',
+  styleUrl: './post.component.scss'
 })
-export class MainComponent {
+export class PostComponent {
 
 }

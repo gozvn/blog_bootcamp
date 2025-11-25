@@ -1,0 +1,237 @@
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Blog Settings</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Settings</li>
+            </ol>
+        </nav>
+
+        <!-- General Settings -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-white">
+                <i class="bi bi-gear me-2"></i>
+                General Settings
+            </div>
+            <div class="card-body">
+                <form>
+                    <!-- Blog Language -->
+                    <div class="row mb-4">
+                        <label for="blogLanguage" class="col-sm-3 col-form-label fw-bold">
+                            <i class="bi bi-translate me-2 text-primary"></i>Blog Language
+                        </label>
+                        <div class="col-sm-9">
+                            <select class="form-select" id="blogLanguage">
+                                <option value="en" selected>🇺🇸 English</option>
+                                <option value="vi">🇻🇳 Tiếng Việt (Vietnamese)</option>
+                                <option value="fr">🇫🇷 Français (French)</option>
+                                <option value="es">🇪🇸 Español (Spanish)</option>
+                                <option value="de">🇩🇪 Deutsch (German)</option>
+                                <option value="ja">🇯🇵 日本語 (Japanese)</option>
+                                <option value="ko">🇰🇷 한국어 (Korean)</option>
+                                <option value="zh">🇨🇳 中文 (Chinese)</option>
+                            </select>
+                            <div class="form-text">
+                                Select the default language for your blog content and interface.
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <!-- Blog Title -->
+                    <div class="row mb-4">
+                        <label for="blogTitle" class="col-sm-3 col-form-label fw-bold">
+                            <i class="bi bi-type me-2 text-primary"></i>Blog Title
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="blogTitle" placeholder="Enter your blog title"
+                                value="My Awesome Blog">
+                            <div class="form-text">
+                                This will be displayed in the browser tab and search results.
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <!-- Blog Description -->
+                    <div class="row mb-4">
+                        <label for="blogDescription" class="col-sm-3 col-form-label fw-bold">
+                            <i class="bi bi-card-text me-2 text-primary"></i>Blog Description
+                        </label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" id="blogDescription" rows="4"
+                                placeholder="Enter your blog description">A blog about technology, design, and innovation. Sharing insights and tutorials for developers and designers.</textarea>
+                            <div class="form-text">
+                                A brief description of your blog (recommended: 150-160 characters for SEO).
+                            </div>
+                            <div class="mt-2">
+                                <small class="text-muted">
+                                    <span id="charCount">112</span> / 160 characters
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <!-- Site Status -->
+                    <div class="row mb-4">
+                        <label class="col-sm-3 col-form-label fw-bold">
+                            <i class="bi bi-power me-2 text-primary"></i>Site Status
+                        </label>
+                        <div class="col-sm-9">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" id="siteStatus" checked>
+                                <label class="form-check-label" for="siteStatus">
+                                    <span class="badge bg-success me-2">Online</span>
+                                    Site is currently active and accessible to visitors
+                                </label>
+                            </div>
+                            <div class="form-text mt-2">
+                                Toggle to enable or disable public access to your blog.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Maintenance Message (shown when site is off) -->
+                    <div class="row mb-4" id="maintenanceSection" style="display: none;">
+                        <label for="maintenanceMessage" class="col-sm-3 col-form-label fw-bold">
+                            <i class="bi bi-exclamation-triangle me-2 text-warning"></i>Maintenance Message
+                        </label>
+                        <div class="col-sm-9">
+                            <div class="alert alert-warning d-flex align-items-center" role="alert">
+                                <i class="bi bi-info-circle-fill me-2"></i>
+                                <div>
+                                    This message will be displayed to visitors when the site is offline.
+                                </div>
+                            </div>
+                            <textarea class="form-control" id="maintenanceMessage" rows="3"
+                                placeholder="Enter maintenance message">We're currently performing scheduled maintenance. We'll be back soon! Thank you for your patience.</textarea>
+                            <div class="form-text">
+                                Customize the message shown to visitors during maintenance.
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <!-- Action Buttons -->
+                    <div class="row">
+                        <div class="col-sm-9 offset-sm-3">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-circle me-2"></i>Save Settings
+                            </button>
+                            <button type="reset" class="btn btn-outline-secondary ms-2">
+                                <i class="bi bi-arrow-counterclockwise me-2"></i>Reset
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- SEO Settings -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-white">
+                <i class="bi bi-search me-2"></i>
+                SEO Settings
+            </div>
+            <div class="card-body">
+                <form>
+                    <!-- Meta Keywords -->
+                    <div class="row mb-4">
+                        <label for="metaKeywords" class="col-sm-3 col-form-label fw-bold">
+                            <i class="bi bi-tags me-2 text-success"></i>Meta Keywords
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="metaKeywords"
+                                placeholder="blog, technology, design, tutorials"
+                                value="blog, technology, design, tutorials, web development">
+                            <div class="form-text">
+                                Comma-separated keywords for search engines (optional).
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Google Analytics ID -->
+                    <div class="row mb-4">
+                        <label for="googleAnalytics" class="col-sm-3 col-form-label fw-bold">
+                            <i class="bi bi-graph-up me-2 text-success"></i>Google Analytics ID
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="googleAnalytics" placeholder="G-XXXXXXXXXX">
+                            <div class="form-text">
+                                Enter your Google Analytics tracking ID to enable analytics.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="row">
+                        <div class="col-sm-9 offset-sm-3">
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-check-circle me-2"></i>Save SEO Settings
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Preview Card -->
+        <div class="card shadow-sm mb-4 border-info">
+            <div class="card-header bg-info text-white">
+                <i class="bi bi-eye me-2"></i>
+                Preview
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">How your blog appears in search results:</h5>
+                <div class="border rounded p-3 bg-light">
+                    <div class="text-primary fw-bold mb-1" style="font-size: 1.2rem;">
+                        My Awesome Blog
+                    </div>
+                    <div class="text-success small mb-2">
+                        https://yourblog.com
+                    </div>
+                    <div class="text-muted">
+                        A blog about technology, design, and innovation. Sharing insights and tutorials for developers
+                        and designers.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    // Toggle maintenance section based on site status
+    document.getElementById('siteStatus')?.addEventListener('change', function () {
+        const maintenanceSection = document.getElementById('maintenanceSection');
+        const statusLabel = this.nextElementSibling?.querySelector('.badge');
+
+        if (this.checked) {
+            maintenanceSection.style.display = 'none';
+            if (statusLabel) {
+                statusLabel.className = 'badge bg-success me-2';
+                statusLabel.textContent = 'Online';
+            }
+        } else {
+            maintenanceSection.style.display = 'flex';
+            if (statusLabel) {
+                statusLabel.className = 'badge bg-danger me-2';
+                statusLabel.textContent = 'Offline';
+            }
+        }
+    });
+
+    // Character counter for description
+    document.getElementById('blogDescription')?.addEventListener('input', function () {
+        const charCount = document.getElementById('charCount');
+        if (charCount) {
+            charCount.textContent = this.value.length;
+        }
+    });
+</script>

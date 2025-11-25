@@ -13999,3 +13999,15 @@ svg:not(:root).svg-inline--fa {
 .fad.fa-inverse {
   color: var(--fa-inverse, #fff)
 }
+
+// Custom styles for fixed sidebar layout
+@media (min-width: 992px) {
+  #page-content-wrapper {
+    margin-left: 250px;
+    // padding-top: 56px; // Height of fixed header
+  }
+
+  #wrapper {
+    padding-top: 56px; // Add padding for fixed header
+  }
+}

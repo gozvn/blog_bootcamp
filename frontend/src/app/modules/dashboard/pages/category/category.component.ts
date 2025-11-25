@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-main',
+  selector: 'app-category',
   standalone: true,
   imports: [RouterLink],
-  templateUrl: './main.component.html',
-  styleUrl: './main.component.scss'
+  templateUrl: './category.component.html',
+  styleUrl: './category.component.scss'
 })
-export class MainComponent {
+export class CategoryComponent {
 
 }
