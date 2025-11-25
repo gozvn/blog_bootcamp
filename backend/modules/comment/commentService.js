@@ -1,15 +1,26 @@
 const { Comment, User, Post } = require("../../models");
 
 const commentService = {
-    async list(page = 1 , limit = 10, userId) {
+    async list(page = 1, limit = 10, userId) {
         const whereClause = {};
         const offset = (page - 1) * limit;
-        
-        if(userId !== undefined && userId !== null){
+
+        if (userId !== undefined && userId !== null) {
             whereClause.user_id = userId;
         }
 
-        const include = [];
+        const include = [
+            {
+                model: User,
+                as: 'user',
+                attributes: ['username', 'email']
+            },
+            {
+                model: Post,
+                as: 'post',
+                attributes: ['title']
+            }
+        ];
 
         const { count, rows } = await Comment.findAndCountAll({
             where: whereClause,
@@ -34,7 +45,18 @@ const commentService = {
     async getById(id) {
         const comment = await Comment.findOne({
             where: { id },
-            include: [],
+            include: [
+                {
+                    model: User,
+                    as: 'user',
+                    attributes: ['username', 'email']
+                },
+                {
+                    model: Post,
+                    as: 'post',
+                    attributes: ['title']
+                }
+            ],
         });
         return comment;
     },
@@ -56,7 +78,7 @@ const commentService = {
             content: data.content,
             updated_at: new Date()
         };
-        
+
         const comment = await Comment.update(updateData, {
             where: whereClause
         });

@@ -1,0 +1,107 @@
+<div class="modal-header">
+    <h5 class="modal-title">Edit User</h5>
+    <button type="button" class="btn-close" (click)="cancel()" aria-label="Close"></button>
+</div>
+
+<div class="modal-body">
+    @if (errorMessage) {
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        {{ errorMessage }}
+        <button type="button" class="btn-close" (click)="errorMessage = ''" aria-label="Close"></button>
+    </div>
+    }
+
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+        <!-- Email Field -->
+        <div class="mb-3">
+            <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+            <input type="email" class="form-control" id="email" formControlName="email"
+                [class.is-invalid]="f['email'].invalid && f['email'].touched"
+                [class.is-valid]="f['email'].valid && f['email'].touched" placeholder="user@example.com">
+
+            @if (f['email'].invalid && f['email'].touched) {
+            <div class="invalid-feedback">
+                @if (f['email'].errors?.['required']) {
+                <span>Email is required.</span>
+                }
+                @if (f['email'].errors?.['email']) {
+                <span>Please provide a valid email address.</span>
+                }
+            </div>
+            }
+
+            @if (f['email'].valid && f['email'].touched) {
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            }
+        </div>
+
+        <!-- Role Field -->
+        <div class="mb-3">
+            <label for="role" class="form-label">Role <span class="text-danger">*</span></label>
+            <select class="form-select" id="role" formControlName="role"
+                [class.is-invalid]="f['role'].invalid && f['role'].touched"
+                [class.is-valid]="f['role'].valid && f['role'].touched">
+                <option value="">Select role</option>
+                <option value="1">Admin</option>
+                <option value="2">Moderator</option>
+                <option value="3">User</option>
+            </select>
+
+            @if (f['role'].invalid && f['role'].touched) {
+            <div class="invalid-feedback">
+                Please select a valid role.
+            </div>
+            }
+
+            @if (f['role'].valid && f['role'].touched) {
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            }
+        </div>
+
+        <!-- Password Field -->
+        <div class="mb-3">
+            <label for="password" class="form-label">
+                Password <small class="text-muted">(leave empty if not changing)</small>
+            </label>
+            <input type="password" class="form-control" id="password" formControlName="password"
+                [class.is-invalid]="f['password'].invalid && f['password'].touched"
+                [class.is-valid]="f['password'].valid && f['password'].touched && f['password'].value"
+                placeholder="Enter new password">
+
+            @if (f['password'].invalid && f['password'].touched) {
+            <div class="invalid-feedback">
+                Password must be at least 6 characters long.
+            </div>
+            }
+
+            @if (f['password'].valid && f['password'].touched && f['password'].value) {
+            <div class="valid-feedback">
+                Password strength is good!
+            </div>
+            }
+
+            <div class="form-text">
+                Password should be at least 6 characters long for security.
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="cancel()" [disabled]="isSubmitting">
+        <i class="bi bi-x-circle me-1"></i>Cancel
+    </button>
+    <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="isSubmitting">
+        @if (isSubmitting) {
+        <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+        Saving...
+        } @else {
+        <i class="bi bi-save me-1"></i>Save Changes
+        }
+    </button>
+</div>

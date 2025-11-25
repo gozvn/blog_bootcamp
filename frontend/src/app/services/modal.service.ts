@@ -7,7 +7,7 @@ import { ModalComponent } from '../layouts/default/partials/modal/modal.componen
 })
 export class ModalService {
 
-  constructor(private modal: NgbModal) {}
+  constructor(private modal: NgbModal) { }
 
   confirm(options: {
     title: string;
@@ -27,4 +27,5 @@ export class ModalService {
 
     return modalRef.result;
   }
+
 }

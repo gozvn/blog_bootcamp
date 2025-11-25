@@ -63,9 +63,10 @@
                     <div class="col-md-6 mb-2 mb-md-0">
                         <div class="d-flex align-items-center">
                             <label class="me-2 mb-0 text-nowrap">Show</label>
-                            <select class="form-select form-select-sm" style="width: auto;">
+                            <select class="form-select form-select-sm" style="width: auto;"
+                                (change)="changeLimit($event)" [value]="limit">
                                 <option value="5">5</option>
-                                <option value="10" selected>10</option>
+                                <option value="10">10</option>
                                 <option value="15">15</option>
                                 <option value="25">25</option>
                                 <option value="50">50</option>
@@ -100,23 +101,24 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @for (comment of comments; track $index) {
                             <tr>
                                 <td><input type="checkbox" class="comment-checkbox"></td>
-                                <td>1</td>
+                                <td>{{comment.id}}</td>
                                 <td>
-                                    <div class="fw-bold">Alice Johnson</div>
-                                    <small class="text-muted">alice.johnson&#64;email.com</small>
+                                    <div class="fw-bold">{{comment.user.username}}</div>
+                                    <small class="text-muted">{{comment.user.email}}</small>
                                 </td>
                                 <td>
                                     <div class="text-truncate" style="max-width: 300px;">
-                                        Great article! I'm particularly excited about WebAssembly and its potential for
-                                        web applications.
+                                        {{comment.content | truncate: 100 }}
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="#" class="text-decoration-none small">The Future of Web Development...</a>
+                                    <a href="#" class="text-decoration-none small">{{comment.post.title}}</a>
                                 </td>
-                                <td><small>Oct 13, 2025<br>11:45 AM</small></td>
+                                <td><small>{{comment.created_at | date: 'MMM d, y'}}<br>{{comment.created_at | date:
+                                        'h:mm a'}}</small></td>
                                 <td><span class="badge bg-success">Approved</span></td>
                                 <td>
                                     <div class="btn-group btn-group-sm" role="group">
@@ -132,103 +134,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td><input type="checkbox" class="comment-checkbox"></td>
-                                <td>2</td>
-                                <td>
-                                    <div class="fw-bold">
-                                        John Doe <span class="badge bg-primary ms-1">Author</span>
-                                    </div>
-                                    <small class="text-muted">john.doe&#64;email.com</small>
-                                </td>
-                                <td>
-                                    <div class="text-truncate" style="max-width: 300px;">
-                                        Thanks Alice! WebAssembly is definitely a game-changer for performance-critical
-                                        web apps.
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-decoration-none small">The Future of Web Development...</a>
-                                </td>
-                                <td><small>Oct 13, 2025<br>12:10 PM</small></td>
-                                <td><span class="badge bg-success">Approved</span></td>
-                                <td>
-                                    <div class="btn-group btn-group-sm" role="group">
-                                        <button type="button" class="btn btn-outline-primary" title="Edit">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-outline-warning" title="Spam">
-                                            <i class="bi bi-exclamation-triangle"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-outline-danger" title="Delete">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox" class="comment-checkbox"></td>
-                                <td>3</td>
-                                <td>
-                                    <div class="fw-bold">Bob Smith</div>
-                                    <small class="text-muted">bob.smith&#64;email.com</small>
-                                </td>
-                                <td>
-                                    <div class="text-truncate" style="max-width: 300px;">
-                                        PWAs have been a game-changer for our business. The performance improvements are
-                                        remarkable.
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-decoration-none small">The Future of Web Development...</a>
-                                </td>
-                                <td><small>Oct 13, 2025<br>6:30 AM</small></td>
-                                <td><span class="badge bg-success">Approved</span></td>
-                                <td>
-                                    <div class="btn-group btn-group-sm" role="group">
-                                        <button type="button" class="btn btn-outline-primary" title="Edit">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-outline-warning" title="Spam">
-                                            <i class="bi bi-exclamation-triangle"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-outline-danger" title="Delete">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="table-danger">
-                                <td><input type="checkbox" class="comment-checkbox"></td>
-                                <td>4</td>
-                                <td>
-                                    <div class="fw-bold">SpamBot2024</div>
-                                    <small class="text-muted">noreply&#64;fakeoffer.biz</small>
-                                </td>
-                                <td>
-                                    <div class="text-truncate" style="max-width: 300px;">
-                                        🎉🎉 AMAZING OFFER!!! Get 50% OFF on premium coding courses! Click here NOW...
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="#" class="text-decoration-none small">The Future of Web Development...</a>
-                                </td>
-                                <td><small>Oct 13, 2025<br>3:22 AM</small></td>
-                                <td><span class="badge bg-danger">Spam</span></td>
-                                <td>
-                                    <div class="btn-group btn-group-sm" role="group">
-                                        <button type="button" class="btn btn-outline-primary" title="Edit">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-outline-success" title="Approve">
-                                            <i class="bi bi-check-circle"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-outline-danger" title="Delete">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -236,25 +142,38 @@
                 <!-- Pagination -->
                 <div class="d-flex justify-content-between align-items-center mt-3">
                     <div class="text-muted small">
-                        Showing 1 to 4 of 12 comments
+                        Showing {{ showingFrom }} to {{ showingTo }} of {{ total }} comments
                     </div>
                     <nav aria-label="Comment list pagination">
                         <ul class="pagination pagination-sm mb-0">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                            <li class="page-item" [class.disabled]="page === 1">
+                                <a class="page-link" (click)="changePage(page - 1)" style="cursor: pointer;"
+                                    tabindex="-1" [attr.aria-disabled]="page === 1">Previous</a>
                             </li>
-                            <li class="page-item active" aria-current="page">
-                                <a class="page-link" href="#">1</a>
-                            </li>
+                            @if (totalPages > 5 && page > 3) {
                             <li class="page-item">
-                                <a class="page-link" href="#">2</a>
+                                <a class="page-link" (click)="changePage(1)" style="cursor: pointer;">1</a>
                             </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">3</a>
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                            }
+                            @for (pageNum of getPageNumbers(); track pageNum) {
+                            <li class="page-item" [class.active]="pageNum === page"
+                                [attr.aria-current]="pageNum === page ? 'page' : null">
+                                <a class="page-link" (click)="changePage(pageNum)" style="cursor: pointer;">{{ pageNum
+                                    }}</a>
                             </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
+                            }
+                            @if (totalPages > 5 && page < totalPages - 2) { <li class="page-item disabled"><span
+                                    class="page-link">...</span></li>
+                                <li class="page-item">
+                                    <a class="page-link" (click)="changePage(totalPages)" style="cursor: pointer;">{{
+                                        totalPages }}</a>
+                                </li>
+                                }
+                                <li class="page-item" [class.disabled]="page === totalPages">
+                                    <a class="page-link" (click)="changePage(page + 1)" style="cursor: pointer;"
+                                        [attr.aria-disabled]="page === totalPages">Next</a>
+                                </li>
                         </ul>
                     </nav>
                 </div>

@@ -24,9 +24,10 @@
                     <div class="col-md-6 mb-2 mb-md-0">
                         <div class="d-flex align-items-center">
                             <label class="me-2 mb-0 text-nowrap">Show</label>
-                            <select class="form-select form-select-sm" style="width: auto;">
+                            <select class="form-select form-select-sm" style="width: auto;"
+                                (change)="changeLimit($event)" [value]="limit">
                                 <option value="5">5</option>
-                                <option value="10" selected>10</option>
+                                <option value="10">10</option>
                                 <option value="15">15</option>
                                 <option value="20">20</option>
                                 <option value="25">25</option>
@@ -60,15 +61,16 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @for (category of listCategories; track $index) {
                             <tr>
-                                <td>1</td>
+                                <td>{{ category.id }}</td>
                                 <td>
-                                    <img src="../img/no_img.jpg" alt="Technology" class="rounded"
+                                    <img src="/assets/img/no_img.jpg" alt="Category" class="rounded"
                                         style="width: 50px; height: 50px; object-fit: cover;">
                                 </td>
-                                <td>Technology</td>
-                                <td><code>technology</code></td>
-                                <td><span class="badge bg-info">25</span></td>
+                                <td>{{ category.name }}</td>
+                                <td><code>{{ category.slug }}</code></td>
+                                <td><span class="badge bg-info">{{ category.post_count || 0 }}</span></td>
                                 <td><span class="badge bg-success">Active</span></td>
                                 <td>
                                     <div class="btn-group btn-group-sm" role="group">
@@ -81,111 +83,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>
-                                    <img src="../img/no_img.jpg" alt="Design" class="rounded"
-                                        style="width: 50px; height: 50px; object-fit: cover;">
-                                </td>
-                                <td>Design</td>
-                                <td><code>design</code></td>
-                                <td><span class="badge bg-info">18</span></td>
-                                <td><span class="badge bg-success">Active</span></td>
-                                <td>
-                                    <div class="btn-group btn-group-sm" role="group">
-                                        <button type="button" class="btn btn-outline-primary" title="Edit">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-outline-danger" title="Delete">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>
-                                    <img src="../img/no_img.jpg" alt="Business" class="rounded"
-                                        style="width: 50px; height: 50px; object-fit: cover;">
-                                </td>
-                                <td>Business</td>
-                                <td><code>business</code></td>
-                                <td><span class="badge bg-info">12</span></td>
-                                <td><span class="badge bg-success">Active</span></td>
-                                <td>
-                                    <div class="btn-group btn-group-sm" role="group">
-                                        <button type="button" class="btn btn-outline-primary" title="Edit">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-outline-danger" title="Delete">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>
-                                    <img src="../img/no_img.jpg" alt="Lifestyle" class="rounded"
-                                        style="width: 50px; height: 50px; object-fit: cover;">
-                                </td>
-                                <td>Lifestyle</td>
-                                <td><code>lifestyle</code></td>
-                                <td><span class="badge bg-info">8</span></td>
-                                <td><span class="badge bg-success">Active</span></td>
-                                <td>
-                                    <div class="btn-group btn-group-sm" role="group">
-                                        <button type="button" class="btn btn-outline-primary" title="Edit">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-outline-danger" title="Delete">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>
-                                    <img src="../img/no_img.jpg" alt="Travel" class="rounded"
-                                        style="width: 50px; height: 50px; object-fit: cover;">
-                                </td>
-                                <td>Travel</td>
-                                <td><code>travel</code></td>
-                                <td><span class="badge bg-info">15</span></td>
-                                <td><span class="badge bg-success">Active</span></td>
-                                <td>
-                                    <div class="btn-group btn-group-sm" role="group">
-                                        <button type="button" class="btn btn-outline-primary" title="Edit">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-outline-danger" title="Delete">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>
-                                    <img src="../img/no_img.jpg" alt="Food & Cooking" class="rounded"
-                                        style="width: 50px; height: 50px; object-fit: cover;">
-                                </td>
-                                <td>Food &amp; Cooking</td>
-                                <td><code>food-cooking</code></td>
-                                <td><span class="badge bg-info">10</span></td>
-                                <td><span class="badge bg-success">Active</span></td>
-                                <td>
-                                    <div class="btn-group btn-group-sm" role="group">
-                                        <button type="button" class="btn btn-outline-primary" title="Edit">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-outline-danger" title="Delete">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -193,19 +91,38 @@
                 <!-- Pagination -->
                 <div class="d-flex justify-content-between align-items-center mt-3">
                     <div class="text-muted small">
-                        Showing 1 to 6 of 6 entries
+                        Showing {{ showingFrom }} to {{ showingTo }} of {{ total }} entries
                     </div>
                     <nav aria-label="Category list pagination">
                         <ul class="pagination pagination-sm mb-0">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                            <li class="page-item" [class.disabled]="page === 1">
+                                <a class="page-link" (click)="changePage(page - 1)" style="cursor: pointer;"
+                                    tabindex="-1" [attr.aria-disabled]="page === 1">Previous</a>
                             </li>
-                            <li class="page-item active" aria-current="page">
-                                <a class="page-link" href="#">1</a>
+                            @if (totalPages > 5 && page > 3) {
+                            <li class="page-item">
+                                <a class="page-link" (click)="changePage(1)" style="cursor: pointer;">1</a>
                             </li>
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
+                            <li class="page-item disabled"><span class="page-link">...</span></li>
+                            }
+                            @for (pageNum of getPageNumbers(); track pageNum) {
+                            <li class="page-item" [class.active]="pageNum === page"
+                                [attr.aria-current]="pageNum === page ? 'page' : null">
+                                <a class="page-link" (click)="changePage(pageNum)" style="cursor: pointer;">{{ pageNum
+                                    }}</a>
                             </li>
+                            }
+                            @if (totalPages > 5 && page < totalPages - 2) { <li class="page-item disabled"><span
+                                    class="page-link">...</span></li>
+                                <li class="page-item">
+                                    <a class="page-link" (click)="changePage(totalPages)" style="cursor: pointer;">{{
+                                        totalPages }}</a>
+                                </li>
+                                }
+                                <li class="page-item" [class.disabled]="page === totalPages">
+                                    <a class="page-link" (click)="changePage(page + 1)" style="cursor: pointer;"
+                                        [attr.aria-disabled]="page === totalPages">Next</a>
+                                </li>
                         </ul>
                     </nav>
                 </div>
