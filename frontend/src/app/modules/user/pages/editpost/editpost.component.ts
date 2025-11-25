@@ -32,10 +32,10 @@ export class EditpostComponent implements OnInit {
     private router: Router
   ) {
     this.editPostForm = new FormGroup({
-      title: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]),
-      content: new FormControl('', [Validators.required, Validators.minLength(10)]),
-      category_id: new FormControl('', [Validators.required]),
-      image: new FormControl('', [Validators.required]),
+      title: new FormControl('', [Validators.minLength(3), Validators.maxLength(255)]),
+      content: new FormControl('', [Validators.minLength(10)]),
+      category: new FormControl('', [Validators.required]),
+      thumbnail: new FormControl(''),
       featured: new FormControl(false),
     });
   }
@@ -49,7 +49,7 @@ export class EditpostComponent implements OnInit {
   loadCategories(): void {
     this.userService.getCategories().subscribe({
       next: (res) => {
-        this.categories = res || [];
+        this.categories = res.rows || [];
       },
       error: (err) => {
         this.toastService.showMessage('errorToast', 'Failed to load categories');
@@ -64,11 +64,11 @@ export class EditpostComponent implements OnInit {
           this.editPostForm.patchValue({
             title: res.title || '',
             content: res.content || '',
-            category_id: res.category_id || '',
-            image: res.image || '',
+            category: res.category || '',
+            thumbnail: res.thumbnail || '',
             featured: res.featured || false
           });
-          this.imagePreview = res.image || null;
+          this.imagePreview = res.thumbnail || null;
           this.tags = res.tags || [];
         }
       },
@@ -128,16 +128,17 @@ export class EditpostComponent implements OnInit {
     if (this.editPostForm.valid) {
       const postData = {
         ...this.editPostForm.value,
+        category: Array.isArray(this.editPostForm.value.category) ? this.editPostForm.value.category : [Number(this.editPostForm.value.category)],
         tags: this.tags.map(t => t.id || t)
       };
 
       this.userService.editPost(this.postId, postData).subscribe({
         next: (res) => {
           this.toastService.showMessage('successToast', 'Post updated successfully');
-          this.router.navigate(['/user/posts']);
+          this.router.navigate(['/user']);
         },
         error: (err) => {
-          this.toastService.showMessage('errorToast', err?.error?.message || 'Failed to update post');
+          this.toastService.showMessage('errorToast', err?.error?.message || err?.error?.data || 'Failed to update post');
         }
       });
     } else {

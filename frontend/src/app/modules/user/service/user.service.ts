@@ -46,7 +46,8 @@ export class UserService {
         );
     }
     editPost(postId: number, post: any) {
-        return this.backendService.put(`/post/edit/${postId}`, post).pipe(
+        console.log(post, "ID", postId);
+        return this.backendService.put(`post/edit/${postId}`, post).pipe(
             map((result: any) => result?.data ?? null)
         );
     }

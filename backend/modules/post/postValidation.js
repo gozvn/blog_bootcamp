@@ -1,6 +1,6 @@
 const postValidation = {
   createPost: {
-    title: {                
+    title: {
       notEmpty: true,
       isString: true,
       isLength: {
@@ -16,7 +16,7 @@ const postValidation = {
         min: 20,
         max: 5000,
       },
-        errorMessage: 'Validation.required',
+      errorMessage: 'Validation.required',
     },
     user_id: {
       notEmpty: true,
@@ -44,28 +44,28 @@ const postValidation = {
     },
   },
   editPost: {
-    title: {                
+    title: {
       optional: true,
       isString: true,
       isLength: {
         min: 5,
         max: 100,
       },
-      errorMessage: 'Validation.required',
+      errorMessage: 'Validation.title.required',
     },
     content: {
       optional: true,
       isString: true,
       isLength: {
-        min: 20,
+        min: 10,
         max: 5000,
       },
-        errorMessage: 'Validation.required',
+      errorMessage: 'Validation.content.required',
     },
     lang_id: {
       optional: true,
       isInt: true,
-      errorMessage: 'Validation.required',
+      errorMessage: 'Validation.lang_id.required',
     },
     featured: {
       optional: true,
@@ -79,10 +79,10 @@ const postValidation = {
     },
     status: {
       optional: true,
-      isString:true,
+      isString: true,
       errorMessage: 'Validation.required',
     },
   },
-  
+
 };
 module.exports = postValidation;

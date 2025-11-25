@@ -28,14 +28,16 @@
                         <div class="mb-3">
                             <label for="postCategory" class="form-label">Category <span
                                     class="text-danger">*</span></label>
-                            <select class="form-select" id="postCategory" formControlName="category_id" required>
+                            <select class="form-select" id="postCategory" formControlName="category" required>
                                 <option value="">Select Category</option>
-                                <option value="category.id">s</option>
+                                @for (category of categories; track $index) {
+                                <option value="{{ category.id }}">{{ category.name }}</option>
+                                }
 
                             </select>
-                            @if (editPostForm.get('category_id')?.hasError('required') &&
-                            (editPostForm.get('category_id')?.touched ||
-                            editPostForm.get('category_id')?.dirty)) {
+                            @if (editPostForm.get('category')?.hasError('required') &&
+                            (editPostForm.get('category')?.touched ||
+                            editPostForm.get('category')?.dirty)) {
                             <div class="text-danger mt-1">Category is required.</div>
                             }
                         </div>

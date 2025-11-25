@@ -2,7 +2,7 @@ const responseUtils = require("utils/responseUtils")
 const postService = require("./postService.js");
 const { validationResult } = require("express-validator");
 const postController = {
-    
+
     all: async (req, res) => {
         try {
             // chenf param ở đây
@@ -16,15 +16,15 @@ const postController = {
             const featured = req.query.featured || null;
             // const cat = parse Int(req.query.cat);
 
-            const post = await postService.list(page,limit,categoryId,tagId,userId,langId,status,featured);
+            const post = await postService.list(page, limit, categoryId, tagId, userId, langId, status, featured);
             // xử lý show all ở đây
-            return responseUtils.ok(res,post)
+            return responseUtils.ok(res, post)
         } catch (error) {
             console.log(error)
-            return responseUtils.error(res,{ message : error })
+            return responseUtils.error(res, { message: error })
         }
     },
-    getbyId : async (req, res) => {
+    getbyId: async (req, res) => {
         try {
             const id = req.params.id ? parseInt(req.params.id) : null;
 
@@ -52,16 +52,16 @@ const postController = {
             }
             // Lấy dữ liệu từ request
             const { title, thumbnail, featured, status, content, category, user_id, tags, lang_id } = req.body;
-            if (!title ) {
+            if (!title) {
                 return responseUtils.invalidated(res, 'validation.title.required');
             }
-            if ( !content ) {
+            if (!content) {
                 return responseUtils.invalidated(res, 'validation.content.required');
             }
-            if (!category ) {
+            if (!category) {
                 return responseUtils.invalidated(res, 'validation.category.required');
             }
-            if (!user_id ) {
+            if (!user_id) {
                 return responseUtils.invalidated(res, 'validation.user_id.required');
             }
             const newPost = await postService.createPost({
@@ -70,7 +70,7 @@ const postController = {
                 thumbnail: thumbnail || 'img/default-thumbnail.jpg',
                 featured: featured || false,
                 status: status || "draft",
-                lang_id : lang_id || "1",
+                lang_id: lang_id || "1",
                 content,
                 category: Array.isArray(category) ? category : [],
                 user_id,
@@ -85,7 +85,7 @@ const postController = {
         }
     },
     // chỉnh sửa bài viết
-    edit: async(req, res) => { 
+    edit: async (req, res) => {
         // Kiểm tra validate trước khi xử lý
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -100,13 +100,15 @@ const postController = {
             return responseUtils.notFound(res, "ID không tồn tại")
         }
         // Danh sách field cho phép update
-        const allowedFields = ['title', 'thumbnail', 'content', 'lang_id', 'category', 'tags'];
+        const allowedFields = ['title', 'featured', 'status', 'lang_id', 'thumbnail', 'content', 'category', 'tags'];
         // Chỉ giữ field hợp lệ và có giá trị
         const filteredBody = Object.fromEntries(
             Object.entries(req.body).filter(([k, v]) => allowedFields.includes(k) && v !== undefined)
         );
+        console.log(filteredBody);
         //  Kiểm tra field không hợp lệ
         const invalidFields = Object.keys(req.body).filter(key => !allowedFields.includes(key));
+        console.log(invalidFields);
         if (invalidFields.length > 0) {
             return responseUtils.invalidated(res, "validation.requỉed");
         }
@@ -117,7 +119,7 @@ const postController = {
             updateData.title = filteredBody.title;
             updateData.slug = filteredBody.title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
         }
-        
+
         if (filteredBody.thumbnail !== undefined) updateData.thumbnail = filteredBody.thumbnail;
         if (filteredBody.content !== undefined) updateData.content = filteredBody.content;
         if (filteredBody.lang_id !== undefined) updateData.lang_id = filteredBody.lang_id;
@@ -131,7 +133,7 @@ const postController = {
             post: updatedPost
         });
     },
-    delete: async(req, res) => {
+    delete: async (req, res) => {
         const postId = req.params.id;
         if (!postId) {
             return responseUtils.error(res, "chưa truyền ID")
@@ -140,7 +142,7 @@ const postController = {
         if (!checkPost) {
             return responseUtils.notFound(res, "ID không tồn tại")
         }
-        
+
         await postService.delete(postId);
         return responseUtils.ok(res, {
             message: "Xóa bài viết thành công"
