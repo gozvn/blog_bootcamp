@@ -1,53 +1,80 @@
 <div class="modal-header">
-    <h5 class="modal-title">Edit User</h5>
+    <h5 class="modal-title">
+        Edit User
+        @if (user?.email) {
+        <small class="text-muted">- {{ user.email }}</small>
+        }
+    </h5>
     <button type="button" class="btn-close" (click)="cancel()" aria-label="Close"></button>
 </div>
 
 <div class="modal-body">
-    @if (errorMessage) {
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <i class="bi bi-exclamation-triangle-fill me-2"></i>
-        {{ errorMessage }}
-        <button type="button" class="btn-close" (click)="errorMessage = ''" aria-label="Close"></button>
-    </div>
-    }
+
 
     <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+        <!-- Username Field -->
+        <div class="mb-3">
+            <label for="username" class="form-label">
+                Username
+                <small class="text-muted">(optional - leave unchanged if not editing)</small>
+            </label>
+            <input type="text" class="form-control" id="username" formControlName="username"
+                [class.is-invalid]="f['username'].invalid && f['username'].touched"
+                [class.is-valid]="f['username'].valid && f['username'].touched && f['username'].value"
+                placeholder="Enter new username">
+
+            @if (f['username'].invalid && f['username'].touched) {
+            <div class="invalid-feedback">
+                <span>Please provide a valid username.</span>
+            </div>
+            }
+
+            @if (f['username'].valid && f['username'].touched && f['username'].value) {
+            <div class="valid-feedback">
+                Username looks good!
+            </div>
+            }
+        </div>
+
         <!-- Email Field -->
         <div class="mb-3">
-            <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+            <label for="email" class="form-label">
+                Email Address
+                <small class="text-muted">(optional - leave unchanged if not editing)</small>
+            </label>
             <input type="email" class="form-control" id="email" formControlName="email"
                 [class.is-invalid]="f['email'].invalid && f['email'].touched"
-                [class.is-valid]="f['email'].valid && f['email'].touched" placeholder="user@example.com">
+                [class.is-valid]="f['email'].valid && f['email'].touched" placeholder="Enter new email address">
 
             @if (f['email'].invalid && f['email'].touched) {
             <div class="invalid-feedback">
-                @if (f['email'].errors?.['required']) {
-                <span>Email is required.</span>
-                }
                 @if (f['email'].errors?.['email']) {
                 <span>Please provide a valid email address.</span>
                 }
             </div>
             }
 
-            @if (f['email'].valid && f['email'].touched) {
+            @if (f['email'].valid && f['email'].touched && f['email'].value) {
             <div class="valid-feedback">
-                Looks good!
+                Email format is valid!
             </div>
             }
         </div>
 
         <!-- Role Field -->
         <div class="mb-3">
-            <label for="role" class="form-label">Role <span class="text-danger">*</span></label>
+            <label for="role" class="form-label">
+                Role
+                <small class="text-muted">(optional - leave unchanged if not editing)</small>
+            </label>
             <select class="form-select" id="role" formControlName="role"
                 [class.is-invalid]="f['role'].invalid && f['role'].touched"
-                [class.is-valid]="f['role'].valid && f['role'].touched">
-                <option value="">Select role</option>
+                [class.is-valid]="f['role'].valid && f['role'].touched && f['role'].value">
+                <option value="">Keep current role</option>
                 <option value="1">Admin</option>
                 <option value="2">Moderator</option>
-                <option value="3">User</option>
+                <option value="3">Editor</option>
+                <option value="4">User</option>
             </select>
 
             @if (f['role'].invalid && f['role'].touched) {
@@ -56,9 +83,9 @@
             </div>
             }
 
-            @if (f['role'].valid && f['role'].touched) {
+            @if (f['role'].valid && f['role'].touched && f['role'].value) {
             <div class="valid-feedback">
-                Looks good!
+                Role selected!
             </div>
             }
         </div>
@@ -105,3 +132,4 @@
         }
     </button>
 </div>
+<app-toast></app-toast>

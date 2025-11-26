@@ -22,6 +22,11 @@ export class DashboardService {
             map(response => response.data)
         );
     }
+    deleteUser(id: number): Observable<any> {
+        return this.backendService.delete(`user/delete/${id}`).pipe(
+            map(response => response.data)
+        );
+    }
     editUser(id: number, user: any): Observable<any> {
         return this.backendService.put(`user/edit/${id}`, user).pipe(
             map(response => response.data)
@@ -36,6 +41,17 @@ export class DashboardService {
     // Category Service
     getCategories(limit: number = 10, page: number = 1): Observable<any> {
         return this.backendService.get(`category?limit=${limit}&page=${page}`).pipe(
+            map(response => response.data)
+        );
+    }
+    editCategory(id: number, category: any): Observable<any> {
+        console.log(category);
+        return this.backendService.put(`category/edit/${id}`, category).pipe(
+            map(response => response.data)
+        );
+    }
+    deleteCategory(id: number): Observable<any> {
+        return this.backendService.delete(`category/delete/${id}`).pipe(
             map(response => response.data)
         );
     }

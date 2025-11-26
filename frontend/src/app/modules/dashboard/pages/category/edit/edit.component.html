@@ -1,0 +1,90 @@
+<div class="modal-header">
+    <h5 class="modal-title">
+        Edit Category
+        @if (category?.name) {
+        <small class="text-muted">- {{ category.name }}</small>
+        }
+    </h5>
+    <button type="button" class="btn-close" (click)="cancel()" aria-label="Close"></button>
+</div>
+
+<div class="modal-body">
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+        <!-- Name Field -->
+        <div class="mb-3">
+            <label for="name" class="form-label">
+                Category Name <span class="text-danger">*</span>
+            </label>
+            <input type="text" class="form-control" id="name" formControlName="name"
+                [class.is-invalid]="f['name'].invalid && f['name'].touched"
+                [class.is-valid]="f['name'].valid && f['name'].touched" placeholder="Enter category name">
+
+            @if (f['name'].invalid && f['name'].touched) {
+            <div class="invalid-feedback">
+                @if (f['name'].errors?.['required']) {
+                <span>Category name is required.</span>
+                }
+            </div>
+            }
+
+            @if (f['name'].valid && f['name'].touched) {
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            }
+        </div>
+
+        <!-- Slug Field -->
+        <div class="mb-3">
+            <label for="slug" class="form-label">
+                Slug
+                <small class="text-muted">(optional - auto-generated from name if empty)</small>
+            </label>
+            <input type="text" class="form-control" id="slug" formControlName="slug"
+                [class.is-invalid]="f['slug'].invalid && f['slug'].touched"
+                [class.is-valid]="f['slug'].valid && f['slug'].touched && f['slug'].value" placeholder="category-slug">
+
+            @if (f['slug'].valid && f['slug'].touched && f['slug'].value) {
+            <div class="valid-feedback">
+                Slug looks good!
+            </div>
+            }
+
+            <div class="form-text">
+                URL-friendly version of the name. Leave empty to auto-generate.
+            </div>
+        </div>
+
+        <!-- Description Field -->
+        <div class="mb-3">
+            <label for="description" class="form-label">
+                Description
+                <small class="text-muted">(optional)</small>
+            </label>
+            <textarea class="form-control" id="description" formControlName="description" rows="3"
+                [class.is-valid]="f['description'].valid && f['description'].touched && f['description'].value"
+                placeholder="Enter category description"></textarea>
+
+            @if (f['description'].valid && f['description'].touched && f['description'].value) {
+            <div class="valid-feedback">
+                Description added!
+            </div>
+            }
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="cancel()" [disabled]="isSubmitting">
+        <i class="bi bi-x-circle me-1"></i>Cancel
+    </button>
+    <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="isSubmitting">
+        @if (isSubmitting) {
+        <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+        Saving...
+        } @else {
+        <i class="bi bi-save me-1"></i>Save Changes
+        }
+    </button>
+</div>
+<app-toast></app-toast>

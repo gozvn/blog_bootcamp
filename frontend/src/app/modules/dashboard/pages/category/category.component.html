@@ -74,10 +74,12 @@
                                 <td><span class="badge bg-success">Active</span></td>
                                 <td>
                                     <div class="btn-group btn-group-sm" role="group">
-                                        <button type="button" class="btn btn-outline-primary" title="Edit">
+                                        <button type="button" class="btn btn-outline-primary" title="Edit"
+                                            (click)="editCategory(category)">
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
-                                        <button type="button" class="btn btn-outline-danger" title="Delete">
+                                        <button type="button" class="btn btn-outline-danger" title="Delete"
+                                            (click)="deleteCategory(category)">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </div>
@@ -130,3 +132,4 @@
         </div>
     </div>
 </main>
+<app-toast></app-toast>

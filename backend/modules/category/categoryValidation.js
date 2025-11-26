@@ -2,7 +2,7 @@ const unique = require('../../kernels/validations/uniqueValidator');
 const { Category } = require('../../models');
 
 const categoryValidation = {
-    createCategory: {   
+    createCategory: {
         name: {
             in: ['body'],
             isString: {
@@ -40,6 +40,7 @@ const categoryValidation = {
     updateCategory: {
         name: {
             in: ['body'],
+            optional: true,
             isString: {
                 errorMessage: 'validation.required',
             },
@@ -47,16 +48,14 @@ const categoryValidation = {
                 errorMessage: 'validation.required',
             },
             isLength: {
-                options: { min: 11 },
+                options: { min: 5 },
                 errorMessage: 'validation.required',
             }
         },
         description: {
             in: ['body'],
+            optional: true,
             isString: {
-                errorMessage: 'validation.required',
-            },
-            notEmpty: {
                 errorMessage: 'validation.required',
             },
             isLength: {
@@ -66,13 +65,12 @@ const categoryValidation = {
         },
         thumbnail: {
             in: ['body'],
+            optional: true,
             isString: {
                 errorMessage: 'validation.required',
             }
         }
-    },
-
-
+    }
 }
 
 module.exports = categoryValidation;
