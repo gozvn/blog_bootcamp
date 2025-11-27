@@ -1,15 +1,12 @@
 <div class="modal-header">
     <h5 class="modal-title">
-        Edit Category
-        @if (category?.name) {
-        <small class="text-muted">- {{ category.name }}</small>
-        }
+        <i class="bi bi-plus-circle me-2"></i>Add New Category
     </h5>
     <button type="button" class="btn-close" (click)="cancel()" aria-label="Close"></button>
 </div>
 
 <div class="modal-body">
-    <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
         <!-- Name Field -->
         <div class="mb-3">
             <label for="name" class="form-label">
@@ -90,9 +87,9 @@
     <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="isSubmitting">
         @if (isSubmitting) {
         <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
-        Saving...
+        Creating...
         } @else {
-        <i class="bi bi-save me-1"></i>Save Changes
+        <i class="bi bi-plus-circle me-1"></i>Create Category
         }
     </button>
 </div>

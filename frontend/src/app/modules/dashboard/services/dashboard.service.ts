@@ -44,6 +44,12 @@ export class DashboardService {
             map(response => response.data)
         );
     }
+    addCategory(category: any): Observable<any> {
+        console.log(category);
+        return this.backendService.post(`category/create`, category).pipe(
+            map(response => response.data)
+        );
+    }
     editCategory(id: number, category: any): Observable<any> {
         console.log(category);
         return this.backendService.put(`category/edit/${id}`, category).pipe(
@@ -58,6 +64,16 @@ export class DashboardService {
     // Comment Service
     getComments(limit: number = 10, page: number = 1): Observable<any> {
         return this.backendService.get(`comment?limit=${limit}&page=${page}`).pipe(
+            map(response => response.data)
+        );
+    }
+    editComment(id: number, comment: any): Observable<any> {
+        return this.backendService.put(`comment/edit/${id}`, comment).pipe(
+            map(response => response.data)
+        );
+    }
+    deleteComment(id: number): Observable<any> {
+        return this.backendService.delete(`comment/delete/${id}`).pipe(
             map(response => response.data)
         );
     }

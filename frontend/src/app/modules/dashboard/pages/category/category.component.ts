@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastService } from '../../../../services/toast.service';
 import { ModalComponent } from '../../../../layouts/default/partials/modal/modal.component';
 import { EditCategoryComponent } from './edit/edit.component';
+import { AddCategoryComponent } from './add/add.component';
 import { ToastComponent } from '../../../../layouts/default/partials/toast/toast.component';
 import { CommonModule } from '@angular/common';
 
@@ -87,6 +88,28 @@ export class CategoryComponent implements OnInit {
 
   get showingTo(): number {
     return Math.min(this.page * this.limit, this.total);
+  }
+
+  // Add Category
+  addCategory() {
+    const modalRef = this.modal.open(AddCategoryComponent, {
+      centered: true,
+      backdrop: 'static',
+      keyboard: false,
+      size: 'lg'
+    });
+
+    modalRef.result.then(
+      (newCategory) => {
+        if (newCategory) {
+          console.log('Category created:', newCategory);
+          this.loadCategories();
+        }
+      },
+      (reason) => {
+        console.log('Add modal dismissed', reason);
+      }
+    );
   }
 
   // Edit Category

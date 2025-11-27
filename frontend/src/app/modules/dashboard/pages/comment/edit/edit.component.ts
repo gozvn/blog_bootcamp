@@ -7,17 +7,17 @@ import { ToastService } from '../../../../../services/toast.service';
 import { ToastComponent } from '../../../../../layouts/default/partials/toast/toast.component';
 
 @Component({
-    selector: 'app-edit-category',
+    selector: 'app-edit-comment',
     standalone: true,
     imports: [CommonModule, ReactiveFormsModule, ToastComponent],
     templateUrl: './edit.component.html',
     styleUrl: './edit.component.scss'
 })
-export class EditCategoryComponent implements OnInit {
-    @Input() category: any;
+export class EditCommentComponent implements OnInit {
+    @Input() comment: any;
     editForm!: FormGroup;
     isSubmitting = false;
-    originalValues: any = {};
+    originalContent: string = '';
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -33,26 +33,15 @@ export class EditCategoryComponent implements OnInit {
 
     initForm(): void {
         this.editForm = this.fb.group({
-            name: ['', [Validators.required]],
-            slug: [''],
-            description: ['', [Validators.minLength(11)]]
+            content: ['', [Validators.required, Validators.minLength(10)]]
         });
     }
 
     populateForm(): void {
-        if (this.category) {
-            // Lưu giá trị ban đầu để so sánh
-            this.originalValues = {
-                name: this.category.name || '',
-                slug: this.category.slug || '',
-                description: this.category.description || ''
-            };
-
-            // Populate form với dữ liệu category hiện tại
+        if (this.comment) {
+            this.originalContent = this.comment.content || '';
             this.editForm.patchValue({
-                name: this.category.name || '',
-                slug: this.category.slug || '',
-                description: this.category.description || ''
+                content: this.comment.content || ''
             });
         }
     }
@@ -70,39 +59,21 @@ export class EditCategoryComponent implements OnInit {
             return;
         }
 
-        this.isSubmitting = true;
-
-        // Chỉ gửi các field đã thay đổi
-        const formData: any = {};
-
-        // Kiểm tra name có thay đổi không
-        if (this.editForm.value.name && this.editForm.value.name !== this.originalValues.name) {
-            formData.name = this.editForm.value.name;
-        }
-
-        // Kiểm tra slug có thay đổi không
-        if (this.editForm.value.slug && this.editForm.value.slug !== this.originalValues.slug) {
-            formData.slug = this.editForm.value.slug;
-        }
-
-        // Kiểm tra description có thay đổi không
-        if (this.editForm.value.description !== this.originalValues.description) {
-            formData.description = this.editForm.value.description;
-        }
-
-        // Kiểm tra xem có field nào thay đổi không
-        if (Object.keys(formData).length === 0) {
+        // Kiểm tra xem có thay đổi không
+        if (this.editForm.value.content === this.originalContent) {
             this.toastService.showMessage('errorToast', 'No changes detected.');
-            this.isSubmitting = false;
             return;
         }
+
+        this.isSubmitting = true;
+
         // Gửi request update
-        this.dashboardService.editCategory(this.category.id, formData).subscribe({
+        this.dashboardService.editComment(this.comment.id, { content: this.editForm.value.content }).subscribe({
             next: (response) => {
                 this.isSubmitting = false;
 
                 // Hiển thị toast success
-                this.toastService.showMessage('successToast', 'Category updated successfully!');
+                this.toastService.showMessage('successToast', 'Comment updated successfully!');
 
                 // Đợi một chút để toast hiển thị trước khi đóng modal
                 setTimeout(() => {
@@ -111,7 +82,7 @@ export class EditCategoryComponent implements OnInit {
             },
             error: (error) => {
                 this.isSubmitting = false;
-                const errorMessage = error?.error?.message || error?.message || 'Failed to update category.';
+                const errorMessage = error?.error?.message || error?.message || 'Failed to update comment.';
                 this.toastService.showMessage('errorToast', errorMessage);
             }
         });

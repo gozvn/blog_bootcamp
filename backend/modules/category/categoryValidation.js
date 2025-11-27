@@ -8,7 +8,7 @@ const categoryValidation = {
             isString: {
                 errorMessage: 'validation.required',
             },
-            custom: unique(Category, 'cat_name', 'validation.required'),
+            custom: unique(Category, 'name', 'validation.required'),
             notEmpty: {
                 errorMessage: 'validation.required',
             },
@@ -19,10 +19,8 @@ const categoryValidation = {
         },
         description: {
             in: ['body'],
+            optional: true,
             isString: {
-                errorMessage: 'validation.required',
-            },
-            notEmpty: {
                 errorMessage: 'validation.required',
             },
             isLength: {
@@ -31,6 +29,7 @@ const categoryValidation = {
             }
         },
         thumbnail: {
+            optional: true,
             in: ['body'],
             isString: {
                 errorMessage: 'validation.required',

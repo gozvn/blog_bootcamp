@@ -50,12 +50,15 @@ const categoryController = {
                 return responseUtils.invalidated(res, errors.array());
             }
             // Lấy dữ liệu từ request
-            const { name, description, thumbnail } = req.body;
+            const { name, description, thumbnail, slug } = req.body;
+
+            // Tạo slug từ name nếu không có slug được cung cấp
+            const generatedSlug = slug || name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
 
             const category = await categoryService.create({
-                thumbnail: thumbnail || 'img/default-category.png',
-                cat_name: name,
-                cat_slug: name.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, ''),
+                thumbnail: thumbnail || 'assets/img/no-img.jpg',
+                name: name,
+                slug: generatedSlug,
                 description: description,
                 created_at: new Date(),
                 updated_at: new Date()
