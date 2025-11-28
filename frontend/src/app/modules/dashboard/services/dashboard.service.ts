@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BackendService } from '../../../services/backend.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -32,9 +33,25 @@ export class DashboardService {
             map(response => response.data)
         );
     }
+
     // Post Service
-    getPosts(page: number = 1, limit: number = 10, orderBy: string = 'DESC'): Observable<any> {
-        return this.backendService.get(`post?limit=${limit}&page=${page}&orderBy=${orderBy}`).pipe(
+    getPosts(page: number = 1, limit: number = 10, orderBy: string = 'DESC', category_id?: number, lang_id?: number, status?: string): Observable<any> {
+        let params = new HttpParams()
+            .set('page', page.toString())
+            .set('limit', limit.toString())
+            .set('orderBy', orderBy);
+
+        if (category_id) {
+            params = params.set('category_id', category_id.toString());
+        }
+        if (lang_id) {
+            params = params.set('lang_id', lang_id.toString());
+        }
+        if (status) {
+            params = params.set('status', status);
+        }
+
+        return this.backendService.get(`post`, { params }).pipe(
             map(response => response.data)
         );
     }
@@ -43,6 +60,7 @@ export class DashboardService {
             map(response => response.data)
         );
     }
+
     // Category Service
     getCategories(limit: number = 10, page: number = 1): Observable<any> {
         return this.backendService.get(`category?limit=${limit}&page=${page}`).pipe(
@@ -66,6 +84,7 @@ export class DashboardService {
             map(response => response.data)
         );
     }
+
     // Comment Service
     getComments(limit: number = 10, page: number = 1): Observable<any> {
         return this.backendService.get(`comment?limit=${limit}&page=${page}`).pipe(
@@ -82,6 +101,7 @@ export class DashboardService {
             map(response => response.data)
         );
     }
+
     // Token Service
     getToken(limit: number = 10, page: number = 1): Observable<any> {
         return this.backendService.get(`token?limit=${limit}&page=${page}`).pipe(

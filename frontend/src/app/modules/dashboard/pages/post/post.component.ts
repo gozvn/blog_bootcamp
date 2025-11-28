@@ -6,11 +6,12 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastService } from '../../../../services/toast.service';
 import { ModalComponent } from '../../../../layouts/default/partials/modal/modal.component';
 import { ToastComponent } from '../../../../layouts/default/partials/toast/toast.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [RouterLink, CommonModule, ToastComponent],
+  imports: [RouterLink, CommonModule, ToastComponent, FormsModule],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss'
 })
@@ -26,19 +27,42 @@ export class PostComponent {
   total: number = 0;
   totalPages: number = 0;
   orderBy: string = 'DESC';
+  categories: any[] = [];
+
+  // Filter properties
+  selectedLanguage: any = '';
+  selectedStatus: string = '';
+  selectedCategory: any = '';
 
   ngOnInit(): void {
+    this.loadCategories();
     this.loadPosts();
   }
-
+  loadCategories(): void {
+    this.dashboardService.getCategories().subscribe((response: any) => {
+      this.categories = response.rows;
+    });
+  }
   loadPosts(): void {
-    this.dashboardService.getPosts(this.page, this.limit, this.orderBy).subscribe((response: any) => {
+    this.dashboardService.getPosts(this.page, this.limit, this.orderBy, this.selectedCategory, this.selectedLanguage, this.selectedStatus).subscribe((response: any) => {
       this.listPosts = response.rows;
       this.total = response.pagination.total;
       this.totalPages = response.pagination.totalPages;
       this.page = response.pagination.page;
       this.limit = response.pagination.limit;
     });
+  }
+
+  filterPosts(): void {
+    this.page = 1;
+    this.loadPosts();
+  }
+
+  clearFilters(): void {
+    this.selectedLanguage = '';
+    this.selectedStatus = '';
+    this.selectedCategory = '';
+    this.filterPosts();
   }
 
   changePage(page: number): void {

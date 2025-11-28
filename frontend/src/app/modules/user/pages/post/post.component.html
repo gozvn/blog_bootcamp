@@ -15,7 +15,7 @@
       <form id="postForm" [formGroup]="submitContentForm" novalidate>
         <input type="hidden" id="postId" value="">
         <div class="row mb-3">
-          <div class="col-md-8">
+          <div class="col-md-6">
             <div class="mb-3">
               <label for="postTitle" class="form-label">Title <span class="text-danger">*</span></label>
               <input type="text" class="form-control" id="postTitle" formControlName="title"
@@ -39,7 +39,7 @@
               }
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-6">
             <div class="mb-3">
               <label for="postFeatured" formControlName="featured" class="form-label">Featured </label>
               &nbsp;<input type="checkbox" id="postFeatured" formControlName="featured">
