@@ -38,6 +38,11 @@ export class DashboardService {
             map(response => response.data)
         );
     }
+    deletePost(id: number): Observable<any> {
+        return this.backendService.delete(`post/delete/${id}`).pipe(
+            map(response => response.data)
+        );
+    }
     // Category Service
     getCategories(limit: number = 10, page: number = 1): Observable<any> {
         return this.backendService.get(`category?limit=${limit}&page=${page}`).pipe(

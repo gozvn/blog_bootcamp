@@ -2,17 +2,23 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DashboardService } from '../../services/dashboard.service';
 import { CommonModule } from '@angular/common';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastService } from '../../../../services/toast.service';
+import { ModalComponent } from '../../../../layouts/default/partials/modal/modal.component';
+import { ToastComponent } from '../../../../layouts/default/partials/toast/toast.component';
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, CommonModule, ToastComponent],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss'
 })
 export class PostComponent {
   constructor(
-    private dashboardService: DashboardService
+    private dashboardService: DashboardService,
+    private modal: NgbModal,
+    private toastService: ToastService
   ) { }
   listPosts: any[] = [];
   page: number = 1;
@@ -84,6 +90,44 @@ export class PostComponent {
 
   get showingTo(): number {
     return Math.min(this.page * this.limit, this.total);
+  }
+
+  // Delete Post
+  deletePost(post: any) {
+    const modalRef = this.modal.open(ModalComponent, {
+      centered: true,
+      backdrop: 'static',
+      keyboard: false
+    });
+
+    modalRef.componentInstance.data = {
+      title: 'Delete Post',
+      message: `Are you sure you want to delete post "${post.title}"?`,
+      icon: 'bi-trash',
+      status: 'danger',
+      confirmText: 'Delete',
+      cancelText: 'Cancel'
+    };
+
+    modalRef.result.then(
+      (confirmed) => {
+        if (confirmed) {
+          this.dashboardService.deletePost(post.id).subscribe({
+            next: (response) => {
+              this.toastService.showMessage('successToast', `Post "${post.title}" has been deleted successfully!`);
+              this.loadPosts();
+            },
+            error: (error) => {
+              const errorMessage = error?.error?.message || error?.message || 'Failed to delete post.';
+              this.toastService.showMessage('errorToast', errorMessage);
+            }
+          });
+        }
+      },
+      (reason) => {
+        console.log('Delete cancelled', reason);
+      }
+    );
   }
 
 }
