@@ -10,8 +10,33 @@ export class UserService {
 
     constructor(private backendService: BackendService) { }
 
-    getPostByUser(userId: number, page: number = 1, limit: number = 10): Observable<any> {
-        return this.backendService.get(`post?user_id=${userId}&page=${page}&limit=${limit}`).pipe(
+    getPostByUser(userId: number, categoryId: number, title: string, status: string, page: number = 1, limit: number = 10): Observable<any> {
+        // Xây dựng query params động, chỉ thêm các tham số có giá trị
+        const queryParams: string[] = [
+            `user_id=${userId}`,
+            `page=${page}`,
+            `limit=${limit}`
+        ];
+
+        // Chỉ thêm categoryId nếu có giá trị hợp lệ (> 0)
+        if (categoryId && categoryId > 0) {
+            queryParams.push(`category_id=${categoryId}`);
+        }
+
+        // Chỉ thêm title nếu không rỗng
+        if (title && title.trim() !== '') {
+            queryParams.push(`title=${encodeURIComponent(title)}`);
+        }
+
+        // Chỉ thêm status nếu có giá trị (published/draft)
+        if (status && status.trim() !== '') {
+            queryParams.push(`status=${status}`);
+        }
+
+        const queryString = queryParams.join('&');
+        console.log("Query String: ", queryString);
+
+        return this.backendService.get(`post?${queryString}`).pipe(
             map((result: any) => result?.data ?? null)
         );
     }

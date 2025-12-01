@@ -9,44 +9,74 @@ import { CommonModule } from '@angular/common';
 import { ToastComponent } from '../../../layouts/default/partials/toast/toast.component';
 import { ToastService } from '../../../services/toast.service';
 import { ModalService } from '../../../services/modal.service';
+import { FormControl, FormGroup } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [Header, Footer, RouterLink, TruncatePipe, CommonModule, ToastComponent],
+  imports: [Header, Footer, RouterLink, TruncatePipe, CommonModule, ToastComponent, ReactiveFormsModule],
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
-
+  fb !: FormGroup;
   constructor(
     private userService: UserService,
     private authService: AuthService,
     private route: ActivatedRoute,
     private modal: ModalService,
     private toast: ToastService
-  ) { }
+  ) {
+    this.fb = new FormGroup({
+      title: new FormControl(''),
+      categoryId: new FormControl(''),
+      featured: new FormControl(''),
+      status: new FormControl(''),
+    });
+  }
   page: number = 1;
   limit: number = 10;
   userInfo: any;
+  categoryId: number = 0;
+  featured: number = 0;
+  status: string = '';
+  title: string = '';
   total: number = 0;
   totalPages: number = 0;
   posts: any[] = [];
+  categories: any[] = [];
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((paramMap) => {
       this.page = parseInt(paramMap.get('page') || '1', 10);
-
       this.userInfo = this.authService.getUserInfo();
-      this.userService.getPostByUser(this.userInfo.id, this.page, this.limit).subscribe((data) => {
-        this.posts = data.rows || [];
-        this.total = data.pagination.total;
-        this.limit = data.pagination.limit;
-        this.totalPages = data.pagination.totalPages;
-      });
+      this.filterPosts();
+      this.loadCategories();
     });
   }
-
+  loadCategories() {
+    this.userService.getCategories().subscribe((data) => {
+      this.categories = data.rows || [];
+    });
+  }
+  loadPost(page: number = 1, limit: number = 10, categoryId: number = 0, title: string = '', status: string = '') {
+    this.userService.getPostByUser(this.userInfo.id, categoryId, title, status, page, limit).subscribe((data) => {
+      console.log("Data : ", data);
+      this.posts = data.rows || [];
+      this.total = data.pagination.total;
+      this.limit = data.pagination.limit;
+      this.totalPages = data.pagination.totalPages;
+    });
+  }
+  filterPosts() {
+    // console.log("Filter : ", this.fb.value);
+    this.page = 1;
+    this.title = this.fb.value.title;
+    this.categoryId = Number(this.fb.value.categoryId);
+    this.status = this.fb.value.status;
+    this.loadPost(this.page, this.limit, this.categoryId, this.title, this.status);
+  }
   deletePost(postId: number): void {
     this.modal.confirm({
       title: 'Delete Post',

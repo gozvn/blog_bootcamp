@@ -12,11 +12,11 @@ export class BackendService {
 
     private backendServer = environment.backendServer // load enviroment backendServer  = URL
 
-    constructor(private http: HttpClient) { 
+    constructor(private http: HttpClient) {
         // console.log(this.backendServer); // print backendServer
     }
 
-    _buildUrl( path:string){
+    _buildUrl(path: string) {
 
         // const port = this.backendServer.port;
         const host = this.backendServer.host;
@@ -24,7 +24,7 @@ export class BackendService {
         const ssl = this.backendServer.ssl;
         let port = "";
         let protocol = 'http://';
-        if(ssl === true){
+        if (ssl === true) {
             port = ":443";
             protocol = 'https://';
         }
@@ -32,15 +32,15 @@ export class BackendService {
         // console.log('URL:', url);
         return url;
     }
-    get (path:string, options: any = {}):Observable<any>{
+    get(path: string, options: any = {}): Observable<any> {
 
         options = options || {};
         options.headers = options.headers || {};
-
+        // console.log('GET options:', options);
         return this.http.get<any>(this._buildUrl(path), options);
     }
 
-    post (path:string, body?: any, options: any = {}):Observable<any>{
+    post(path: string, body?: any, options: any = {}): Observable<any> {
 
         options = options || {};
         options.headers = options.headers || {};
@@ -49,7 +49,7 @@ export class BackendService {
         return this.http.post<any>(this._buildUrl(path), body, options);
     }
 
-    put (path:string, body?: any, options: any = {}):Observable<any>{
+    put(path: string, body?: any, options: any = {}): Observable<any> {
 
         options = options || {};
         options.headers = options.headers || {};
@@ -58,7 +58,7 @@ export class BackendService {
         return this.http.put<any>(this._buildUrl(path), body, options);
     }
 
-    delete (path:string, options: any = {}):Observable<any>{
+    delete(path: string, options: any = {}): Observable<any> {
 
         options = options || {};
         options.headers = options.headers || {};
@@ -66,7 +66,7 @@ export class BackendService {
         return this.http.delete<any>(this._buildUrl(path), options);
     }
 
-    postFile (path:string, body?: any, options: any = {}):Observable<any>{
+    postFile(path: string, body?: any, options: any = {}): Observable<any> {
 
         options = options || {};
         options.headers = options.headers || {};

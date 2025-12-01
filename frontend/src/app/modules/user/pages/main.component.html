@@ -84,32 +84,32 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
+                    <form [formGroup]="fb" class="row">
+                        <div class="col-md-4">
                             <label class="form-label">Filter by Status</label>
-                            <select class="form-select" id="statusFilter" onchange="filterPosts()">
+                            <select class="form-select" id="statusFilter" formControlName="status"
+                                (change)="filterPosts()">
                                 <option value="">All Posts</option>
                                 <option value="published">Published</option>
                                 <option value="draft">Draft</option>
-                                <option value="pending">Pending Review</option>
                             </select>
                         </div>
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-4">
                             <label class="form-label">Filter by Category</label>
-                            <select class="form-select" id="categoryFilter" onchange="filterPosts()">
+                            <select class="form-select" id="categoryFilter" formControlName="categoryId"
+                                (change)="filterPosts()">
                                 <option value="">All Categories</option>
-                                <option value="technology">Technology</option>
-                                <option value="design">Design</option>
-                                <option value="business">Business</option>
-                                <option value="lifestyle">Lifestyle</option>
+                                @for (category of categories; track category.id) {
+                                <option value="{{category.id}}">{{category.name}}</option>
+                                }
                             </select>
                         </div>
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-4">
                             <label class="form-label">Search Posts</label>
                             <input type="text" class="form-control" id="searchInput" placeholder="Search by title..."
-                                onkeyup="filterPosts()">
+                                formControlName="title" (keyup)="filterPosts()">
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

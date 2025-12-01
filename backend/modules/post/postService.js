@@ -53,17 +53,19 @@ const postService = {
         if (featured !== null) {
             whereClause.featured = featured;
         }
-        // loc user
+        // loc user - Sửa: dùng whereClause thay vì include[0].where
         if (userId) {
-            include[0].where = { id: userId };
+            whereClause.user_id = userId;
         }
-        // Filter theo cat ID 
+        // Filter theo cat ID - Giữ nguyên vì cần filter qua bảng many-to-many
         if (categoryId) {
             include[1].where = { id: categoryId };
+            include[1].required = true; // Chỉ lấy posts có category này
         }
-        // Filer theo tag
+        // Filer theo tag - Giữ nguyên vì cần filter qua bảng many-to-many
         if (tagId) {
             include[2].where = { id: tagId };
+            include[2].required = true; // Chỉ lấy posts có tag này
         }
 
         const { count, rows } = await Post.findAndCountAll({
