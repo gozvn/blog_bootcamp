@@ -11,7 +11,7 @@ import { ReplyCommentComponent } from './reply-comment/reply-comment.component';
 @Component({
   selector: 'app-comment',
   standalone: true,
-  imports: [ReactiveFormsModule,RouterLink,CommonModule,PostCommentComponent,ReplyCommentComponent],
+  imports: [ReactiveFormsModule, RouterLink, CommonModule, PostCommentComponent, ReplyCommentComponent],
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss']
 })
@@ -23,12 +23,22 @@ export class CommentComponent implements OnInit {
   listComments: any[] = [];
   currentPage: number = 1;
   totalPages: number = 0;
+  replyingToCommentId: number | null = null;
+
+  onReply(commentId: number) {
+    this.replyingToCommentId = this.replyingToCommentId === commentId ? null : commentId;
+  }
+
+  onReplySubmit() {
+    this.replyingToCommentId = null;
+    this.loadComments();
+  }
 
   constructor(
-    private commentService: CommentService, 
+    private commentService: CommentService,
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private toastService: ToastService) { }
 
   // Kiểm tra trạng thái đăng nhập khi khởi tạo component
@@ -39,7 +49,7 @@ export class CommentComponent implements OnInit {
     });
 
     const user = this.authService.getUserInfo();
-    
+
     if (user) {
       this.isLoggedIn = true;
       this.user = user;
@@ -51,7 +61,7 @@ export class CommentComponent implements OnInit {
         this.totalPages = data.pagination.totalPages ?? 0;
         this.currentPage = data.pagination.page ?? 1;
         // console.log(this.listComments);
-    });
+      });
 
   }
 

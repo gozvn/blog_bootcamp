@@ -45,8 +45,8 @@ const commentController = {
                 return responseUtils.error(res, errors.array());
             }
             // Lấy dữ liệu từ request
-            const { content, user_id, post_id } = req.body;
-            
+            const { parent_id, content, user_id, post_id } = req.body;
+
             if (!content || !user_id || !post_id) {
                 return responseUtils.error(res, "Chưa truyền UserID, Content, Post ID");
             }
@@ -54,7 +54,8 @@ const commentController = {
             const comment = await commentService.create({
                 content,
                 user_id,
-                post_id
+                post_id,
+                parent_id
             });
 
             return responseUtils.ok(res, comment);

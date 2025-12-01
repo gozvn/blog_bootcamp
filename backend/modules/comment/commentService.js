@@ -64,6 +64,7 @@ const commentService = {
     async create(data) {
         const comment = await Comment.create({
             content: data.content,
+            parent_id: data.parent_id,
             user_id: data.user_id,
             post_id: data.post_id,
             created_at: new Date(),

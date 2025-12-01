@@ -13,7 +13,7 @@ import { ToastComponent } from '../../../layouts/default/partials/toast/toast.co
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
-  form: FormGroup;
+  form!: FormGroup;
   loading = false;
   showPassword = false;
 
@@ -22,10 +22,12 @@ export class LoginComponent {
     private authService: AuthService,
     private router: Router,
     private toastService: ToastService
-  ) {
+  ) { }
+
+  ngOnInit() {
     this.form = this.fb.group({
-      email: [{ value: '', disabled: this.loading }, [Validators.required, Validators.email]],
-      password: [{ value: '', disabled: this.loading }, [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
       rememberMe: [false],
     });
   }
@@ -42,9 +44,9 @@ export class LoginComponent {
 
     this.loading = true;
     this.form.disable();
-    
+
     const { email, password } = this.form.value;
-    
+
     this.authService.login(email, password).subscribe({
       next: async (res) => {
         this.loading = false;
@@ -56,7 +58,7 @@ export class LoginComponent {
         this.loading = false;
         this.form.enable();
         const errdata = err.error.data;
-        let msg ="Failed to login. Please try again.";
+        let msg = "Failed to login. Please try again.";
         if (errdata === 'validation.email' || errdata === 'validation.password') {
           msg = "Invalid email or password";
         }

@@ -1,113 +1,113 @@
-const { Category,Post,User,Tag,Language,Comment } = require("../../models");
+const { Category, Post, User, Tag, Language, Comment } = require("../../models");
 
 const publicService = {
     async listCategories(page, limit) {
-            // Logic to list categories with pagination and filters
-            const whereClause = {};
-            const offset = (page - 1) * limit;
-            const include = [    ];
-    
-            const { count, rows } = await Category.findAndCountAll({
-                where: whereClause,
-                include,
-                order: [["id", "DESC"]],
-                attributes: { exclude: ['created_at','updated_at'] },
-                offset,
+        // Logic to list categories with pagination and filters
+        const whereClause = {};
+        const offset = (page - 1) * limit;
+        const include = [];
+
+        const { count, rows } = await Category.findAndCountAll({
+            where: whereClause,
+            include,
+            order: [["id", "DESC"]],
+            attributes: { exclude: ['created_at', 'updated_at'] },
+            offset,
+            limit,
+            distinct: true, // tránh bị nhân bản khi join nhiều bảng
+        });
+
+        return {
+            rows,
+            pagination: {
+                total: count,
+                page,
                 limit,
-                distinct: true, // tránh bị nhân bản khi join nhiều bảng
-            }); 
-    
-            return {
-                rows,
-                pagination: {
-                    total: count,
-                    page,
-                    limit,
-                    totalPages : Math.ceil(count / limit),
-                }
-            };
+                totalPages: Math.ceil(count / limit),
+            }
+        };
     },
     async listPosts(page = 1, limit = 10, categoryId = null, tagId = null, userId = null, langId = null, status = null, featured = null) {
 
-            page = parseInt(page);
-            limit = parseInt(limit);
+        page = parseInt(page);
+        limit = parseInt(limit);
 
-            const offset = (page -1) * limit;
-            const whereClause = {
-                status: "published"
-            };
-            const include = [
-                    {
-                        as : 'user',
-                        model: User,
-                        attributes: ["id", "username"],
-                    },
-                    {
-                        as: 'categories',
-                        model: Category,
-                        attributes: ["id", "name"],
-                        through: { attributes: [] },
-                    },
-                    {
-                        as: 'tags',
-                        model: Tag,
-                        attributes: ["id","name"],
-                        through : { attributes:[] }
-                    },
-                    {
-                        as : 'language',
-                        model: Language,
-                        attributes: ["id","lang_name"],
-                    }
-            ];
-            // loc ngôn ngữ
-            if (langId){
-                whereClause.lang_id = langId;
+        const offset = (page - 1) * limit;
+        const whereClause = {
+            status: "published"
+        };
+        const include = [
+            {
+                as: 'user',
+                model: User,
+                attributes: ["id", "username"],
+            },
+            {
+                as: 'categories',
+                model: Category,
+                attributes: ["id", "name"],
+                through: { attributes: [] },
+            },
+            {
+                as: 'tags',
+                model: Tag,
+                attributes: ["id", "name"],
+                through: { attributes: [] }
+            },
+            {
+                as: 'language',
+                model: Language,
+                attributes: ["id", "lang_name"],
             }
-            // loc nổi bật
-            if (featured !== null){
-                whereClause.featured = featured;
-            }
-            // loc user
-            if (userId){
-                include[0].where = { id : userId};
-            }
-            // Filter theo cat ID 
-            if (categoryId) {
-                include[1].where = { id: categoryId };
-            }
-            // Filer theo tag
-            if (tagId) {
-                include[2].where = { id: tagId };           
-            }
+        ];
+        // loc ngôn ngữ
+        if (langId) {
+            whereClause.lang_id = langId;
+        }
+        // loc nổi bật
+        if (featured !== null) {
+            whereClause.featured = featured;
+        }
+        // loc user
+        if (userId) {
+            include[0].where = { id: userId };
+        }
+        // Filter theo cat ID 
+        if (categoryId) {
+            include[1].where = { id: categoryId };
+        }
+        // Filer theo tag
+        if (tagId) {
+            include[2].where = { id: tagId };
+        }
 
-            const { count, rows } = await Post.findAndCountAll({
-                // attributes : ["id","title"],
-                where: whereClause,
-                include,
-                order: [["id", "DESC"]],
-                attributes: { exclude: ['user_id','lang_id'] },
-                offset,
+        const { count, rows } = await Post.findAndCountAll({
+            // attributes : ["id","title"],
+            where: whereClause,
+            include,
+            order: [["id", "DESC"]],
+            attributes: { exclude: ['user_id', 'lang_id'] },
+            offset,
+            limit,
+            distinct: true, // tránh bị nhân bản khi join nhiều bảng
+        });
+
+        return {
+            rows,
+            pagination: {
+                total: count,
+                page,
                 limit,
-                distinct: true, // tránh bị nhân bản khi join nhiều bảng
-            });           
-
-            return {
-                rows,
-                pagination: {
-                    total: count,
-                    page,
-                    limit,
-                    totalPages : Math.ceil(count / limit),
-                }
-            };
+                totalPages: Math.ceil(count / limit),
+            }
+        };
     },
     async getPostById(postId) {
         const post = await Post.findOne({
             where: { id: postId },
             include: [
                 {
-                    as : 'user',
+                    as: 'user',
                     model: User,
                     attributes: ["id", "username"],
                 },
@@ -120,16 +120,16 @@ const publicService = {
                 {
                     as: 'tags',
                     model: Tag,
-                    attributes: ["id","name"],
-                    through : { attributes:[] }
+                    attributes: ["id", "name"],
+                    through: { attributes: [] }
                 },
                 {
-                    as : 'language',
+                    as: 'language',
                     model: Language,
-                    attributes: ["id","lang_name"],
+                    attributes: ["id", "lang_name"],
                 }
             ],
-            attributes: { exclude: ['user_id','lang_id'] },
+            attributes: { exclude: ['user_id', 'lang_id'] },
         });
         return post;
     },
@@ -182,18 +182,36 @@ const publicService = {
         limit = parseInt(limit);
         const offset = (page - 1) * limit;
         const { count, rows } = await Comment.findAndCountAll({
-            where: { post_id: postId },
+            where: {
+                post_id: postId,
+                parent_id: null
+            },
             include: [
                 {
-                    as : 'user',
+                    as: 'user',
                     model: User,
                     attributes: ["username"],
+                },
+                {
+                    as: 'replies',
+                    model: Comment,
+                    include: [
+                        {
+                            as: 'user',
+                            model: User,
+                            attributes: ["username"]
+                        }
+                    ]
                 }
             ],
-            order: [["id", "ASC"]],
-            attributes: { exclude: ['user_id','post_id'] },
+            order: [
+                ["id", "DESC"],
+                [{ model: Comment, as: 'replies' }, 'id', 'ASC']
+            ],
+            attributes: { exclude: ['user_id', 'post_id'] },
             offset,
             limit,
+            distinct: true
         });
         const comment = {
             rows,
@@ -201,10 +219,10 @@ const publicService = {
                 total: count,
                 page,
                 limit,
-                totalPages : Math.ceil(count / limit),
+                totalPages: Math.ceil(count / limit),
             }
         };
-        
+
         return comment;
     }
 };
