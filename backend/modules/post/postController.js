@@ -14,9 +14,10 @@ const postController = {
             const langId = req.query.lang_id || null;
             const status = req.query.status || null;
             const featured = req.query.featured || null;
+            const title = req.query.title || null;
             // const cat = parse Int(req.query.cat);
 
-            const post = await postService.list(page, limit, categoryId, tagId, userId, langId, status, featured);
+            const post = await postService.list(page, limit, categoryId, tagId, userId, langId, status, featured, title);
             // xử lý show all ở đây
             return responseUtils.ok(res, post)
         } catch (error) {

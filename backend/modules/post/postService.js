@@ -1,9 +1,10 @@
 const { Post, User, Comment, Category, Tag, Language } = require("../../models");
 const { validationResult } = require("express-validator");
 const responseUtils = require("utils/responseUtils")
+const Op = require("sequelize").Op;
 
 const postService = {
-    async list(page = 1, limit = 10, categoryId = null, tagId = null, userId = null, langId = null, status = null, featured = null) {
+    async list(page = 1, limit = 10, categoryId = null, tagId = null, userId = null, langId = null, status = null, featured = null, title = null) {
 
         page = parseInt(page);
         limit = parseInt(limit);
@@ -34,6 +35,12 @@ const postService = {
                 attributes: ["id", "lang_name"],
             }
         ];
+        // loc title
+        if (title) {
+            whereClause.title = {
+                [Op.like]: `%${title}%`
+            };
+        }
         // loc ngôn ngữ
         if (langId) {
             whereClause.lang_id = langId;
