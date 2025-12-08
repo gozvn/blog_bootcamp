@@ -15,7 +15,7 @@
       <form id="postForm" [formGroup]="submitContentForm" novalidate>
         <input type="hidden" id="postId" value="">
         <div class="row mb-3">
-          <div class="col-md-6">
+          <div class="col-md-12">
             <div class="mb-3">
               <label for="postTitle" class="form-label">Title <span class="text-danger">*</span></label>
               <input type="text" class="form-control" id="postTitle" formControlName="title"
@@ -38,8 +38,6 @@
               <div class="text-danger mt-1">Category is required.</div>
               }
             </div>
-          </div>
-          <div class="col-md-6">
             <div class="mb-3">
               <label for="postFeatured" formControlName="featured" class="form-label">Featured </label>
               &nbsp;<input type="checkbox" id="postFeatured" formControlName="featured">
@@ -73,7 +71,13 @@
         <!--  editor -->
         <div class="mb-3">
           <label for="postContent" class="form-label">Content <span class="text-danger">*</span></label>
-          <textarea formControlName="content" class="form-control" id="postContent" rows="3"></textarea>
+          <quill-editor formControlName="content" [modules]="quillConfig" [styles]="{height: '400px'}"
+            placeholder="Write your post content here...">
+          </quill-editor>
+          @if (submitContentForm.get('content')?.hasError('required') &&
+          (submitContentForm.get('content')?.touched || submitContentForm.get('content')?.dirty)) {
+          <div class="text-danger mt-1">Content is required.</div>
+          }
         </div>
 
         <div class="row mt-3">

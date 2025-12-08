@@ -5,7 +5,7 @@ import { AuthService } from '../../../../services/auth.service';
 
 @Component({
   selector: 'app-header',
-  standalone:true,
+  standalone: true,
   imports: [RouterLink],
   templateUrl: './header.html',
   // styleUrl: './header.scss'
@@ -24,13 +24,14 @@ export class Header implements OnInit {
 
     // Lấy thông tin user từ local storage.
     const user = this.authService.getUserInfo();
+    // console.log(user);
     if (user) {
       this.isLoggedIn = true;
       this.user = user;
     }
     // console.log('User Info:', user);
   }
-    // Log out 
+  // Log out 
   onLogout() {
     this.authService.logout();
     // Sau logout, chuyển hướng về trang login hoặc homepage

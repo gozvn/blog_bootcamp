@@ -1,82 +1,95 @@
 <header class="p-3 mb-3 border-bottom">
-    <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-between">
-        <!-- Logo -->
-        <a routerLink="" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
-          <h4 class="mb-0 fw-bold text-primary">BLOG</h4>
-        </a>
-        
-        <!-- Navigation for large screens -->
-        <ul class="nav d-none d-lg-flex me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li>
-            <a routerLink="" class="nav-link px-2 link-body-emphasis active">Home</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle px-2 link-body-emphasis" href="#" id="navbarDropdownCategories" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Categories
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownCategories">
-              <li><a class="dropdown-item" routerLink="/category">All Categories</a></li>
-              @for ( category of listcategories; track category.id) {
-              <li><a class="dropdown-item" [routerLink]="['/category', category.id, category.slug]">{{ category.name }}</a></li>
-              }
-            </ul>
-          </li>
-          @if (isLoggedIn == false) {
-          
-          <li>
-            <a routerLink="/auth/login" class="nav-link px-2 link-secondary">Login</a>
-          </li>
-          <li>
-            <a routerLink="/auth/signup" class="nav-link px-2 link-secondary">Sign Up</a>
-          </li>
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-between">
+      <!-- Logo -->
+      <a routerLink="" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
+        <h4 class="mb-0 fw-bold text-primary">BLOG</h4>
+      </a>
+
+      <!-- Navigation for large screens -->
+      <ul class="nav d-none d-lg-flex me-lg-auto mb-2 justify-content-center mb-md-0">
+        <li>
+          <a routerLink="" class="nav-link px-2 link-body-emphasis active">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle px-2 link-body-emphasis" href="#" id="navbarDropdownCategories"
+            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Categories
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownCategories">
+            <li><a class="dropdown-item" routerLink="/category">All Categories</a></li>
+            @for ( category of listcategories; track category.id) {
+            <li><a class="dropdown-item" [routerLink]="['/category', category.id, category.slug]">{{ category.name
+                }}</a></li>
+            }
+          </ul>
+        </li>
+        @if (isLoggedIn == false) {
+
+        <li>
+          <a routerLink="/auth/login" class="nav-link px-2 link-secondary">Login</a>
+        </li>
+        <li>
+          <a routerLink="/auth/signup" class="nav-link px-2 link-secondary">Sign Up</a>
+        </li>
         }
-        </ul>
-        
-        <div class="d-flex align-items-center">
-          <!-- Search form for large screens only -->
-          <form class="me-3 d-none d-lg-block" role="search">
-            <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-          </form>
-          
-          <!-- Language selector for large screens only -->
-          <div class="dropdown me-3 d-none d-lg-block">
-            <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fa fa-globe me-2"></i>
-              <span>🇺🇸 English</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#" data-lang="en">🇺🇸 English</a></li>
-              <li><a class="dropdown-item" href="#" data-lang="vn">🇻🇳 Vietnamese</a></li>
-            </ul>
-          </div>
-          
-          <!-- User dropdown for large screens only -->
-          @if (isLoggedIn == true) {
-          <div class="dropdown text-end me-3 d-none d-lg-block">
-           
-            <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="assets/img/no_img.jpg" alt="mdo" width="32" height="32" class="rounded-circle"> Hi, {{ user.username }}
-            </a>
-            <ul class="dropdown-menu text-small">
-              <li><a class="dropdown-item" routerLink="/user">My post...</a></li>
-              <li><a class="dropdown-item" routerLink="/dashboard">Admin Dashboard</a></li>
-              <li><a class="dropdown-item" routerLink="/user/setting">Profile</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" (click)="onLogout()" href="#">Sign out</a></li>
-            </ul>            
-          </div>
-          }
-          
-          <!-- Hamburger menu button for mobile -->
-          <button class="btn btn-outline-secondary d-lg-none d-flex align-items-center justify-content-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" style="width: 40px; height: 40px;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-            </svg>
-          </button>
+      </ul>
+
+      <div class="d-flex align-items-center">
+        <!-- Search form for large screens only -->
+        <form class="me-3 d-none d-lg-block" role="search">
+          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+        </form>
+
+        <!-- Language selector for large screens only -->
+        <div class="dropdown me-3 d-none d-lg-block">
+          <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa fa-globe me-2"></i>
+            <span>🇺🇸 English</span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#" data-lang="en">🇺🇸 English</a></li>
+            <li><a class="dropdown-item" href="#" data-lang="vn">🇻🇳 Vietnamese</a></li>
+          </ul>
         </div>
+
+        <!-- User dropdown for large screens only -->
+        @if (isLoggedIn == true) {
+        <div class="dropdown text-end me-3 d-none d-lg-block">
+
+          <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <img src="assets/img/no_img.jpg" alt="mdo" width="32" height="32" class="rounded-circle"> Hi, {{
+            user.username }}
+          </a>
+          <ul class="dropdown-menu text-small">
+            <li><a class="dropdown-item" routerLink="/user">My post...</a></li>
+            @if (user.role == 1 || user.role == '1') {
+            <li><a class="dropdown-item" routerLink="/dashboard">Admin Dashboard</a></li>
+            }
+            <li><a class="dropdown-item" routerLink="/user/setting">Profile</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" (click)="onLogout()" href="#">Sign out</a></li>
+          </ul>
+        </div>
+        }
+
+        <!-- Hamburger menu button for mobile -->
+        <button class="btn btn-outline-secondary d-lg-none d-flex align-items-center justify-content-center"
+          type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
+          style="width: 40px; height: 40px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+          </svg>
+        </button>
       </div>
     </div>
+  </div>
 </header>
 
 <!-- Offcanvas Menu -->
@@ -110,10 +123,14 @@
         </a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" [routerLink]="['/user']">My post...</a></li>
-              <li><a class="dropdown-item" [routerLink]="['/dashboard']">Admin Dashboard</a></li>
-              <li><a class="dropdown-item" href="#">Profile</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" (click)="onLogout()">Sign out</a></li>
+          @if (user.role == 1 || user.role == '1') {
+          <li><a class="dropdown-item" [routerLink]="['/dashboard']">Admin Dashboard</a></li>
+          }
+          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li><a class="dropdown-item" (click)="onLogout()">Sign out</a></li>
         </ul>
       </li>
       }
@@ -124,9 +141,9 @@
         </a>
       </li>
       }
-      
+
     </ul>
-    
+
     <!-- Search form in offcanvas -->
     <form class="d-flex mb-4" role="search">
       <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
@@ -134,14 +151,16 @@
         <i class="fa fa-search"></i>
       </button>
     </form>
-    
+
     <!-- Language selector in offcanvas -->
     <div class="mb-4">
       <h6 class="text-muted mb-3">
         <i class="fa fa-globe me-2"></i>Language
       </h6>
       <div class="dropdown">
-        <button class="btn btn-outline-secondary dropdown-toggle w-100 d-flex justify-content-between align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button
+          class="btn btn-outline-secondary dropdown-toggle w-100 d-flex justify-content-between align-items-center"
+          type="button" data-bs-toggle="dropdown" aria-expanded="false">
           <span>🇺🇸 English</span>
         </button>
         <ul class="dropdown-menu w-100">
@@ -150,7 +169,7 @@
         </ul>
       </div>
     </div>
-    
+
   </div>
 </div>
 <!-- End Header -->

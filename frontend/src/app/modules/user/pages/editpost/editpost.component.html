@@ -79,7 +79,9 @@
                 <!--  editor -->
                 <div class="mb-3">
                     <label for="postContent" class="form-label">Content <span class="text-danger">*</span></label>
-                    <textarea formControlName="content" class="form-control" id="postContent" rows="10"></textarea>
+                    <quill-editor formControlName="content" [modules]="quillConfig" [styles]="{height: '400px'}"
+                        placeholder="Write your post content here...">
+                    </quill-editor>
                     @if (editPostForm.get('content')?.hasError('required') &&
                     (editPostForm.get('content')?.touched || editPostForm.get('content')?.dirty)) {
                     <div class="text-danger mt-1">Content is required.</div>

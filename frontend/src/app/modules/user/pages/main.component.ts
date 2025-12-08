@@ -44,6 +44,9 @@ export class MainComponent implements OnInit {
   title: string = '';
   total: number = 0;
   totalPages: number = 0;
+  totalAllPosts: number = 0;
+  publishedCount: number = 0;
+  draftCount: number = 0;
   posts: any[] = [];
   categories: any[] = [];
 
@@ -53,6 +56,9 @@ export class MainComponent implements OnInit {
       this.userInfo = this.authService.getUserInfo();
       this.filterPosts();
       this.loadCategories();
+      this.loadTotalAllPosts();
+      this.loadPublishedCount();
+      this.loadDraftCount();
     });
   }
   loadCategories() {
@@ -77,6 +83,24 @@ export class MainComponent implements OnInit {
     this.status = this.fb.value.status;
     this.loadPost(this.page, this.limit, this.categoryId, this.title, this.status);
   }
+  loadTotalAllPosts() {
+    this.userService.getPostByUser(this.userInfo.id, 0, '', '', 1, 1).subscribe((data) => {
+      this.totalAllPosts = data.pagination.total || 0;
+    });
+  }
+
+  loadPublishedCount() {
+    this.userService.getPostByUser(this.userInfo.id, 0, '', 'published', 1, 1).subscribe((data) => {
+      this.publishedCount = data.pagination.total || 0;
+    });
+  }
+
+  loadDraftCount() {
+    this.userService.getPostByUser(this.userInfo.id, 0, '', 'draft', 1, 1).subscribe((data) => {
+      this.draftCount = data.pagination.total || 0;
+    });
+  }
+
   deletePost(postId: number): void {
     this.modal.confirm({
       title: 'Delete Post',
@@ -89,6 +113,11 @@ export class MainComponent implements OnInit {
         this.userService.deletePost(postId).subscribe(() => {
           this.posts = this.posts.filter(post => post.id !== postId);
           this.toast.showMessage('successToast', 'Post deleted successfully.');
+          // Cập nhật lại số liệu sau khi xóa
+          this.loadTotalAllPosts();
+          this.loadPublishedCount();
+          this.loadDraftCount();
+          this.filterPosts();
         }, (error) => {
           this.toast.showMessage('errorToast', 'Failed to delete post.');
         });

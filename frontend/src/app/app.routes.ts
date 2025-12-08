@@ -4,45 +4,48 @@ import { DashboardComponent } from './layouts/dashboard/dashboard.component';
 import { authGuard } from './guard/auth.guard';
 
 export const routes: Routes = [
-    { 
-        path : '',
-        component : defaultLayout,
+    {
+        path: '',
+        component: defaultLayout,
         loadChildren: () => import('./modules/home/home.routes').then(m => m.HomeRoutes),
-        title : 'Home Page'
+        title: 'Home Page'
     },
     {
-        path : 'auth',
-        component : defaultLayout,
+        path: 'auth',
+        component: defaultLayout,
         loadChildren: () => import('./modules/auth/auth.routes').then(m => m.AuthRoutes),
-        title : 'Login'
+        title: 'Login'
     },
     {
-        path : 'dashboard',
-        component : DashboardComponent,
+        path: 'dashboard',
+        component: DashboardComponent,
         canActivate: [authGuard],
         loadChildren: () => import('./modules/dashboard/dashboard.routes').then(m => m.DashboardRoutes),
-        title : 'Dashboard'
+        data: {
+            title: 'Dashboard',
+            roles: [1]
+        }  // Chỉ admin (role=1) được phép truy cập
     },
     {
-        path : 'user',        
+        path: 'user',
         canActivate: [authGuard],
         loadChildren: () => import('./modules/user/user.routes').then(m => m.UserRoutes),
-        title : 'User Panel'
+        title: 'User Panel'
     },
     {
-        path : 'post',
+        path: 'post',
         loadChildren: () => import('./modules/post/post.routes').then(m => m.PostRoutes),
-        title : 'Posts'
+        title: 'Posts'
     },
     {
-        path : 'category',
+        path: 'category',
         loadChildren: () => import('./modules/category/category.routes').then(m => m.categoryRoutes),
-        title : 'Categories'
+        title: 'Categories'
     },
     {
         path: 'error',
         loadChildren: () => import('./modules/errors/errors.routes').then(m => m.ErrorsRoutes),
-        title : 'Error'
+        title: 'Error'
     },
     {
         path: '**',

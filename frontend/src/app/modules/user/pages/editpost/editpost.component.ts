@@ -8,11 +8,12 @@ import { Header } from '../../../../layouts/default/partials/header/header';
 import { Footer } from '../../../../layouts/default/partials/footer/footer';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { QuillModule } from 'ngx-quill';
 
 @Component({
   selector: 'app-editpost',
   standalone: true,
-  imports: [Header, Footer, ToastComponent, ReactiveFormsModule, CommonModule],
+  imports: [Header, Footer, ToastComponent, ReactiveFormsModule, CommonModule, QuillModule],
   templateUrl: './editpost.component.html',
   styleUrl: './editpost.component.scss'
 })
@@ -23,6 +24,26 @@ export class EditpostComponent implements OnInit {
   categories: any[] = [];
   imagePreview: string | null = null;
   loading: boolean = false;
+
+  // Cấu hình Quill Editor
+  quillConfig = {
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],
+      ['blockquote', 'code-block'],
+      [{ 'header': 1 }, { 'header': 2 }],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      [{ 'script': 'sub' }, { 'script': 'super' }],
+      [{ 'indent': '-1' }, { 'indent': '+1' }],
+      [{ 'direction': 'rtl' }],
+      [{ 'size': ['small', false, 'large', 'huge'] }],
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+      [{ 'color': [] }, { 'background': [] }],
+      [{ 'font': [] }],
+      [{ 'align': [] }],
+      ['clean'],
+      ['link', 'image', 'video']
+    ]
+  };
 
   constructor(
     private toastService: ToastService,

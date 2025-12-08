@@ -11,11 +11,12 @@ import { ToastService } from '../../../../services/toast.service';
 import { ToastComponent } from '../../../../layouts/default/partials/toast/toast.component';
 import { ModalService } from '../../../../services/modal.service';
 import { AuthService } from '../../../../services/auth.service';
+import { QuillModule } from 'ngx-quill';
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [Header, Footer, ReactiveFormsModule, CommonModule, ToastComponent],
+  imports: [Header, Footer, ReactiveFormsModule, CommonModule, ToastComponent, QuillModule],
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss']
 })
@@ -49,6 +50,26 @@ export class PostComponent implements OnInit {
   tagName: string = '';
   tagId: number = 0;
   userInfo: any;
+
+  // Cấu hình Quill Editor
+  quillConfig = {
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],
+      ['blockquote', 'code-block'],
+      [{ 'header': 1 }, { 'header': 2 }],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      [{ 'script': 'sub' }, { 'script': 'super' }],
+      [{ 'indent': '-1' }, { 'indent': '+1' }],
+      [{ 'direction': 'rtl' }],
+      [{ 'size': ['small', false, 'large', 'huge'] }],
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+      [{ 'color': [] }, { 'background': [] }],
+      [{ 'font': [] }],
+      [{ 'align': [] }],
+      ['clean'],
+      ['link', 'image', 'video']
+    ]
+  };
 
   ngOnInit(): void {
     // console.log(" Bắt đầu chạy component post ")
