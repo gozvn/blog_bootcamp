@@ -30,7 +30,7 @@
 </div>
 <!-- Load More Button -->
 <div class="text-center mb-4">
-   <button (click)="onViewMore()" class="btn btn-outline-primary btn-lg" [disabled]="loading || page >= totalPages">
-    {{ loading ? 'Loading...' : (page >= totalPages ? 'No More Posts' : 'View More Posts') }}
+    <button (click)="onViewMore()" class="btn btn-outline-primary btn-lg" [disabled]="loading || page >= totalPages">
+        {{ loading ? 'Loading...' : (page >= totalPages ? 'No More Posts' : 'View More Posts') }}
     </button>
 </div>

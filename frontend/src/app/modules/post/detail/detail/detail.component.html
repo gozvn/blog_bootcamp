@@ -1,130 +1,141 @@
 <app-header></app-header>
 <div class="container">
-        <div *ngIf="detail" class="row">
-            <!-- Main Article -->
-            <div class="col-lg-8">
-                <!-- Breadcrumb -->
-                <nav aria-label="breadcrumb" class="mb-4">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item"><a href="categories.html">Categories</a></li>
-                        <li class="breadcrumb-item"><a href="post_category.html">Technology</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Blog Post</li>
-                    </ol>
-                </nav>
+    <div *ngIf="detail" class="row">
+        <!-- Main Article -->
+        <div class="col-lg-8">
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="categories.html">Categories</a></li>
+                    <li class="breadcrumb-item"><a href="post_category.html">Technology</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Blog Post</li>
+                </ol>
+            </nav>
 
-                <!-- Article Header -->
-                <article class="mb-5">
-                    <header class="mb-4">
-                        <h1 class="title fw-bold text-dark mb-3">{{detail.title}}</h1>
-                        
-                        <!-- Article Meta -->
-                        <div class="d-flex align-items-center mb-3">
-                            <img src="/assets/img/no_img.jpg" alt="Author" width="40" height="40" class="rounded-circle me-3">
-                            <div>
-                                <p class="mb-0 fw-semibold">{{ detail?.user?.username }}</p>
-                                <small class="text-muted">{{detail.created_at | date:'MMM d, y • h:mm a'}}</small>
-                            </div>
+            <!-- Article Header -->
+            <article class="mb-5">
+                <header class="mb-4">
+                    <h1 class="title fw-bold text-dark mb-3">{{detail.title}}</h1>
+
+                    <!-- Article Meta -->
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="/assets/img/no_img.jpg" alt="Author" width="40" height="40"
+                            class="rounded-circle me-3">
+                        <div>
+                            <p class="mb-0 fw-semibold">{{ detail?.user?.username }}</p>
+                            <small class="text-muted">{{detail.created_at | date:'MMM d, y • h:mm a'}}</small>
                         </div>
+                    </div>
 
-                        <!-- Featured Image -->
-                        <!-- <div class="mb-4">
+                    <!-- Featured Image -->
+                    <!-- <div class="mb-4">
                             <img src="/assets/img/no_img.jpg" alt="Featured Image" class="img-fluid rounded shadow">
                         </div> -->
-                    </header>
+                </header>
 
-                    <!-- Article Content -->
-                    <div class="article-content">
-                        {{ detail.content }}
-                    </div>
-                    <!-- Tags -->
-                    <div class="mb-2 mt-4">
-                        @for (tag of detail.tags ; track tag.id) {
-                        <span class="badge bg-primary me-2">{{ tag.name }}</span>
-                        }
-                    </div>
-                    <!-- Social Share -->
-                    <div class="d-flex align-items-center mt-2 pt-4 border-top">
-                        <span class="me-3 fw-semibold">Share this article:</span>
-                        <div class="btn-group" role="group">
-                          <button type="button" class="btn btn-outline-primary btn-sm">
+                <!-- Article Content -->
+                <div class="article-content" [innerHTML]="detail.content">
+                </div>
+                <!-- Tags -->
+                <div class="mb-2 mt-4">
+                    @for (tag of detail.tags ; track tag.id) {
+                    <span class="badge bg-primary me-2">{{ tag.name }}</span>
+                    }
+                </div>
+                <!-- Social Share -->
+                <div class="d-flex align-items-center mt-2 pt-4 border-top">
+                    <span class="me-3 fw-semibold">Share this article:</span>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-primary btn-sm">
                             <i class="fa-brands fa-facebook-f"></i> Facebook
-                          </button>
-                          <button type="button" class="btn btn-outline-info btn-sm">
+                        </button>
+                        <button type="button" class="btn btn-outline-info btn-sm">
                             <i class="fa-brands fa-twitter"></i> Twitter
-                          </button>
-                          <button type="button" class="btn btn-outline-danger btn-sm">
+                        </button>
+                        <button type="button" class="btn btn-outline-danger btn-sm">
                             <i class="fa-brands fa-linkedin-in"></i> LinkedIn
-                          </button>
-                          <button type="button" class="btn btn-outline-secondary btn-sm">
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm">
                             <i class="fa-solid fa-link"></i> Copy Link
-                          </button>
+                        </button>
+                    </div>
+                </div>
+            </article>
+            <!-- Comments Section -->
+            <app-comment></app-comment>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <div class="position-sticky" style="top: 2rem">
+                <!-- About Author -->
+                <div class="p-4 mb-3 bg-body-tertiary rounded">
+                    <h4 class="fst-italic">About the Author</h4>
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="/assets/img/no_img.jpg" alt="Author" width="60" height="60"
+                            class="rounded-circle me-3">
+                        <div>
+                            <h6 class="mb-0">{{detail.user.username}}</h6>
+                            <small class="text-muted">Senior Developer</small>
                         </div>
                     </div>
-                </article>
-                <!-- Comments Section -->
-                <app-comment></app-comment>
-            </div>
+                    <p class="mb-0">
+                        John is a passionate web developer with over 8 years of experience in building modern web
+                        applications. He loves sharing knowledge and helping others learn.
+                    </p>
+                </div>
 
-            <!-- Sidebar -->
-            <div class="col-lg-4">
-                <div class="position-sticky" style="top: 2rem">
-                    <!-- About Author -->
-                    <div class="p-4 mb-3 bg-body-tertiary rounded">
-                        <h4 class="fst-italic">About the Author</h4>
-                        <div class="d-flex align-items-center mb-3">
-                            <img src="/assets/img/no_img.jpg" alt="Author" width="60" height="60" class="rounded-circle me-3">
-                            <div>
-                                <h6 class="mb-0">{{detail.user.username}}</h6>
-                                <small class="text-muted">Senior Developer</small>
-                            </div>
-                        </div>
-                        <p class="mb-0">
-                            John is a passionate web developer with over 8 years of experience in building modern web applications. He loves sharing knowledge and helping others learn.
-                        </p>
-                    </div>
-
-                    <!-- Related Posts -->
-                    <div class="mb-3">
-                        <h4 class="fst-italic">Related Posts</h4>
-                        <ul class="list-unstyled">
-                            <li>
-                                <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="detail_blog.html">
-                                    <svg aria-hidden="true" class="bd-placeholder-img" height="96" preserveAspectRatio="xMidYMid slice" width="100%" xmlns="http://www.w3.org/2000/svg">
-                                        <rect width="100%" height="100%" fill="#777"></rect>
-                                    </svg>
-                                    <div class="col-lg-8">
-                                        <h6 class="mb-0">Best JavaScript Frameworks for 2025</h6>
-                                        <small class="text-body-secondary">October 10, 2025 • 4:45 PM</small>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="detail_blog.html">
-                                    <svg aria-hidden="true" class="bd-placeholder-img" height="96" preserveAspectRatio="xMidYMid slice" width="100%" xmlns="http://www.w3.org/2000/svg">
-                                        <rect width="100%" height="100%" fill="#777"></rect>
-                                    </svg>
-                                    <div class="col-lg-8">
-                                        <h6 class="mb-0">CSS Grid vs Flexbox: When to Use What</h6>
-                                        <small class="text-body-secondary">October 8, 2025 • 9:30 AM</small>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                                    <svg aria-hidden="true" class="bd-placeholder-img" height="96" preserveAspectRatio="xMidYMid slice" width="100%" xmlns="http://www.w3.org/2000/svg">
-                                        <rect width="100%" height="100%" fill="#777"></rect>
-                                    </svg>
-                                    <div class="col-lg-8">
-                                        <h6 class="mb-0">Building Accessible Web Applications</h6>
-                                        <small class="text-body-secondary">October 5, 2025</small>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                <!-- Related Posts -->
+                <div class="mb-3">
+                    <h4 class="fst-italic">Related Posts</h4>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top"
+                                href="detail_blog.html">
+                                <svg aria-hidden="true" class="bd-placeholder-img" height="96"
+                                    preserveAspectRatio="xMidYMid slice" width="100%"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="100%" height="100%" fill="#777"></rect>
+                                </svg>
+                                <div class="col-lg-8">
+                                    <h6 class="mb-0">Best JavaScript Frameworks for 2025</h6>
+                                    <small class="text-body-secondary">October 10, 2025 • 4:45 PM</small>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top"
+                                href="detail_blog.html">
+                                <svg aria-hidden="true" class="bd-placeholder-img" height="96"
+                                    preserveAspectRatio="xMidYMid slice" width="100%"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="100%" height="100%" fill="#777"></rect>
+                                </svg>
+                                <div class="col-lg-8">
+                                    <h6 class="mb-0">CSS Grid vs Flexbox: When to Use What</h6>
+                                    <small class="text-body-secondary">October 8, 2025 • 9:30 AM</small>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top"
+                                href="#">
+                                <svg aria-hidden="true" class="bd-placeholder-img" height="96"
+                                    preserveAspectRatio="xMidYMid slice" width="100%"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="100%" height="100%" fill="#777"></rect>
+                                </svg>
+                                <div class="col-lg-8">
+                                    <h6 class="mb-0">Building Accessible Web Applications</h6>
+                                    <small class="text-body-secondary">October 5, 2025</small>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
+</div>
 <app-footer></app-footer>
