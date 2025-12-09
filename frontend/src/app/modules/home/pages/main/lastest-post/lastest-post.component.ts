@@ -7,8 +7,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-lastest-post',
   standalone: true,
   imports: [TruncatePipe, CommonModule],
-  templateUrl: './lastest-post.component.html',
-  styleUrls: ['./lastest-post.component.scss']
+  templateUrl: './lastest-post.component.html'
 })
 
 export class LastestPostComponent implements OnInit {

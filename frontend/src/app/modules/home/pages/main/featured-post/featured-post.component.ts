@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../../../services/home.service';
 import { CommonModule } from '@angular/common';
 import { TruncatePipe } from '../../../../../pipes/truncate.pipe';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-featured-post',
   standalone: true,
-  imports: [CommonModule, TruncatePipe],
+  imports: [CommonModule, TruncatePipe, RouterLink],
   templateUrl: './featured-post.component.html',
 })
 
