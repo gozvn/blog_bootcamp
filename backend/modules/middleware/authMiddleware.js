@@ -2,18 +2,19 @@ const jwtUtils = require("../../utils/jwtUtils");
 const responseUtils = require("../../utils/responseUtils");
 
 const authMiddleware = (req, res, next) => {
-        try {
-            const access_token = req.headers.authorization.split(" ")[1];
-            const decoded = jwtUtils.verify(access_token);
-            if (!decoded) {
-                return responseUtils.unauthorized(res, "Unauthorized");
-            }
-            req.user = decoded;
-            console.log(req.user)
-            next();
-        } catch (error) {
+    try {
+        const access_token = req.headers.authorization.split(" ")[1];
+        const decoded = jwtUtils.verify(access_token);
+        if (!decoded) {
+            w
             return responseUtils.unauthorized(res, "Unauthorized");
         }
+        req.user = decoded;
+        console.log(req.user)
+        next();
+    } catch (error) {
+        return responseUtils.unauthorized(res, "Unauthorized");
+    }
 }
 
 const checkRole = (role) => {
@@ -25,4 +26,4 @@ const checkRole = (role) => {
     }
 }
 
-module.exports = {authMiddleware, checkRole};
+module.exports = { authMiddleware, checkRole };

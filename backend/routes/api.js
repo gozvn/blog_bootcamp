@@ -103,17 +103,17 @@ router.group("/post", validate([]), (router) => {
 })
 // User routes
 router.group("/user", validate([]), (router) => {
-  router.get('/', userController.all);
-  router.get('/:id', userController.getbyId);
-  router.post('/create', checkSchema(userValidation.createUser), userController.create);
-  router.put('/edit/:id', authMiddleware, checkRole(1), checkSchema(userValidation.updateUser), userController.update);
+  router.get('/', authMiddleware, checkRole(4), userController.all);
+  router.get('/:id', authMiddleware, checkRole(4), userController.getbyId);
+  router.post('/create', authMiddleware, checkRole(4), checkSchema(userValidation.createUser), userController.create);
+  router.put('/edit/:id', authMiddleware, checkRole(4), checkSchema(userValidation.updateUser), userController.update);
   router.delete('/delete/:id', authMiddleware, checkRole(1), userController.delete);
 })
 
 // Module Category routes
 router.group("/category", validate([]), (router) => {
-  router.get('/', categoryController.all);
-  router.get('/:id', authMiddleware, checkRole(1), categoryController.getbyId);
+  router.get('/', authMiddleware, checkRole(4), categoryController.all);
+  router.get('/:id', authMiddleware, checkRole(4), categoryController.getbyId);
   router.put('/edit/:id', authMiddleware, checkRole(1), checkSchema(categoryValidation.updateCategory), categoryController.update);
   router.post('/create', authMiddleware, checkRole(1), checkSchema(categoryValidation.createCategory), categoryController.create);
   router.delete('/delete/:id', authMiddleware, checkRole(1), categoryController.delete);

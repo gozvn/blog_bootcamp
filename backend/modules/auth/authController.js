@@ -53,6 +53,7 @@ const authController = {
                 sameSite: "lax",      // hạn chế gửi cookie sang domain khác
                 maxAge: 7 * 60 * 60 * 24 * 1000 // 7 ngày
             });
+            // thời gian hết hạn của access token
             const expiredAt = jwtUtils.getExpiredAt(accessToken);
             const loginData = {
                 accessToken,
