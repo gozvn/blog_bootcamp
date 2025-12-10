@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CategoryService } from '../../../../modules/category/services/category.service';
 import { AuthService } from '../../../../services/auth.service';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, NgbDropdownModule],
   templateUrl: './header.html',
   // styleUrl: './header.scss'
 })
@@ -34,6 +35,8 @@ export class Header implements OnInit {
   // Log out 
   onLogout() {
     this.authService.logout();
+    this.isLoggedIn = false;
+    this.user = null;
     // Sau logout, chuyển hướng về trang login hoặc homepage
     this.router.navigate(['/']);
   }

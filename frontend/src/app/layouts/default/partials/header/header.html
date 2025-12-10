@@ -11,12 +11,12 @@
         <li>
           <a routerLink="" class="nav-link px-2 link-body-emphasis active">Home</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle px-2 link-body-emphasis" href="#" id="navbarDropdownCategories"
-            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <li class="nav-item" ngbDropdown>
+          <a class="nav-link dropdown-toggle px-2 link-body-emphasis" href="javascript:void(0)"
+            id="navbarDropdownCategories" role="button" ngbDropdownToggle aria-expanded="false">
             Categories
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownCategories">
+          <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdownCategories">
             <li><a class="dropdown-item" routerLink="/category">All Categories</a></li>
             @for ( category of listcategories; track category.id) {
             <li><a class="dropdown-item" [routerLink]="['/category', category.id, category.slug]">{{ category.name
@@ -42,13 +42,14 @@
         </form>
 
         <!-- Language selector for large screens only -->
-        <div class="dropdown me-3 d-none d-lg-block">
-          <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle"
-            data-bs-toggle="dropdown" aria-expanded="false">
+        <div class="me-3 d-none d-lg-block" ngbDropdown>
+          <a href="javascript:void(0)"
+            class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" ngbDropdownToggle
+            aria-expanded="false">
             <i class="fa fa-globe me-2"></i>
             <span>🇺🇸 English</span>
           </a>
-          <ul class="dropdown-menu">
+          <ul ngbDropdownMenu class="dropdown-menu">
             <li><a class="dropdown-item" href="#" data-lang="en">🇺🇸 English</a></li>
             <li><a class="dropdown-item" href="#" data-lang="vn">🇻🇳 Vietnamese</a></li>
           </ul>
@@ -56,14 +57,14 @@
 
         <!-- User dropdown for large screens only -->
         @if (isLoggedIn == true) {
-        <div class="dropdown text-end me-3 d-none d-lg-block">
+        <div class="text-end me-3 d-none d-lg-block" ngbDropdown>
 
-          <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
-            aria-expanded="false">
+          <a href="javascript:void(0)" class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
+            ngbDropdownToggle aria-expanded="false">
             <img src="assets/img/no_img.jpg" alt="mdo" width="32" height="32" class="rounded-circle"> Hi, {{
             user.username }}
           </a>
-          <ul class="dropdown-menu text-small">
+          <ul ngbDropdownMenu class="dropdown-menu text-small">
             <li><a class="dropdown-item" routerLink="/user">My post...</a></li>
             @if (user.role == 1 || user.role == '1') {
             <li><a class="dropdown-item" routerLink="/dashboard">Admin Dashboard</a></li>
@@ -72,7 +73,7 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" (click)="onLogout()" href="#">Sign out</a></li>
+            <li><a class="dropdown-item" (click)="onLogout()">Sign out</a></li>
           </ul>
         </div>
         }
@@ -117,11 +118,12 @@
         </a>
       </li>
       @if (isLoggedIn == true) {
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <li class="nav-item" ngbDropdown>
+        <a class="nav-link dropdown-toggle" href="javascript:void(0)" role="button" ngbDropdownToggle
+          aria-expanded="false">
           <i class="bi bi-three-dots me-2"></i>User Menu
         </a>
-        <ul class="dropdown-menu">
+        <ul ngbDropdownMenu class="dropdown-menu">
           <li><a class="dropdown-item" [routerLink]="['/user']">My post...</a></li>
           @if (user.role == 1 || user.role == '1') {
           <li><a class="dropdown-item" [routerLink]="['/dashboard']">Admin Dashboard</a></li>
@@ -157,13 +159,13 @@
       <h6 class="text-muted mb-3">
         <i class="fa fa-globe me-2"></i>Language
       </h6>
-      <div class="dropdown">
+      <div class="" ngbDropdown>
         <button
           class="btn btn-outline-secondary dropdown-toggle w-100 d-flex justify-content-between align-items-center"
-          type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          type="button" ngbDropdownToggle aria-expanded="false">
           <span>🇺🇸 English</span>
         </button>
-        <ul class="dropdown-menu w-100">
+        <ul ngbDropdownMenu class="dropdown-menu w-100">
           <li><a class="dropdown-item" href="#" data-lang="en">🇺🇸 English</a></li>
           <li><a class="dropdown-item" href="#" data-lang="vn">🇻🇳 Vietnamese</a></li>
         </ul>
