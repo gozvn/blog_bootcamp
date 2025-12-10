@@ -126,6 +126,8 @@ const postController = {
         if (filteredBody.lang_id !== undefined) updateData.lang_id = filteredBody.lang_id;
         if (filteredBody.category !== undefined) updateData.category = filteredBody.category;
         if (filteredBody.tags !== undefined) updateData.tags = filteredBody.tags;
+        if (filteredBody.featured !== undefined) updateData.featured = filteredBody.featured;
+        if (filteredBody.status !== undefined) updateData.status = filteredBody.status;
 
         const updatedPost = await postService.update(id, updateData);
 

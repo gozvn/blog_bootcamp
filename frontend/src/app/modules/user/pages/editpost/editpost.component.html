@@ -57,14 +57,14 @@
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                             }
-                            @if (editPostForm.get('image')?.hasError('uploadFailed') &&
-                            (editPostForm.get('image')?.touched
-                            || editPostForm.get('image')?.dirty)) {
+                            @if (editPostForm.get('thumbnail')?.hasError('uploadFailed') &&
+                            (editPostForm.get('thumbnail')?.touched
+                            || editPostForm.get('thumbnail')?.dirty)) {
                             <div class="text-danger">Failed to upload image.</div>
                             }
-                            @if (editPostForm.get('image')?.hasError('required') &&
-                            (editPostForm.get('image')?.touched ||
-                            editPostForm.get('image')?.dirty)) {
+                            @if (editPostForm.get('thumbnail')?.hasError('required') &&
+                            (editPostForm.get('thumbnail')?.touched ||
+                            editPostForm.get('thumbnail')?.dirty)) {
                             <div class="text-danger">Image is required.</div>
                             }
                             @if (imagePreview) {

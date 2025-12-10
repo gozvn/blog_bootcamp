@@ -28,7 +28,7 @@ export class LastestPostComponent implements OnInit {
     this.loading = true;
     this.homeService.getPosts(this.limit, this.page).subscribe(data => {
       this.loading = false;
-      console.log(data);
+      // console.log(data);
       this.totalPages = data.pagination?.totalPages ?? 1;
 
       // Append posts mới vào mảng hiện tại

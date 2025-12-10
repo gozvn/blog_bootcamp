@@ -82,10 +82,11 @@ export class EditpostComponent implements OnInit {
     this.userService.getPostById(this.postId).subscribe({
       next: (res) => {
         if (res) {
+          const categoryId = res.categories && res.categories.length > 0 ? res.categories[0].id : '';
           this.editPostForm.patchValue({
             title: res.title || '',
             content: res.content || '',
-            category: res.category || '',
+            category: categoryId,
             thumbnail: res.thumbnail || '',
             featured: res.featured || false
           });
@@ -107,14 +108,14 @@ export class EditpostComponent implements OnInit {
         next: (res) => {
           this.loading = false;
           if (res && res.url) {
-            this.editPostForm.patchValue({ image: res.url });
+            this.editPostForm.patchValue({ thumbnail: res.url });
             this.imagePreview = res.url;
             this.toastService.showMessage('successToast', 'Image uploaded successfully');
           }
         },
         error: (err) => {
           this.loading = false;
-          this.editPostForm.get('image')?.setErrors({ uploadFailed: true });
+          this.editPostForm.get('thumbnail')?.setErrors({ uploadFailed: true });
           this.toastService.showMessage('errorToast', 'Failed to upload image');
         }
       });
