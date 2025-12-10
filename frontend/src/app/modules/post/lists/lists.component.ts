@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { Title, Meta } from '@angular/platform-browser';
 import { PostService } from '../services/post.service';
+import { Title, Meta } from '@angular/platform-browser';
+import { PaginationService } from '../../../services/pagination.service';
 import { Header } from '../../../layouts/default/partials/header/header';
 import { Footer } from '../../../layouts/default/partials/footer/footer';
 import { SidebarComponent } from '../../../layouts/default/partials/sidebar/sidebar.component';
@@ -23,21 +24,26 @@ export class ListPostComponent implements OnInit {
     pageTitle: string = 'All Posts';
     pageDescription: string = 'Browse all latest posts from our blog.';
 
+    pages: number[] = [];
+
     constructor(
         private postService: PostService,
         private route: ActivatedRoute,
         private title: Title,
-        private meta: Meta
+        private meta: Meta,
+        public paginationService: PaginationService
     ) { }
 
     ngOnInit(): void {
-        this.route.url.subscribe(urlSegments => {
-            this.isFeatured = urlSegments.some(segment => segment.path === 'featured');
+        this.route.paramMap.subscribe(params => {
+            const page = params.get('page');
+            this.currentPage = page ? parseInt(page) : 1;
+
+            // Check URL path to toggle isFeatured
+            const url = this.route.snapshot.url.map(segment => segment.path).join('/');
+            this.isFeatured = url.includes('featured');
             this.setupPageMeta();
-            this.route.queryParams.subscribe(params => {
-                this.currentPage = parseInt(params['page'] ?? '1');
-                this.loadPosts();
-            });
+            this.loadPosts();
         });
     }
 
@@ -64,14 +70,21 @@ export class ListPostComponent implements OnInit {
             params.featured = 1;
         }
 
-        this.postService.getPosts(params).subscribe(data => {
+
+
+        this.postService.getPosts({ params }).subscribe(data => {
             if (data && data.rows) {
                 this.listPosts = data.rows;
                 this.totalPages = data.pagination?.totalPages ?? 0;
+                this.pages = this.paginationService.generatePages(this.currentPage, this.totalPages);
             } else {
                 this.listPosts = [];
                 this.totalPages = 0;
+                this.pages = [];
             }
         });
+    }
+    getBaseUrl(): string {
+        return this.isFeatured ? '/post/featured/page' : '/post/all/page';
     }
 }

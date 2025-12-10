@@ -15,7 +15,17 @@ export const PostRoutes: Routes = [
         title: 'All Posts'
     },
     {
+        path: 'all/page/:page',
+        component: ListPostComponent,
+        title: 'All Posts'
+    },
+    {
         path: 'featured',
+        component: ListPostComponent,
+        title: 'Featured Posts'
+    },
+    {
+        path: 'featured/page/:page',
         component: ListPostComponent,
         title: 'Featured Posts'
     }
