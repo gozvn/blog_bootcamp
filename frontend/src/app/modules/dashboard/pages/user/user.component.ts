@@ -28,6 +28,13 @@ export class UserComponent {
   total: number = 0;
   totalPages: number = 0;
 
+  badgeUser: any = {
+    1: { badge: 'bg-danger', text: 'Admin' },
+    2: { badge: 'bg-primary', text: 'Moderator' },
+    3: { badge: 'bg-success', text: 'User' },
+    4: { badge: 'bg-secondary', text: 'Guest' }
+  }
+
   ngOnInit(): void {
     this.loadUsers();
   }
