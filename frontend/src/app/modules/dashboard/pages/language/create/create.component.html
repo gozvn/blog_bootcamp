@@ -1,0 +1,65 @@
+<div class="modal-header">
+    <h5 class="modal-title">
+        <i class="bi" [class.bi-plus-circle]="!language" [class.bi-pencil-square]="language"></i>
+        {{ language ? 'Edit Language' : 'Create Language' }}
+    </h5>
+    <button type="button" class="btn-close" (click)="cancel()" aria-label="Close"></button>
+</div>
+
+<div class="modal-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <!-- Lang Name -->
+        <div class="mb-3">
+            <label for="lang_name" class="form-label">
+                Language Name <span class="text-danger">*</span>
+            </label>
+            <input type="text" class="form-control" id="lang_name" formControlName="lang_name"
+                [class.is-invalid]="f['lang_name'].invalid && f['lang_name'].touched"
+                placeholder="Ex: English">
+            
+            @if (f['lang_name'].invalid && f['lang_name'].touched) {
+            <div class="invalid-feedback">
+                @if (f['lang_name'].errors?.['required']) {
+                <span>Name is required.</span>
+                }
+                @if (f['lang_name'].errors?.['minlength']) {
+                <span>Name must be at least 5 characters.</span>
+                }
+            </div>
+            }
+        </div>
+
+        <!-- Lang Code -->
+        <div class="mb-3">
+            <label for="lang_code" class="form-label">
+                Language Code <span class="text-danger">*</span>
+            </label>
+            <input type="text" class="form-control" id="lang_code" formControlName="lang_code"
+                [class.is-invalid]="f['lang_code'].invalid && f['lang_code'].touched"
+                placeholder="Ex: en">
+
+            @if (f['lang_code'].invalid && f['lang_code'].touched) {
+            <div class="invalid-feedback">
+                @if (f['lang_code'].errors?.['required']) {
+                <span>Code is required.</span>
+                }
+            </div>
+            }
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="cancel()" [disabled]="isSubmitting">
+        <i class="bi bi-x-circle me-1"></i>Cancel
+    </button>
+    <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="isSubmitting">
+        @if (isSubmitting) {
+        <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+        Saving...
+        } @else {
+        <i class="bi bi-save me-1"></i>Save
+        }
+    </button>
+</div>
+<app-toast></app-toast>

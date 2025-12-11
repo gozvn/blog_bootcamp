@@ -2,11 +2,21 @@
     <app-featured-post></app-featured-post>
     <!-- Latest Posts Section -->
     <div class="row">
-    <div class="col-lg-8">
-    <app-lastest-post></app-lastest-post>
-    </div>  
-    <div class="col-lg-4">
-    <app-sidebar></app-sidebar>
-    </div>
+        <div class="col-lg-8">
+            <app-lastest-post></app-lastest-post>
+        </div>
+        <div class="col-lg-4">
+            <div class="position-sticky" style="top: 2rem">
+                <!-- About Section -->
+                <div class="p-4 mb-3 bg-body-tertiary rounded">
+                    <h4 class="fst-italic">About Our Blog</h4>
+                    <p class="mb-0">
+                        We share insights and knowledge about technology, design, business, and lifestyle.
+                        Our goal is to provide valuable content that helps you grow personally and professionally.
+                    </p>
+                </div>
+                <app-sidebar></app-sidebar>
+            </div>
+        </div>
     </div>
 </div>

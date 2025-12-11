@@ -1,16 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PostService } from '../../services/post.service';
 import { Header } from '../../../../layouts/default/partials/header/header';
 import { Footer } from '../../../../layouts/default/partials/footer/footer';
 import { ActivatedRoute } from '@angular/router';
 import { CommentComponent } from '../../../comment/comment.component';
 import { Title } from '@angular/platform-browser';
+import { SidebarComponent } from '../../../../layouts/default/partials/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-detail',
   standalone: true,
-  imports: [CommonModule,Header,Footer,CommentComponent],
+  imports: [CommonModule, Header, Footer, CommentComponent, SidebarComponent],
   templateUrl: './detail.component.html',
 })
 export class DetailPostComponent implements OnInit {

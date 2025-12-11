@@ -4,6 +4,7 @@ import { CategoryComponent } from "./pages/category/category.component";
 import { PostComponent } from "./pages/post/post.component";
 import { UserComponent } from "./pages/user/user.component";
 import { CommentComponent } from "./pages/comment/comment.component";
+import { LanguageComponent } from "./pages/language/language.component";
 import { SettingComponent } from "./pages/setting/setting.component";
 
 export const DashboardRoutes: Routes = [
@@ -31,6 +32,11 @@ export const DashboardRoutes: Routes = [
         path: 'comments',
         component: CommentComponent,
         title: 'Comments'
+    },
+    {
+        path: 'languages',
+        component: LanguageComponent,
+        title: 'Languages'
     },
     {
         path: 'settings',

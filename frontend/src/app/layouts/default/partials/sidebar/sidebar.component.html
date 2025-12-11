@@ -1,15 +1,5 @@
-      <div class="position-sticky" style="top: 2rem">
-        <!-- About Section -->
-        <div class="p-4 mb-3 bg-body-tertiary rounded">
-          <h4 class="fst-italic">About Our Blog</h4>
-          <p class="mb-0">
-            We share insights and knowledge about technology, design, business, and lifestyle. 
-            Our goal is to provide valuable content that helps you grow personally and professionally.
-          </p>
-        </div>
-        
-        <!-- Popular Categories -->
-        <div class="p-4 mb-3 bg-light rounded">
+<!-- Popular Categories -->
+<!-- <div class="p-4 mb-3 bg-light rounded">
             <h4 class="fst-italic mb-3">Popular Categories</h4>
             <div class="d-flex flex-wrap gap-2">
                 <a href="post_category.html" class="badge bg-primary text-decoration-none fs-6 py-2 px-3">Technology</a>
@@ -18,36 +8,35 @@
                 <a href="post_category.html" class="badge bg-danger text-decoration-none fs-6 py-2 px-3">Lifestyle</a>
                 <a href="post_category.html" class="badge bg-info text-decoration-none fs-6 py-2 px-3">Travel</a>
             </div>
-        </div>
-        <!-- Recent Posts -->
-        <div>
-          <h4 class="fst-italic">Recent Posts</h4>
-          <ul class="list-unstyled">
-          @for (post of recentPosts; track post.id) {
-            <li>
-              <div class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 border-top">
-                <a href="posts/{{post.id}}/{{post.slug}}">
-                  <img src="assets/img/no_img.jpg" alt="Post thumbnail" class="rounded" width="100" height="60">
-                </a>
-                <div class="col-lg-8">
-                  <h6 class="mb-0">
-                    <a href="/post/{{post.id}}/{{post.slug}}" class="text-decoration-none text-dark">{{post.title}}</a>
-                  </h6>
-                  <small class="text-body-secondary">{{ post.created_at | date:'MMM d, y • h:mm a' }}</small>
-                </div>
-              </div>
-            </li>
-          }
-          </ul>
-        </div>
-        <!-- Social Links -->
-        <div class="p-4">
-          <h4 class="fst-italic">Follow Us</h4>
-          <ol class="list-unstyled">
-            <li><a href="#" class="text-decoration-none"><i class="fa-brands fa-github"></i> GitHub</a></li>
-            <li><a href="#" class="text-decoration-none"><i class="fa-brands fa-twitter"></i> Twitter</a></li>
-            <li><a href="#" class="text-decoration-none"><i class="fa-brands fa-facebook"></i> Facebook</a></li>
-            <li><a href="#" class="text-decoration-none"><i class="fa-brands fa-linkedin"></i> LinkedIn</a></li>
-          </ol>
+        </div> -->
+<!-- Recent Posts -->
+<div>
+  <h4 class="fst-italic">Recent Posts</h4>
+  <ul class="list-unstyled">
+    @for (post of recentPosts; track post.id) {
+    <li>
+      <div class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 border-top">
+        <a href="posts/{{post.id}}/{{post.slug}}">
+          <img src="assets/img/no_img.jpg" alt="Post thumbnail" class="rounded" width="100" height="60">
+        </a>
+        <div class="col-lg-8">
+          <h6 class="mb-0">
+            <a href="/post/{{post.id}}/{{post.slug}}" class="text-decoration-none text-dark">{{post.title}}</a>
+          </h6>
+          <small class="text-body-secondary">{{ post.created_at | date:'MMM d, y • h:mm a' }}</small>
         </div>
       </div>
+    </li>
+    }
+  </ul>
+</div>
+<!-- Social Links -->
+<div class="p-4">
+  <h4 class="fst-italic">Follow Us</h4>
+  <ol class="list-unstyled">
+    <li><a href="#" class="text-decoration-none"><i class="fa-brands fa-github"></i> GitHub</a></li>
+    <li><a href="#" class="text-decoration-none"><i class="fa-brands fa-twitter"></i> Twitter</a></li>
+    <li><a href="#" class="text-decoration-none"><i class="fa-brands fa-facebook"></i> Facebook</a></li>
+    <li><a href="#" class="text-decoration-none"><i class="fa-brands fa-linkedin"></i> LinkedIn</a></li>
+  </ol>
+</div>

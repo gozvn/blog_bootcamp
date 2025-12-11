@@ -102,6 +102,28 @@ export class DashboardService {
         );
     }
 
+    // Language Service
+    getLanguages(limit: number = 10, page: number = 1): Observable<any> {
+        return this.backendService.get(`language?limit=${limit}&page=${page}`).pipe(
+            map(response => response.data)
+        );
+    }
+    createLanguage(language: any): Observable<any> {
+        return this.backendService.post(`language/create`, language).pipe(
+            map(response => response.data)
+        );
+    }
+    editLanguage(id: number, language: any): Observable<any> {
+        return this.backendService.put(`language/edit/${id}`, language).pipe(
+            map(response => response.data)
+        );
+    }
+    deleteLanguage(id: number): Observable<any> {
+        return this.backendService.delete(`language/delete/${id}`).pipe(
+            map(response => response.data)
+        );
+    }
+
     // Token Service
     getToken(limit: number = 10, page: number = 1): Observable<any> {
         return this.backendService.get(`token?limit=${limit}&page=${page}`).pipe(
