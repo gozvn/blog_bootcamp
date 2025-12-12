@@ -70,7 +70,7 @@ export class MainComponent implements OnInit {
   }
   loadPost(page: number = 1, limit: number = 10, categoryId: number = 0, title: string = '', status: string = '') {
     this.userService.getPostByUser(this.userInfo.id, categoryId, title, status, page, limit).subscribe((data) => {
-      console.log("Data : ", data);
+      // console.log("Data : ", data);
       this.posts = data.rows || [];
       this.total = data.pagination.total;
       this.limit = data.pagination.limit;

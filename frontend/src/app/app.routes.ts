@@ -27,6 +27,12 @@ export const routes: Routes = [
         }  // Chỉ admin (role=1) được phép truy cập
     },
     {
+        path: 'search',
+        component: defaultLayout,
+        loadChildren: () => import('./modules/search/search.routes').then(m => m.SearchRoutes),
+        title: 'Search'
+    },
+    {
         path: 'user',
         canActivate: [authGuard],
         loadChildren: () => import('./modules/user/user.routes').then(m => m.UserRoutes),

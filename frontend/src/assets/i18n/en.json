@@ -150,6 +150,12 @@
         "TIP_SPECIFIC": "Use specific keywords",
         "TIP_KEYWORDS": "Try multiple keywords",
         "TIP_SPELLING": "Check spelling",
-        "QUICK_LINKS": "Quick Links"
+        "QUICK_LINKS": "Quick Links",
+        "PLACEHOLDER": "Enter keywords to search for posts...",
+        "BUTTON": "Search",
+        "TRY_DIFFERENT": "Try using different or more general keywords",
+        "RESULTS_FOR": "Search results for: \"{{keyword}}\"",
+        "SEARCHING_FOR": "Searching posts with keyword \"{{keyword}}\"",
+        "SEARCH_POSTS": "Search Posts"
     }
 }

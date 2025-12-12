@@ -152,6 +152,12 @@
         "TIP_SPECIFIC": "Sử dụng từ khóa cụ thể",
         "TIP_KEYWORDS": "Thử nhiều từ khóa",
         "TIP_SPELLING": "Kiểm tra chính tả",
-        "QUICK_LINKS": "Liên kết nhanh"
+        "QUICK_LINKS": "Liên kết nhanh",
+        "PLACEHOLDER": "Nhập từ khóa để tìm kiếm bài viết...",
+        "BUTTON": "Tìm kiếm",
+        "TRY_DIFFERENT": "Thử sử dụng từ khóa khác hoặc tổng quát hơn",
+        "RESULTS_FOR": "Kết quả tìm kiếm: \"{{keyword}}\"",
+        "SEARCHING_FOR": "Tìm kiếm bài viết với từ khóa \"{{keyword}}\"",
+        "SEARCH_POSTS": "Tìm kiếm bài viết"
     }
 }

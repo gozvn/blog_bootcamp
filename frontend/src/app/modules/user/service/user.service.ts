@@ -34,7 +34,7 @@ export class UserService {
         }
 
         const queryString = queryParams.join('&');
-        console.log("Query String: ", queryString);
+        // console.log("Query String: ", queryString);
 
         return this.backendService.get(`post?${queryString}`).pipe(
             map((result: any) => result?.data ?? null)
@@ -71,7 +71,7 @@ export class UserService {
         );
     }
     editPost(postId: number, post: any) {
-        console.log(post, "ID", postId);
+        // console.log(post, "ID", postId);
         return this.backendService.put(`post/edit/${postId}`, post).pipe(
             map((result: any) => result?.data ?? null)
         );
