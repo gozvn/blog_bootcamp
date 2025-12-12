@@ -11,7 +11,7 @@
         </div> -->
 <!-- Recent Posts -->
 <div>
-  <h4 class="fst-italic">Recent Posts</h4>
+  <h4 class="fst-italic">{{ 'HOMEPAGE.RECENT_POST' | translate }}</h4>
   <ul class="list-unstyled">
     @for (post of recentPosts; track post.id) {
     <li>
@@ -32,7 +32,7 @@
 </div>
 <!-- Social Links -->
 <div class="p-4">
-  <h4 class="fst-italic">Follow Us</h4>
+  <h4 class="fst-italic">{{ 'HOMEPAGE.FOLLOW_US' | translate }}</h4>
   <ol class="list-unstyled">
     <li><a href="#" class="text-decoration-none"><i class="fa-brands fa-github"></i> GitHub</a></li>
     <li><a href="#" class="text-decoration-none"><i class="fa-brands fa-twitter"></i> Twitter</a></li>

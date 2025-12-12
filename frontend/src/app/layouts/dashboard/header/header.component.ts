@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-dashboard-header',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, NgbDropdownModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })

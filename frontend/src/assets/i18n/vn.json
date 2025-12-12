@@ -1,0 +1,52 @@
+{
+    "HEADER": {
+        "HOME": "Trang chủ",
+        "ABOUT": "Giới thiệu",
+        "CONTACT": "Liên hệ",
+        "CATEGORY": "Danh mục",
+        "LANGUAGE": "Ngôn ngữ"
+    },
+    "MENU": {
+        "LOGIN": "Đăng nhập",
+        "SIGNUP": "Đăng ký",
+        "SIGNOUT": "Đăng xuất",
+        "MY_POST": "Bài viết của tôi",
+        "USER_MENU": "Menu người dùng",
+        "DASHBOARD": "Quản trị admin",
+        "PROFILE": "Hồ sơ",
+        "LANGUAGE": "Ngôn ngữ"
+    },
+    "HOMEPAGE": {
+        "ABOUT_BLOG": "Giới thiệu Blog",
+        "NO_MORE_POSTS": "Không còn bài viết nào ",
+        "VIEW_MORE_POSTS": "Xem thêm bài viết",
+        "FEATURED": "Nổi bật",
+        "FEATURED_POST": "Bài viết nổi bật",
+        "RECENT_POST": "Bài viết gần đây",
+        "LATEST_POST": "Bài viết mới nhất",
+        "POPULAR_POST": "Bài viết phổ biến",
+        "ALL_POST": "Tất cả bài viết",
+        "VIEW_ALL": "Xem tất cả",
+        "SEARCH": "Tìm kiếm",
+        "READ_MORE": "Xem thêm"
+    },
+    "USER": {
+        "NO_POST": "Không có bài viết",
+        "PUBLISHED_POST": "Bài viết đã đăng",
+        "DRAFT_POST": "Bài viết nháp",
+        "MY_POST": "Bài viết của tôi",
+        "TOTAL_POSTS": "Tổng số bài viết",
+        "MY_POST_DESC": "Quản lý bài viết",
+        "ALL_POSTS": "Tất cả bài viết",
+        "PUBLISHED_POSTS": "Bài viết đã đăng",
+        "DRAFT_POSTS": "Bài viết nháp",
+        "CREATE_NEW_POST": "Tạo bài viết mới",
+        "FILTER_BY_STATUS": "Lọc theo trạng thái",
+        "FILTER_BY_CATEGORY": "Lọc theo danh mục",
+        "SEARCH_POSTS": "Tìm kiếm bài viết",
+        "SEARCH_BY_TITLE": "Tìm kiếm theo tiêu đề",
+        "PREVIOUS": "Trước",
+        "NEXT": "Sau",
+        "PAGE": "Trang"
+    }
+}

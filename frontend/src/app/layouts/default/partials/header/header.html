@@ -9,15 +9,14 @@
       <!-- Navigation for large screens -->
       <ul class="nav d-none d-lg-flex me-lg-auto mb-2 justify-content-center mb-md-0">
         <li>
-          <a routerLink="" class="nav-link px-2 link-body-emphasis active">Home</a>
+          <a routerLink="" class="nav-link px-2 link-body-emphasis active">{{ 'HEADER.HOME' | translate }}</a>
         </li>
         <li class="nav-item" ngbDropdown>
           <a class="nav-link dropdown-toggle px-2 link-body-emphasis" href="javascript:void(0)"
             id="navbarDropdownCategories" role="button" ngbDropdownToggle aria-expanded="false">
-            Categories
+            {{'HEADER.CATEGORY' | translate}}
           </a>
           <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdownCategories">
-            <li><a class="dropdown-item" routerLink="/category">All Categories</a></li>
             @for ( category of listcategories; track category.id) {
             <li><a class="dropdown-item" [routerLink]="['/category', category.id, category.slug]">{{ category.name
                 }}</a></li>
@@ -27,10 +26,10 @@
         @if (isLoggedIn == false) {
 
         <li>
-          <a routerLink="/auth/login" class="nav-link px-2 link-secondary">Login</a>
+          <a routerLink="/auth/login" class="nav-link px-2 link-secondary">{{ 'MENU.LOGIN' | translate }}</a>
         </li>
         <li>
-          <a routerLink="/auth/signup" class="nav-link px-2 link-secondary">Sign Up</a>
+          <a routerLink="/auth/signup" class="nav-link px-2 link-secondary">{{ 'MENU.SIGNUP' | translate }}</a>
         </li>
         }
       </ul>
@@ -38,7 +37,8 @@
       <div class="d-flex align-items-center">
         <!-- Search form for large screens only -->
         <form class="me-3 d-none d-lg-block" role="search">
-          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+          <input type="search" class="form-control" placeholder="{{ 'HOMEPAGE.SEARCH' | translate }}"
+            aria-label="Search">
         </form>
 
         <!-- Language selector for large screens only -->
@@ -46,12 +46,14 @@
           <a href="javascript:void(0)"
             class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" ngbDropdownToggle
             aria-expanded="false">
-            <i class="fa fa-globe me-2"></i>
-            <span>🇺🇸 English</span>
+            <span><span class="fi fi-{{ getFlag(currentLanguage.lang_code) }}"></span> {{ currentLanguage.lang_name
+              }}</span>
           </a>
           <ul ngbDropdownMenu class="dropdown-menu">
-            <li><a class="dropdown-item" href="#" data-lang="en">🇺🇸 English</a></li>
-            <li><a class="dropdown-item" href="#" data-lang="vn">🇻🇳 Vietnamese</a></li>
+            @for (language of languages; track language.id) {
+            <li><a class="dropdown-item" href="javascript:void(0)" (click)="changeLanguage(language.lang_code)"><span
+                  class="fi fi-{{ getFlag(language.lang_code) }}"></span> {{ language.lang_name }}</a></li>
+            }
           </ul>
         </div>
 
@@ -65,15 +67,15 @@
             user.username }}
           </a>
           <ul ngbDropdownMenu class="dropdown-menu text-small">
-            <li><a class="dropdown-item" routerLink="/user">My post...</a></li>
+            <li><a class="dropdown-item" routerLink="/user">{{ 'MENU.MY_POST' | translate }}</a></li>
             @if (user.role == 1 || user.role == '1') {
-            <li><a class="dropdown-item" routerLink="/dashboard">Admin Dashboard</a></li>
+            <li><a class="dropdown-item" routerLink="/dashboard">{{ 'MENU.DASHBOARD' | translate }}</a></li>
             }
-            <li><a class="dropdown-item" routerLink="/user/setting">Profile</a></li>
+            <li><a class="dropdown-item" routerLink="/user/setting">{{ 'MENU.PROFILE' | translate }}</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" (click)="onLogout()">Sign out</a></li>
+            <li><a class="dropdown-item" (click)="onLogout()">{{ 'MENU.SIGNOUT' | translate }}</a></li>
           </ul>
         </div>
         }
@@ -114,25 +116,25 @@
     <ul class="navbar-nav flex-grow-1 pe-3 mb-4">
       <li class="nav-item">
         <a class="nav-link active" aria-current="page" [routerLink]="['/']">
-          <i class="bi bi-house-door me-2"></i>Home
+          <i class="bi bi-house-door me-2"></i>{{ 'HEADER.HOME' | translate }}
         </a>
       </li>
       @if (isLoggedIn == true) {
       <li class="nav-item" ngbDropdown>
         <a class="nav-link dropdown-toggle" href="javascript:void(0)" role="button" ngbDropdownToggle
           aria-expanded="false">
-          <i class="bi bi-three-dots me-2"></i>User Menu
+          <i class="bi bi-three-dots me-2"></i>{{ 'MENU.USER_MENU' | translate }}
         </a>
         <ul ngbDropdownMenu class="dropdown-menu">
-          <li><a class="dropdown-item" [routerLink]="['/user']">My post...</a></li>
+          <li><a class="dropdown-item" [routerLink]="['/user']">{{ 'MENU.MY_POST' | translate }}</a></li>
           @if (user.role == 1 || user.role == '1') {
-          <li><a class="dropdown-item" [routerLink]="['/dashboard']">Admin Dashboard</a></li>
+          <li><a class="dropdown-item" [routerLink]="['/dashboard']">{{ 'MENU.DASHBOARD' | translate }}</a></li>
           }
-          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <li><a class="dropdown-item" href="#">{{ 'MENU.PROFILE' | translate }}</a></li>
           <li>
             <hr class="dropdown-divider">
           </li>
-          <li><a class="dropdown-item" (click)="onLogout()">Sign out</a></li>
+          <li><a class="dropdown-item" (click)="onLogout()">{{ 'MENU.SIGNOUT' | translate }}</a></li>
         </ul>
       </li>
       }
@@ -148,28 +150,33 @@
 
     <!-- Search form in offcanvas -->
     <form class="d-flex mb-4" role="search">
-      <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
+      <input class="form-control me-2" type="search" placeholder="{{ 'HOMEPAGE.SEARCH' | translate }}"
+        aria-label="Search">
       <button class="btn btn-outline-primary" type="submit">
-        <i class="fa fa-search"></i>
+        <i class="bi bi-search"></i>
       </button>
     </form>
 
     <!-- Language selector in offcanvas -->
     <div class="mb-4">
       <h6 class="text-muted mb-3">
-        <i class="fa fa-globe me-2"></i>Language
+        <i class="bi bi-globe me-2"></i>{{ 'HEADER.LANGUAGE' | translate }}
       </h6>
       <div class="" ngbDropdown>
         <button
           class="btn btn-outline-secondary dropdown-toggle w-100 d-flex justify-content-between align-items-center"
           type="button" ngbDropdownToggle aria-expanded="false">
-          <span>🇺🇸 English</span>
+          <span><span class="fi fi-{{ getFlag(currentLanguage.lang_code) }}"></span> {{ currentLanguage.lang_name
+            }}</span>
         </button>
         <ul ngbDropdownMenu class="dropdown-menu w-100">
-          <li><a class="dropdown-item" href="#" data-lang="en">🇺🇸 English</a></li>
-          <li><a class="dropdown-item" href="#" data-lang="vn">🇻🇳 Vietnamese</a></li>
+          @for (language of languages; track language.id) {
+          <li><a class="dropdown-item" href="javascript:void(0)" (click)="changeLanguage(language.lang_code)"><span
+                class="fi fi-{{ getFlag(language.lang_code) }}"></span> {{ language.lang_name }}</a></li>
+          }
         </ul>
       </div>
+
     </div>
 
   </div>

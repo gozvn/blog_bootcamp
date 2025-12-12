@@ -11,11 +11,12 @@ import { ToastService } from '../../../services/toast.service';
 import { ModalService } from '../../../services/modal.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [Header, Footer, RouterLink, TruncatePipe, CommonModule, ToastComponent, ReactiveFormsModule],
+  imports: [Header, Footer, RouterLink, TruncatePipe, CommonModule, ToastComponent, ReactiveFormsModule, TranslateModule],
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })

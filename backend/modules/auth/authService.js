@@ -3,7 +3,7 @@ const { User, UserToken } = require("../../models");
 const { OAuth2Client } = require("google-auth-library");
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
-const authService ={
+const authService = {
     async checkEmail(email) {
 
         const whereClause = {
@@ -14,7 +14,7 @@ const authService ={
         })
         return checkEmail
     },
-    async saveToken(data){
+    async saveToken(data) {
         const token = await UserToken.create(data)
         return token
     },
@@ -30,11 +30,11 @@ const authService ={
         });
         return checkToken;
     },
-    async handleGoogleToken(id_token){
+    async handleGoogleToken(id_token) {
         try {
-            const  ticket = await client.verifyIdToken({
+            const ticket = await client.verifyIdToken({
                 idToken: id_token,
-                audience : process.env.GOOGLE_CLIENT_ID
+                audience: process.env.GOOGLE_CLIENT_ID
             })
             const payload = ticket.getPayload();
             const email = payload.email;
@@ -43,27 +43,27 @@ const authService ={
 
             // Kiểm tra hoặc tạo user
             let user = await User.findOne({ where: { email } });
-                if (!user) {
+            if (!user) {
                 user = await User.create({
-                    id : User.id,
+                    id: User.id,
                     email,
                     username: name,
                     avatar: picture,
-                    role : 4
+                    role: 4
                 });
-            }   
-            
-            const accessToken = jwtUtils.sign(user.id,user.role);
+            }
+
+            const accessToken = jwtUtils.sign(user.id, user.role);
             const refreshToken = jwtUtils.signRefreshToken(user.id, user.role);
-            
+
             return {
                 accessToken,
                 refreshToken,
                 user
-            } 
+            }
         } catch (error) {
-            return responseUtils.error(error)      
-        }   
+            return responseUtils.error(error)
+        }
     }
 }
 

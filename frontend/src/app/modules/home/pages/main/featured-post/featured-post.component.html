@@ -2,8 +2,8 @@
 <div class="row">
   <div class="col-12">
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2 class="fw-bold text-dark">Featured Posts</h2>
-      <a [routerLink]="['/post', 'featured']" class="btn btn-outline-primary">View All</a>
+      <h2 class="fw-bold text-dark">{{ 'HOMEPAGE.FEATURED_POST' | translate }}</h2>
+      <a [routerLink]="['/post', 'featured']" class="btn btn-outline-primary">{{ 'HOMEPAGE.VIEW_ALL' | translate }}</a>
     </div>
   </div>
 </div>
@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-8">
           <div class="card-body d-flex flex-column h-100">
-            <span class="badge bg-success mb-2 align-self-start">Featured</span>
+            <span class="badge bg-success mb-2 align-self-start">{{ 'HOMEPAGE.FEATURED' | translate }}</span>
             <h5 class="card-title fw-bold">
               <a href="post/{{post.id}}/{{post.slug}}" class="text-decoration-none text-dark">{{ post.title }}</a>
             </h5>
@@ -29,7 +29,8 @@
             </p>
             <div class="d-flex justify-content-between align-items-center mt-auto">
               <small class="text-muted">{{post.created_at | date: 'medium'}}</small>
-              <a href="post/{{post.id}}/{{post.slug}}" class="btn btn-sm btn-outline-success">Read More</a>
+              <a href="post/{{post.id}}/{{post.slug}}" class="btn btn-sm btn-outline-success">{{ 'HOMEPAGE.READ_MORE' |
+                translate }}</a>
             </div>
           </div>
         </div>

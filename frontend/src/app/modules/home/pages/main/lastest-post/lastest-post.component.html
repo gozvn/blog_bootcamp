@@ -1,6 +1,6 @@
 <div class="row mb-2">
     <div class="col-12">
-        <h3 class="fw-bold text-dark mb-4">Latest Posts</h3>
+        <h3 class="fw-bold text-dark mb-4">{{ 'HOMEPAGE.LATEST_POST' | translate }}</h3>
     </div>
 </div>
 <!-- Post Cards -->
@@ -22,7 +22,8 @@
                 </p>
                 <div class="d-flex justify-content-between align-items-center">
                     <small class="text-muted">{{ post.created_at | date:'MMM d, y • h:mm a' }}</small>
-                    <a href="post/{{post.id}}/{{post.slug}}" class="btn btn-sm btn-primary">Read More</a>
+                    <a href="post/{{post.id}}/{{post.slug}}" class="btn btn-sm btn-primary">{{ 'HOMEPAGE.READ_MORE' |
+                        translate }}</a>
                 </div>
             </div>
         </div>
@@ -32,6 +33,9 @@
 <!-- Load More Button -->
 <div class="text-center mb-4">
     <button (click)="onViewMore()" class="btn btn-outline-primary btn-lg" [disabled]="loading || page >= totalPages">
-        {{ loading ? 'Loading...' : (page >= totalPages ? 'No More Posts' : 'View More Posts') }}
+        {{ loading ? ('GENERAL.LOADING' | translate) : (page >= totalPages ? ('HOMEPAGE.NO_MORE_POSTS' | translate) :
+        ('HOMEPAGE.VIEW_MORE_POSTS' | translate)) }}
+
+
     </button>
 </div>

@@ -1,0 +1,50 @@
+{
+    "HEADER": {
+        "HOME": "Home",
+        "ABOUT": "About",
+        "CONTACT": "Contact",
+        "CATEGORY": "Category",
+        "LANGUAGE": "Language"
+    },
+    "MENU": {
+        "LOGIN": "Login",
+        "SIGNUP": "Sign Up",
+        "SIGNOUT": "Sign Out",
+        "MY_POST": "My Post",
+        "DASHBOARD": "Admin Dashboard",
+        "USER_MENU": "User Menu",
+        "PROFILE": "Profile"
+    },
+    "HOMEPAGE": {
+        "NO_MORE_POSTS": "No More Posts",
+        "VIEW_MORE_POSTS": "View More Posts",
+        "FEATURED": "Featured",
+        "FEATURED_POST": "Featured Posts",
+        "RECENT_POST": "Recent Posts",
+        "LATEST_POST": "Latest Posts",
+        "POPULAR_POST": "Popular Posts",
+        "ALL_POST": "All Posts",
+        "VIEW_ALL": "View All",
+        "SEARCH": "Search",
+        "READ_MORE": "Read More",
+        "ABOUT_BLOG": "About Our Blog",
+        "FOLLOW_US": "Follow Us",
+        "COPYRIGHT": "Copyright"
+    },
+    "USER": {
+        "MY_POST": "My Post",
+        "MY_POST_DESC": "Manage posts",
+        "TOTAL_POSTS": "Total Posts",
+        "ALL_POSTS": "All Posts",
+        "PUBLISHED_POSTS": "Published Posts",
+        "DRAFT_POSTS": "Draft Posts",
+        "CREATE_NEW_POST": "Create New Post",
+        "FILTER_BY_STATUS": "Filter by Status",
+        "FILTER_BY_CATEGORY": "Filter by Category",
+        "SEARCH_POSTS": "Search Posts",
+        "SEARCH_BY_TITLE": "Search by Title",
+        "PREVIOUS": "Previous",
+        "NEXT": "Next",
+        "PAGE": "Page"
+    }
+}
