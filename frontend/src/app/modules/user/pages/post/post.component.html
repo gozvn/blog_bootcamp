@@ -3,11 +3,11 @@
 <div class="container my-2">
   <div class="card shadow-sm">
     <div class="card-header d-flex justify-content-between align-items-center">
-      <h5 class="mb-0">Create New Post</h5>
+      <h5 class="mb-0">{{ 'USER.CREATE_NEW_POST' | translate }}</h5>
       <div class="d-flex align-items-center">
-        <button type="button" class="btn btn-outline-secondary me-2"> Cancel </button>
-        <button type="button" class="btn btn-outline-primary me-2" (click)="submitDraft()">Save Draft</button>
-        <button type="button" class="btn btn-primary" (click)="submitPost()">Publish Post</button>
+        <button type="button" class="btn btn-outline-secondary me-2">{{ 'USER.CANCEL' | translate }}</button>
+        <button type="button" class="btn btn-outline-primary me-2" (click)="submitDraft()">{{ 'USER.SAVE_DRAFT' | translate }}</button>
+        <button type="button" class="btn btn-primary" (click)="submitPost()">{{ 'USER.PUBLISH_POST' | translate }}</button>
       </div>
     </div>
 
@@ -17,47 +17,47 @@
         <div class="row mb-3">
           <div class="col-md-12">
             <div class="mb-3">
-              <label for="postTitle" class="form-label">Title <span class="text-danger">*</span></label>
+              <label for="postTitle" class="form-label">{{ 'USER.TITLE' | translate }} <span class="text-danger">*</span></label>
               <input type="text" class="form-control" id="postTitle" formControlName="title"
-                placeholder="Enter post title" required>
+                placeholder="{{ 'USER.ENTER_TITLE' | translate }}" required>
               @if (submitContentForm.get('title')?.hasError('required') &&
               (submitContentForm.get('title')?.touched || submitContentForm.get('title')?.dirty)) {
-              <div class="text-danger mt-1">Title is required.</div>
+              <div class="text-danger mt-1">{{ 'USER.TITLE_REQUIRED' | translate }}</div>
               }
             </div>
             <div class="mb-3">
-              <label for="postCategory" class="form-label">Category <span class="text-danger">*</span></label>
+              <label for="postCategory" class="form-label">{{ 'USER.CATEGORY' | translate }} <span class="text-danger">*</span></label>
               <select class="form-select" id="postCategory" formControlName="category_id" required>
-                <option value="">Select Category</option>
+                <option value="">{{ 'USER.SELECT_CATEGORY' | translate }}</option>
                 @for (category of categories; track category.id) {
                 <option value="{{category.id}}">{{category.name}}</option>
                 }
               </select>
               @if (submitContentForm.get('category_id')?.hasError('required') &&
               (submitContentForm.get('category_id')?.touched || submitContentForm.get('category_id')?.dirty)) {
-              <div class="text-danger mt-1">Category is required.</div>
+              <div class="text-danger mt-1">{{ 'USER.CATEGORY_REQUIRED' | translate }}</div>
               }
             </div>
             <div class="mb-3">
-              <label for="postFeatured" formControlName="featured" class="form-label">Featured </label>
+              <label for="postFeatured" formControlName="featured" class="form-label">{{ 'USER.FEATURED' | translate }}</label>
               &nbsp;<input type="checkbox" id="postFeatured" formControlName="featured">
             </div>
             <div class="mb-3">
-              <label for="postImage" class="form-label">Featured Image <span class="text-danger">*</span></label>
+              <label for="postImage" class="form-label">{{ 'USER.FEATURED_IMAGE' | translate }} <span class="text-danger">*</span></label>
               <input type="file" formControlName="image" class="form-control" id="postImage"
                 (change)="onFileChange($event)" accept="image/*">
               @if (loading) {
               <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
+                <span class="visually-hidden">{{ 'USER.LOADING' | translate }}</span>
               </div>
               }
               @if (submitContentForm.get('image')?.hasError('uploadFailed') && (submitContentForm.get('image')?.touched
               || submitContentForm.get('image')?.dirty)) {
-              <div class="text-danger">Failed to upload image.</div>
+              <div class="text-danger">{{ 'USER.UPLOAD_FAILED' | translate }}</div>
               }
               @if (submitContentForm.get('image')?.hasError('required') && (submitContentForm.get('image')?.touched ||
               submitContentForm.get('image')?.dirty)) {
-              <div class="text-danger">Image is required.</div>
+              <div class="text-danger">{{ 'USER.IMAGE_REQUIRED' | translate }}</div>
               }
               @if (imagePreview) {
               <div class="mt-2">
@@ -70,19 +70,19 @@
 
         <!--  editor -->
         <div class="mb-3">
-          <label for="postContent" class="form-label">Content <span class="text-danger">*</span></label>
+          <label for="postContent" class="form-label">{{ 'USER.CONTENT' | translate }} <span class="text-danger">*</span></label>
           <quill-editor formControlName="content" [modules]="quillConfig" [styles]="{height: '400px'}"
-            placeholder="Write your post content here...">
+            placeholder="{{ 'USER.CONTENT_PLACEHOLDER' | translate }}">
           </quill-editor>
           @if (submitContentForm.get('content')?.hasError('required') &&
           (submitContentForm.get('content')?.touched || submitContentForm.get('content')?.dirty)) {
-          <div class="text-danger mt-1">Content is required.</div>
+          <div class="text-danger mt-1">{{ 'USER.CONTENT_REQUIRED' | translate }}</div>
           }
         </div>
 
         <div class="row mt-3">
           <div class="col-md-6">
-            <label for="postTags" class="form-label">Tags</label>
+            <label for="postTags" class="form-label">{{ 'USER.TAGS' | translate }}</label>
             <div id="selectedTags" class="my-2">
               @for (tag of tags; track $index) {
               <span class="badge bg-primary me-2 mb-2">
@@ -94,24 +94,23 @@
             </div>
             @if (submitContentForm.get('tags')?.hasError('required') &&
             (submitContentForm.get('tags')?.touched || submitContentForm.get('tags')?.dirty)) {
-            <div class="text-danger mt-1">At least one tag is required.</div>
+            <div class="text-danger mt-1">{{ 'USER.TAGS_REQUIRED' | translate }}</div>
             }
             <div class="position-relative">
-              <input type="text" class="form-control" id="postTags" placeholder="Start typing to add tags..."
+              <input type="text" class="form-control" id="postTags" placeholder="{{ 'USER.TAGS_PLACEHOLDER' | translate }}"
                 autocomplete="off" (keydown)="onTagChange($event)">
               <div id="tagSuggestions" class="dropdown-menu w-100"
                 style="display:none; max-height:200px; overflow-y:auto;"></div>
             </div>
-            <small class="form-text text-muted">Popular tags: JavaScript, React, CSS, Design, Business,
-              Lifestyle</small>
+            <small class="form-text text-muted">{{ 'USER.POPULAR_TAGS' | translate }}</small>
           </div>
         </div>
       </form>
     </div>
 
     <div class="card-footer text-muted d-flex justify-content-between">
-      <small>Last edited: <span id="lastEdited">—</span></small>
-      <small class="text-muted">You can continue editing your post here.</small>
+      <small>{{ 'USER.LAST_EDITED' | translate }} <span id="lastEdited">—</span></small>
+      <small class="text-muted">{{ 'USER.CONTINUE_EDITING' | translate }}</small>
     </div>
   </div>
 </div>

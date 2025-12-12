@@ -105,7 +105,7 @@
     <div class="row" id="postsList">
         @if (posts.length === 0) {
         <div class="col-12">
-            <div class="alert alert-info">No posts found.</div>
+            <div class="alert alert-info">{{ 'USER.NO_POSTS_FOUND' | translate }}</div>
         </div>
         }
         <!-- Post Item 1 -->
@@ -211,10 +211,10 @@
     <!-- Empty State -->
     <div class="text-center py-5" id="emptyState" style="display: none;">
         <i class="bi bi-file-text text-muted" style="font-size: 4rem;"></i>
-        <h3 class="text-muted mt-3">No posts found</h3>
-        <p class="text-muted">Try adjusting your filters or create a new post.</p>
+        <h3 class="text-muted mt-3">{{ 'USER.NO_POSTS_FOUND' | translate }}</h3>
+        <p class="text-muted">{{ 'USER.NO_POSTS_FOUND_DESC' | translate }}</p>
         <button class="btn btn-primary" onclick="showCreatePostModal()">
-            <i class="bi bi-plus-circle me-2"></i>Create Your First Post
+            <i class="bi bi-plus-circle me-2"></i>{{ 'USER.CREATE_FIRST_POST' | translate }}
         </button>
     </div>
 
@@ -227,22 +227,21 @@
         <div class="modal-content">
             <div class="modal-header border-0">
                 <h5 class="modal-title text-success" id="publishModalLabel">
-                    <i class="bi bi-upload me-2"></i>Publish Post
+                    <i class="bi bi-upload me-2"></i>{{ 'USER.PUBLISH_POST' | translate }}
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p class="mb-3">Are you sure you want to publish this post?</p>
+                <p class="mb-3">{{ 'USER.PUBLISH_CONFIRM' | translate }}</p>
                 <div class="alert alert-info mb-0">
                     <i class="bi bi-info-circle me-2"></i>
-                    <strong>Note:</strong> Once published, the post will be visible to all users and can be found
-                    through search.
+                    <strong>{{ 'USER.NOTE' | translate }}</strong> {{ 'USER.PUBLISH_NOTE' | translate }}
                 </div>
             </div>
             <div class="modal-footer border-0">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'USER.CANCEL' | translate }}</button>
                 <button type="button" class="btn btn-success" id="confirmPublishBtn">
-                    <i class="bi bi-upload me-2"></i>Publish Post
+                    <i class="bi bi-upload me-2"></i>{{ 'USER.PUBLISH_POST' | translate }}
                 </button>
             </div>
         </div>

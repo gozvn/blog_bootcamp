@@ -11,7 +11,7 @@ import { ToastService } from '../../../services/toast.service';
 import { ModalService } from '../../../services/modal.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-main',
@@ -27,7 +27,8 @@ export class MainComponent implements OnInit {
     private authService: AuthService,
     private route: ActivatedRoute,
     private modal: ModalService,
-    private toast: ToastService
+    private toast: ToastService,
+    private translate: TranslateService
   ) {
     this.fb = new FormGroup({
       title: new FormControl(''),
@@ -104,23 +105,23 @@ export class MainComponent implements OnInit {
 
   deletePost(postId: number): void {
     this.modal.confirm({
-      title: 'Delete Post',
-      message: 'Are you sure you want to delete this post?',
+      title: this.translate.instant('USER.DELETE_POST'),
+      message: this.translate.instant('USER.DELETE_CONFIRM'),
       status: 'danger',
-      confirmText: 'Delete',
-      cancelText: 'Cancel'
+      confirmText: this.translate.instant('USER.DELETE'),
+      cancelText: this.translate.instant('USER.CANCEL')
     }).then((confirmed) => {
       if (confirmed) {
         this.userService.deletePost(postId).subscribe(() => {
           this.posts = this.posts.filter(post => post.id !== postId);
-          this.toast.showMessage('successToast', 'Post deleted successfully.');
+          this.toast.showMessage('successToast', this.translate.instant('USER.POST_DELETED'));
           // Cập nhật lại số liệu sau khi xóa
           this.loadTotalAllPosts();
           this.loadPublishedCount();
           this.loadDraftCount();
           this.filterPosts();
         }, (error) => {
-          this.toast.showMessage('errorToast', 'Failed to delete post.');
+          this.toast.showMessage('errorToast', this.translate.instant('USER.DELETE_FAILED'));
         });
       }
     });

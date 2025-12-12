@@ -9,11 +9,12 @@ import { Footer } from '../../../../layouts/default/partials/footer/footer';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { QuillModule } from 'ngx-quill';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-editpost',
   standalone: true,
-  imports: [Header, Footer, ToastComponent, ReactiveFormsModule, CommonModule, QuillModule],
+  imports: [Header, Footer, ToastComponent, ReactiveFormsModule, CommonModule, QuillModule, TranslateModule],
   templateUrl: './editpost.component.html',
   styleUrl: './editpost.component.scss'
 })
@@ -50,7 +51,8 @@ export class EditpostComponent implements OnInit {
     private authService: AuthService,
     private userService: UserService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private translate: TranslateService
   ) {
     this.editPostForm = new FormGroup({
       title: new FormControl('', [Validators.minLength(3), Validators.maxLength(255)]),
@@ -73,7 +75,7 @@ export class EditpostComponent implements OnInit {
         this.categories = res.rows || [];
       },
       error: (err) => {
-        this.toastService.showMessage('errorToast', 'Failed to load categories');
+        this.toastService.showMessage('errorToast', this.translate.instant('USER.LOAD_CATEGORIES_FAILED'));
       }
     });
   }
@@ -95,7 +97,7 @@ export class EditpostComponent implements OnInit {
         }
       },
       error: (err) => {
-        this.toastService.showMessage('errorToast', err?.error?.message || 'Failed to load post');
+        this.toastService.showMessage('errorToast', err?.error?.message || this.translate.instant('USER.LOAD_POST_FAILED'));
       }
     });
   }
@@ -110,13 +112,13 @@ export class EditpostComponent implements OnInit {
           if (res && res.url) {
             this.editPostForm.patchValue({ thumbnail: res.url });
             this.imagePreview = res.url;
-            this.toastService.showMessage('successToast', 'Image uploaded successfully');
+            this.toastService.showMessage('successToast', this.translate.instant('USER.IMAGE_UPLOADED'));
           }
         },
         error: (err) => {
           this.loading = false;
           this.editPostForm.get('thumbnail')?.setErrors({ uploadFailed: true });
-          this.toastService.showMessage('errorToast', 'Failed to upload image');
+          this.toastService.showMessage('errorToast', this.translate.instant('USER.UPLOAD_FAILED'));
         }
       });
     }
@@ -135,7 +137,7 @@ export class EditpostComponent implements OnInit {
             }
           },
           error: (err) => {
-            this.toastService.showMessage('errorToast', 'Failed to create tag');
+            this.toastService.showMessage('errorToast', this.translate.instant('USER.CREATE_TAG_FAILED'));
           }
         });
       }
@@ -156,15 +158,15 @@ export class EditpostComponent implements OnInit {
 
       this.userService.editPost(this.postId, postData).subscribe({
         next: (res) => {
-          this.toastService.showMessage('successToast', 'Post updated successfully');
+          this.toastService.showMessage('successToast', this.translate.instant('USER.POST_UPDATED'));
           this.router.navigate(['/user']);
         },
         error: (err) => {
-          this.toastService.showMessage('errorToast', err?.error?.message || err?.error?.data || 'Failed to update post');
+          this.toastService.showMessage('errorToast', err?.error?.message || err?.error?.data || this.translate.instant('USER.UPDATE_FAILED'));
         }
       });
     } else {
-      this.toastService.showMessage('errorToast', 'Please fill all required fields');
+      this.toastService.showMessage('errorToast', this.translate.instant('USER.FILL_REQUIRED_FIELDS'));
     }
   }
 
@@ -177,10 +179,10 @@ export class EditpostComponent implements OnInit {
 
     this.userService.editPost(this.postId, postData).subscribe({
       next: (res) => {
-        this.toastService.showMessage('successToast', 'Draft saved successfully');
+        this.toastService.showMessage('successToast', this.translate.instant('USER.DRAFT_SAVED'));
       },
       error: (err) => {
-        this.toastService.showMessage('errorToast', err?.error?.message || 'Failed to save draft');
+        this.toastService.showMessage('errorToast', err?.error?.message || this.translate.instant('USER.DRAFT_SAVE_FAILED'));
       }
     });
   }

@@ -12,11 +12,12 @@ import { ToastComponent } from '../../../../layouts/default/partials/toast/toast
 import { ModalService } from '../../../../services/modal.service';
 import { AuthService } from '../../../../services/auth.service';
 import { QuillModule } from 'ngx-quill';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [Header, Footer, ReactiveFormsModule, CommonModule, ToastComponent, QuillModule],
+  imports: [Header, Footer, ReactiveFormsModule, CommonModule, ToastComponent, QuillModule, TranslateModule],
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss']
 })
@@ -30,7 +31,8 @@ export class PostComponent implements OnInit {
     private route: ActivatedRoute,
     private toastService: ToastService,
     private modalService: ModalService,
-    private authService: AuthService
+    private authService: AuthService,
+    private translate: TranslateService
   ) {
     this.submitContentForm = new FormGroup({
       id: new FormControl(''),
@@ -142,19 +144,19 @@ export class PostComponent implements OnInit {
 
     // Validate category_id
     if (!formValue.category_id) {
-      this.toastService.showMessage('errorToast', 'Please select a category');
+      this.toastService.showMessage('errorToast', this.translate.instant('USER.SELECT_CATEGORY_ERROR'));
       return;
     }
 
     // Validate tags
     if (!this.tags || this.tags.length === 0) {
-      this.toastService.showMessage('errorToast', 'Please add at least one tag');
+      this.toastService.showMessage('errorToast', this.translate.instant('USER.ADD_TAG_ERROR'));
       return;
     }
 
     // Validate image
     if (!this.imagePreview) {
-      this.toastService.showMessage('errorToast', 'Please upload an image');
+      this.toastService.showMessage('errorToast', this.translate.instant('USER.UPLOAD_IMAGE_ERROR'));
       return;
     }
 
@@ -173,12 +175,12 @@ export class PostComponent implements OnInit {
     // Submit to backend
     this.userService.createPost(postData).subscribe({
       next: (res) => {
-        this.toastService.showMessage('successToast', 'Post created successfully');
+        this.toastService.showMessage('successToast', this.translate.instant('USER.POST_CREATED'));
         this.router.navigate(['/user']);
       },
       error: (err) => {
         console.error('Error creating post:', err);
-        this.toastService.showMessage('errorToast', 'Failed to create post. Please try again.');
+        this.toastService.showMessage('errorToast', this.translate.instant('USER.CREATE_FAILED'));
       }
     });
   }
@@ -186,7 +188,7 @@ export class PostComponent implements OnInit {
   saveDraft() {
     // Similar to savePost but with status = 'draft'
     if (!this.submitContentForm.get('title')?.value) {
-      this.toastService.showMessage('errorToast', 'Please enter a title for the draft');
+      this.toastService.showMessage('errorToast', this.translate.instant('USER.DRAFT_TITLE_ERROR'));
       return;
     }
     this.userInfo = this.authService.getUserInfo();
@@ -209,12 +211,12 @@ export class PostComponent implements OnInit {
     this.userService.createPost(draftData).subscribe({
       next: (res) => {
         console.log('Draft saved successfully:', res);
-        this.toastService.showMessage('successToast', 'Draft saved successfully');
+        this.toastService.showMessage('successToast', this.translate.instant('USER.DRAFT_SAVED'));
         this.router.navigate(['/user']);
       },
       error: (err) => {
         console.error('Error saving draft:', err);
-        this.toastService.showMessage('errorToast', 'Failed to save draft. Please try again.');
+        this.toastService.showMessage('errorToast', this.translate.instant('USER.DRAFT_SAVE_FAILED'));
       }
     });
   }
