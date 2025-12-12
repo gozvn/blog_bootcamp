@@ -7,11 +7,12 @@ import { ActivatedRoute } from '@angular/router';
 import { CommentComponent } from '../../../comment/comment.component';
 import { Title } from '@angular/platform-browser';
 import { SidebarComponent } from '../../../../layouts/default/partials/sidebar/sidebar.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-detail',
   standalone: true,
-  imports: [CommonModule, Header, Footer, CommentComponent, SidebarComponent],
+  imports: [CommonModule, Header, Footer, CommentComponent, SidebarComponent, TranslateModule],
   templateUrl: './detail.component.html',
 })
 export class DetailPostComponent implements OnInit {

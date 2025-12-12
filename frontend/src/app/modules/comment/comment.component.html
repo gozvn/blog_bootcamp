@@ -1,5 +1,5 @@
 <section class="mt-5">
-    <h3 class="mb-4">Comments </h3>
+    <h3 class="mb-4">{{ 'COMMENT.TITLE' | translate }} </h3>
     @if (listComments.length != 0){
 
     <!-- Comment -->
@@ -12,8 +12,8 @@
                 <small class="text-muted">{{comment.updated_at | date }}</small>
                 <p class="mb-0 mt-2">{{comment.content}}</p>
                 @if (user != null){
-                <button type="button" class="btn btn-sm btn-outline-primary mt-2"
-                    (click)="onReply(comment.id)">Reply</button>
+                <button type="button" class="btn btn-sm btn-outline-primary mt-2" (click)="onReply(comment.id)">{{
+                    'COMMENT.REPLY' | translate }}</button>
                 }
 
                 @if (replyingToCommentId === comment.id) {
@@ -33,14 +33,15 @@
     </div>
     }
     }@else{
-    <p>No comments yet. Be the first to comment!</p>
+    <p>{{ 'COMMENT.NO_COMMENTS' | translate }}</p>
     }
     <!-- Comment Form -->
     @if (user != null){
     <app-post-comment [user]="user" [postId]="postId" (submitComment)="loadComments()"></app-post-comment>
     } @else{
     <div class="mt-4">
-        <p>Please <a routerLink="/auth/login">log in</a> to leave a comment.</p>
+        <p>{{ 'COMMENT.PLEASE' | translate }} <a routerLink="/auth/login">{{ 'COMMENT.LOGIN' | translate }}</a> {{
+            'COMMENT.TO_LEAVE_COMMENT' | translate }}</p>
     </div>
     }
 </section>

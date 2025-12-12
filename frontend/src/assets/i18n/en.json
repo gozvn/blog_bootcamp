@@ -46,5 +46,36 @@
         "PREVIOUS": "Previous",
         "NEXT": "Next",
         "PAGE": "Page"
+    },
+    "CATEGORY": {
+        "BROWSE_TITLE": "Browse Categories",
+        "BROWSE_DESC": "Discover articles organized by topics that interest you",
+        "NO_POSTS": "No posts available in this category."
+    },
+    "COMMENT": {
+        "TITLE": "Comments",
+        "REPLY": "Reply",
+        "NO_COMMENTS": "No comments yet. Be the first to comment!",
+        "PLEASE": "Please",
+        "LOGIN": "log in",
+        "TO_LEAVE_COMMENT": "to leave a comment.",
+        "LEAVE_COMMENT": "Leave a Comment",
+        "COMMENT_LABEL": "Comment",
+        "VALIDATION_REQUIRED": "Content is required and must be at least 10 characters long.",
+        "POST_BUTTON": "Post Comment",
+        "MSG_SUCCESS": "Comment posted successfully!",
+        "MSG_ERROR": "Failed to post comment. Please try again."
+    },
+    "POST": {
+        "ALL_POSTS": "All Posts",
+        "FEATURED_POSTS": "Featured Posts",
+        "ALL_POSTS_DESC": "Browse all latest posts from our blog.",
+        "FEATURED_POSTS_DESC": "Discover our most popular and highlighted stories.",
+        "NO_POSTS": "No posts available.",
+        "READ_MORE": "Read More",
+        "SHARE": "Share this article:",
+        "ABOUT_AUTHOR": "About the Author",
+        "COPY_LINK": "Copy Link",
+        "BLOG_POST": "Blog Post"
     }
 }

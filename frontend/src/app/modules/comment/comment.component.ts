@@ -7,11 +7,12 @@ import { CommentService } from './services/comment.service';
 import { CommonModule } from '@angular/common';
 import { PostCommentComponent } from './post-comment/post-comment.component';
 import { ReplyCommentComponent } from './reply-comment/reply-comment.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-comment',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, CommonModule, PostCommentComponent, ReplyCommentComponent],
+  imports: [ReactiveFormsModule, RouterLink, CommonModule, PostCommentComponent, ReplyCommentComponent, TranslateModule],
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss']
 })

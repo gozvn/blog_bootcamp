@@ -48,5 +48,36 @@
         "PREVIOUS": "Trước",
         "NEXT": "Sau",
         "PAGE": "Trang"
+    },
+    "CATEGORY": {
+        "BROWSE_TITLE": "Duyệt danh mục",
+        "BROWSE_DESC": "Khám phá các bài viết được sắp xếp theo chủ đề bạn quan tâm",
+        "NO_POSTS": "Không có bài viết nào trong danh mục này."
+    },
+    "COMMENT": {
+        "TITLE": "Bình luận",
+        "REPLY": "Trả lời",
+        "NO_COMMENTS": "Chưa có bình luận nào. Hãy là người đầu tiên bình luận!",
+        "PLEASE": "Vui lòng",
+        "LOGIN": "đăng nhập",
+        "TO_LEAVE_COMMENT": "để để lại bình luận.",
+        "LEAVE_COMMENT": "Để lại bình luận",
+        "COMMENT_LABEL": "Bình luận",
+        "VALIDATION_REQUIRED": "Nội dung là bắt buộc và phải có ít nhất 10 ký tự.",
+        "POST_BUTTON": "Đăng bình luận",
+        "MSG_SUCCESS": "Đăng bình luận thành công!",
+        "MSG_ERROR": "Đăng bình luận thất bại. Vui lòng thử lại."
+    },
+    "POST": {
+        "ALL_POSTS": "Tất cả bài viết",
+        "FEATURED_POSTS": "Bài viết nổi bật",
+        "ALL_POSTS_DESC": "Duyệt tất cả các bài viết mới nhất từ blog của chúng tôi.",
+        "FEATURED_POSTS_DESC": "Khám phá những câu chuyện phổ biến và nổi bật nhất của chúng tôi.",
+        "NO_POSTS": "Không có bài viết nào.",
+        "READ_MORE": "Xem thêm",
+        "SHARE": "Chia sẻ bài viết:",
+        "ABOUT_AUTHOR": "Về tác giả",
+        "COPY_LINK": "Sao chép liên kết",
+        "BLOG_POST": "Chi tiết bài viết"
     }
 }

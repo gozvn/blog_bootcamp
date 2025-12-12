@@ -7,7 +7,8 @@
             <small class="text-muted">{{ reply.updated_at | date }}</small>
             <p class="mb-0 mt-2">{{ reply.content }}</p>
             @if (user != null) {
-            <button type="button" class="btn btn-sm btn-outline-primary mt-2" (click)="onReply(reply.id)">Reply</button>
+            <button type="button" class="btn btn-sm btn-outline-primary mt-2" (click)="onReply(reply.id)">{{
+                'COMMENT.REPLY' | translate }}</button>
             }
         </div>
 

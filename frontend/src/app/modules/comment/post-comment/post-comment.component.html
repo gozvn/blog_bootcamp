@@ -1,21 +1,22 @@
 <app-toast></app-toast>
 <div class="mt-4">
-    <h4 class="mb-3">Leave a Comment</h4>
+    <h4 class="mb-3">{{ 'COMMENT.LEAVE_COMMENT' | translate }}</h4>
     <form [formGroup]="commentForm" (ngSubmit)="onSubmitComment()">
         <div class="mb-3">
             <div class="d-flex align-items-center">
-            <img src="/assets/img/no_img.jpg" alt="User Avatar" width="40" height="40" class="rounded-circle me-2">
-            <span class="fw-semibold">{{user.username}}</span>
-            <small class="text-muted ms-2">{{user.email}}</small>
+                <img src="/assets/img/no_img.jpg" alt="User Avatar" width="40" height="40" class="rounded-circle me-2">
+                <span class="fw-semibold">{{user.username}}</span>
+                <small class="text-muted ms-2">{{user.email}}</small>
             </div>
         </div>
         <div class="mb-3">
-            <label for="commentText" class="form-label">Comment</label>
+            <label for="commentText" class="form-label">{{ 'COMMENT.COMMENT_LABEL' | translate }}</label>
             <textarea class="form-control" id="commentText" rows="4" formControlName="content" required></textarea>
         </div>
         @if (commentForm.get('content')?.errors?.['required'] && commentForm.get('content')?.touched) {
-                <div class="invalid-feedback d-block">Content is required and must be at least 10 characters long.</div>
+        <div class="invalid-feedback d-block">{{ 'COMMENT.VALIDATION_REQUIRED' | translate }}</div>
         }
-        <button type="submit" [disabled]="commentForm.invalid" class="btn btn-primary">Post Comment</button>
+        <button type="submit" [disabled]="commentForm.invalid" class="btn btn-primary">{{ 'COMMENT.POST_BUTTON' |
+            translate }}</button>
     </form>
 </div>

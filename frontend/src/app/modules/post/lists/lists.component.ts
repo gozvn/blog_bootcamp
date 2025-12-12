@@ -8,11 +8,12 @@ import { Header } from '../../../layouts/default/partials/header/header';
 import { Footer } from '../../../layouts/default/partials/footer/footer';
 import { SidebarComponent } from '../../../layouts/default/partials/sidebar/sidebar.component';
 import { TruncatePipe } from '../../../pipes/truncate.pipe';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-list-post',
     standalone: true,
-    imports: [CommonModule, RouterLink, Header, Footer, SidebarComponent, TruncatePipe],
+    imports: [CommonModule, RouterLink, Header, Footer, SidebarComponent, TruncatePipe, TranslateModule],
     templateUrl: './lists.component.html',
     styleUrls: ['./lists.component.scss']
 })
@@ -31,7 +32,8 @@ export class ListPostComponent implements OnInit {
         private route: ActivatedRoute,
         private title: Title,
         private meta: Meta,
-        public paginationService: PaginationService
+        public paginationService: PaginationService,
+        private translateService: TranslateService
     ) { }
 
     ngOnInit(): void {
@@ -49,14 +51,24 @@ export class ListPostComponent implements OnInit {
 
     setupPageMeta() {
         if (this.isFeatured) {
-            this.pageTitle = 'Featured Posts';
-            this.pageDescription = 'Discover our most popular and highlighted stories.';
+            this.translateService.get('POST.FEATURED_POSTS').subscribe(res => {
+                this.pageTitle = res;
+                this.title.setTitle(`${this.pageTitle} | My Blog`);
+            });
+            this.translateService.get('POST.FEATURED_POSTS_DESC').subscribe(res => {
+                this.pageDescription = res;
+                this.meta.updateTag({ name: 'description', content: this.pageDescription });
+            });
         } else {
-            this.pageTitle = 'All Posts';
-            this.pageDescription = 'Browse all latest posts from our blog.';
+            this.translateService.get('POST.ALL_POSTS').subscribe(res => {
+                this.pageTitle = res;
+                this.title.setTitle(`${this.pageTitle} | My Blog`);
+            });
+            this.translateService.get('POST.ALL_POSTS_DESC').subscribe(res => {
+                this.pageDescription = res;
+                this.meta.updateTag({ name: 'description', content: this.pageDescription });
+            });
         }
-        this.title.setTitle(`${this.pageTitle} | My Blog`);
-        this.meta.updateTag({ name: 'description', content: this.pageDescription });
     }
 
     loadPosts() {

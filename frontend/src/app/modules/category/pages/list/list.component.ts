@@ -7,10 +7,11 @@ import { SidebarComponent } from '../../../../layouts/default/partials/sidebar/s
 import { CategoryService } from '../../services/category.service';
 import { TruncatePipe } from '../../../../pipes/truncate.pipe';
 import { Title, Meta } from '@angular/platform-browser';
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-posts',
   standalone: true,
-  imports: [Header, Footer, SidebarComponent, CommonModule, RouterLink, TruncatePipe],
+  imports: [Header, Footer, SidebarComponent, CommonModule, RouterLink, TruncatePipe, TranslateModule],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })

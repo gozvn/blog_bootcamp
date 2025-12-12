@@ -1,38 +1,39 @@
 <app-header></app-header>
 <div class="container">
-        <!-- Page Header -->
-        <div class="row mb-2">
-            <div class="col-12">
-                <div class="text-center">
-                    <h1 class="display-4 fw-bold text-dark mb-3">Browse Categories</h1>
-                    <p class="lead text-muted">Discover articles organized by topics that interest you</p>
-                </div>
+    <!-- Page Header -->
+    <div class="row mb-2">
+        <div class="col-12">
+            <div class="text-center">
+                <h1 class="display-4 fw-bold text-dark mb-3">{{ 'CATEGORY.BROWSE_TITLE' | translate }}</h1>
+                <p class="lead text-muted">{{ 'CATEGORY.BROWSE_DESC' | translate }}</p>
             </div>
         </div>
+    </div>
 
-        <!-- Categories Grid -->
-        <div class="row g-4 mb-2">
-            <!-- Technology Category -->
-            @for (category of listcategories; track category.id) {
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 shadow-sm border-0 category-card">
-                    <a [routerLink]="['/category', category.id, category.slug]" class="stretched-link">
+    <!-- Categories Grid -->
+    <div class="row g-4 mb-2">
+        <!-- Technology Category -->
+        @for (category of listcategories; track category.id) {
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm border-0 category-card">
+                <a [routerLink]="['/category', category.id, category.slug]" class="stretched-link">
                     <div class="category-icon mb-3">
-                            <img src="/assets/img/no_img.jpg" alt="" style="aspect-ratio: 3/2; width: 100%; object-fit: cover; border-radius: 0.5rem;">
+                        <img src="/assets/img/no_img.jpg" alt=""
+                            style="aspect-ratio: 3/2; width: 100%; object-fit: cover; border-radius: 0.5rem;">
                     </div>
-                    </a>
-                    <div class="card-body text-center p-1">                       
-                        <h5 class="card-title fw-bold">{{category.name}}</h5>
-                        <p class="card-text text-muted">{{category.description}}</p>
-                        <!-- <div class="d-flex justify-content-between align-items-center mt-3">
+                </a>
+                <div class="card-body text-center p-1">
+                    <h5 class="card-title fw-bold">{{category.name}}</h5>
+                    <p class="card-text text-muted">{{category.description}}</p>
+                    <!-- <div class="d-flex justify-content-between align-items-center mt-3">
                             <span class="badge bg-primary">24 Posts</span>
                             <a [routerLink]="['/category', category.id, category.slug]" class="btn btn-outline-primary btn-sm">View Posts</a>
                         </div> -->
-                    </div>
                 </div>
             </div>
-            } 
         </div>
-
+        }
     </div>
+
+</div>
 <app-footer></app-footer>

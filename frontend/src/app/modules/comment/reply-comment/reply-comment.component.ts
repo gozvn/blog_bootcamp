@@ -1,11 +1,12 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PostCommentComponent } from '../post-comment/post-comment.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-reply-comment',
   standalone: true,
-  imports: [CommonModule, PostCommentComponent],
+  imports: [CommonModule, PostCommentComponent, TranslateModule],
   templateUrl: './reply-comment.component.html',
   styleUrl: './reply-comment.component.scss'
 })
