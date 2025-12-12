@@ -131,5 +131,27 @@
         "ABOUT_AUTHOR": "Về tác giả",
         "COPY_LINK": "Sao chép liên kết",
         "BLOG_POST": "Chi tiết bài viết"
+    },
+    "SEARCH": {
+        "RESULTS": "Kết quả tìm kiếm",
+        "SEARCH_RESULTS": "Kết quả tìm kiếm",
+        "SEARCH": "Tìm kiếm",
+        "ENTER_KEYWORD": "Nhập từ khóa để tìm kiếm...",
+        "LOADING": "Đang tải...",
+        "SEARCHING": "Đang tìm kiếm bài viết...",
+        "FOUND_RESULTS": "Tìm thấy {{count}} kết quả cho \"{{keyword}}\"",
+        "NO_RESULTS": "Không tìm thấy kết quả nào cho \"{{keyword}}\"",
+        "NO_RESULTS_TITLE": "Không tìm thấy kết quả",
+        "NO_RESULTS_DESC": "Xin lỗi, chúng tôi không tìm thấy bài viết nào phù hợp.",
+        "SHOWING_RESULTS": "Hiển thị {{start}}-{{end}} trong tổng số {{total}} kết quả",
+        "SUGGESTIONS": "Gợi ý tìm kiếm:",
+        "TIP_1": "• Thử các từ khóa khác hoặc tổng quát hơn",
+        "TIP_2": "• Kiểm tra chính tả",
+        "TIP_3": "• Sử dụng ít từ khóa hơn",
+        "SEARCH_TIPS": "Mẹo tìm kiếm",
+        "TIP_SPECIFIC": "Sử dụng từ khóa cụ thể",
+        "TIP_KEYWORDS": "Thử nhiều từ khóa",
+        "TIP_SPELLING": "Kiểm tra chính tả",
+        "QUICK_LINKS": "Liên kết nhanh"
     }
 }

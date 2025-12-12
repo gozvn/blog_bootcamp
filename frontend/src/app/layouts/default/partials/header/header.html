@@ -36,9 +36,19 @@
 
       <div class="d-flex align-items-center">
         <!-- Search form for large screens only -->
-        <form class="me-3 d-none d-lg-block" role="search">
-          <input type="search" class="form-control" placeholder="{{ 'HOMEPAGE.SEARCH' | translate }}"
-            aria-label="Search">
+        <form [formGroup]="searchForm" (ngSubmit)="onSearch()" class="me-3 d-none d-lg-block" role="search">
+          <div class="input-group">
+            <input 
+              type="search" 
+              class="form-control" 
+              formControlName="keyword"
+              [placeholder]="'HOMEPAGE.SEARCH' | translate"
+              (keypress)="onSearchKeyPress($event)"
+              aria-label="Search">
+            <button class="btn btn-outline-primary" type="submit">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
         </form>
 
         <!-- Language selector for large screens only -->
@@ -149,13 +159,23 @@
     </ul>
 
     <!-- Search form in offcanvas -->
-    <form class="d-flex mb-4" role="search">
-      <input class="form-control me-2" type="search" placeholder="{{ 'HOMEPAGE.SEARCH' | translate }}"
-        aria-label="Search">
-      <button class="btn btn-outline-primary" type="submit">
-        <i class="bi bi-search"></i>
-      </button>
-    </form>
+    <div class="mb-4">
+      <h6 class="text-muted mb-3">
+        <i class="bi bi-search me-2"></i>{{ 'SEARCH.SEARCH' | translate }}
+      </h6>
+      <form [formGroup]="mobileSearchForm" (ngSubmit)="onSearch(true)" class="d-flex" role="search">
+        <input 
+          class="form-control me-2" 
+          type="search" 
+          formControlName="keyword"
+          [placeholder]="'HOMEPAGE.SEARCH' | translate"
+          (keypress)="onSearchKeyPress($event, true)"
+          aria-label="Search">
+        <button class="btn btn-outline-primary" type="submit">
+          <i class="bi bi-search"></i>
+        </button>
+      </form>
+    </div>
 
     <!-- Language selector in offcanvas -->
     <div class="mb-4">

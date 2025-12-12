@@ -129,5 +129,27 @@
         "ABOUT_AUTHOR": "About the Author",
         "COPY_LINK": "Copy Link",
         "BLOG_POST": "Blog Post"
+    },
+    "SEARCH": {
+        "RESULTS": "Search Results",
+        "SEARCH_RESULTS": "Search Results",
+        "SEARCH": "Search",
+        "ENTER_KEYWORD": "Enter keyword to search...",
+        "LOADING": "Loading...",
+        "SEARCHING": "Searching for posts...",
+        "FOUND_RESULTS": "Found {{count}} results for \"{{keyword}}\"",
+        "NO_RESULTS": "No results found for \"{{keyword}}\"",
+        "NO_RESULTS_TITLE": "No Results Found",
+        "NO_RESULTS_DESC": "Sorry, we couldn't find any posts matching your search.",
+        "SHOWING_RESULTS": "Showing {{start}}-{{end}} of {{total}} results",
+        "SUGGESTIONS": "Search Suggestions:",
+        "TIP_1": "• Try different or more general keywords",
+        "TIP_2": "• Check your spelling",
+        "TIP_3": "• Use fewer keywords",
+        "SEARCH_TIPS": "Search Tips",
+        "TIP_SPECIFIC": "Use specific keywords",
+        "TIP_KEYWORDS": "Try multiple keywords",
+        "TIP_SPELLING": "Check spelling",
+        "QUICK_LINKS": "Quick Links"
     }
 }
