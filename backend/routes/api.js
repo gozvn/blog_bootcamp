@@ -53,6 +53,7 @@ router.group("/upload", validate([]), (router) => {
 router.group("/public", validate([]), (router) => {
   router.get("/category", rateLimit.limitPublic, publicController.getCategories);
   router.get("/category/:id", rateLimit.limitPublic, publicController.getCategoryById);
+  router.get("/search", rateLimit.limitPublic, publicController.searchPosts);
   router.get("/post", rateLimit.limitPublic, publicController.getPosts);
   router.get("/post/:id", rateLimit.limitPublic, publicController.getPostById);
   router.get("/comment/:id", publicController.getCommentsByPostId);

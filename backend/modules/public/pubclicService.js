@@ -1,6 +1,39 @@
+const { search } = require("index");
 const { Category, Post, User, Tag, Language, Comment } = require("../../models");
+const { Op, where, fn, col } = require("sequelize");
 
 const publicService = {
+    async searchPosts(keyword, page = 1, limit = 10) {
+        keyword = keyword.trim();
+        page = parseInt(page);
+        limit = parseInt(limit);
+        const offset = (page - 1) * limit;
+        const whereClause = {
+            status: "published"
+        };
+        if (keyword) {
+            whereClause[Op.or] = [
+                where(fn("LOWER", col("title")), {
+                    [Op.like]: `%${keyword}%`
+                })
+            ];
+        }
+        const { count, rows } = await Post.findAndCountAll({
+            where: whereClause,
+            offset,
+            limit,
+            distinct: true,
+        });
+        return {
+            rows,
+            pagination: {
+                total: count,
+                page,
+                limit,
+                totalPages: Math.ceil(count / limit),
+            }
+        };
+    },
     async listCategories(page, limit) {
         // Logic to list categories with pagination and filters
         const whereClause = {};
