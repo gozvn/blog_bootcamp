@@ -37,14 +37,17 @@ export class PostComponent implements OnInit {
     this.submitContentForm = new FormGroup({
       id: new FormControl(''),
       featured: new FormControl(false),
+      lang_id: new FormControl(1, [Validators.required]),
       title: new FormControl('', [Validators.required]),
       content: new FormControl('', [Validators.required]),
       category_id: new FormControl('', [Validators.required]),
       tags: new FormControl('', [Validators.required]),
       imagePreview: new FormControl(''),
-      image: new FormControl('', [Validators.required, Validators.pattern(/\.(jpg|jpeg|png|gif)$/)]),
+      image: new FormControl('', [Validators.pattern(/\.(jpg|jpeg|png|gif)$/)]),
     })
   }
+  thumbnail: string = '';
+  languages: any[] = [];
   categories: any[] = [];
   image: File | null = null;
   imagePreview: string | null = null;
@@ -74,6 +77,7 @@ export class PostComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    this.loadLanguages();
     // console.log(" Bắt đầu chạy component post ")
     // Lấy danh sách category
     this.userService.getCategories().subscribe((res) => {
@@ -81,7 +85,13 @@ export class PostComponent implements OnInit {
       this.categories = res.rows;
     })
   }
-
+  // Load language
+  loadLanguages() {
+    this.userService.getLanguages().subscribe((res) => {
+      // console.log(res);
+      this.languages = res.rows;
+    })
+  }
   // Tải ảnh lên
   uploadImage(image: File) {
     this.loading = true;
@@ -154,23 +164,21 @@ export class PostComponent implements OnInit {
       return;
     }
 
-    // Validate image
-    if (!this.imagePreview) {
-      this.toastService.showMessage('errorToast', this.translate.instant('USER.UPLOAD_IMAGE_ERROR'));
-      return;
-    }
-
-    const postData = {
+    const postData: any = {
       title: formValue.title,
       content: formValue.content,
-      thumbnail: this.imagePreview,
       status: 'published',
       featured: formValue.featured || false,
       category: [parseInt(formValue.category_id)],
-      lang_id: 1,
+      lang_id: formValue.lang_id || 1,
       user_id: this.userInfo.id,
       tags: this.tags.map(tag => tag.id)
     };
+
+    // Chỉ thêm thumbnail nếu có
+    if (this.imagePreview) {
+      postData.thumbnail = this.imagePreview;
+    }
 
     // Submit to backend
     this.userService.createPost(postData).subscribe({
@@ -194,17 +202,21 @@ export class PostComponent implements OnInit {
     this.userInfo = this.authService.getUserInfo();
     const formValue = this.submitContentForm.value;
 
-    const draftData = {
+    const draftData: any = {
       title: formValue.title,
       content: formValue.content || '',
-      thumbnail: this.imagePreview || '',
       status: 'draft',
       featured: formValue.featured || false,
       category: formValue.category_id ? [parseInt(formValue.category_id)] : [],
-      lang_id: 1,
+      lang_id: formValue.lang_id || 1,
       user_id: this.userInfo.id, // TODO: Get from auth service
       tags: this.tags.map(tag => tag.id)
     };
+
+    // Chỉ thêm thumbnail nếu có
+    if (this.imagePreview) {
+      draftData.thumbnail = this.imagePreview;
+    }
 
     console.log('Saving draft:', draftData);
 

@@ -57,6 +57,11 @@ export class UserService {
             map((result: any) => result?.data ?? null)
         );
     }
+    getLanguages(): Observable<any> {
+        return this.backendService.get(`language`).pipe(
+            map((result: any) => result?.data ?? null)
+        );
+    }
     createPost(post: any): Observable<any> {
         return this.backendService.post(`post/create`, post).pipe(
             map((result: any) => result?.data ?? null)
@@ -76,7 +81,6 @@ export class UserService {
             map((result: any) => result?.data ?? null)
         );
     }
-
     deletePost(postId: number) {
         return this.backendService.delete(`post/delete/${postId}`).pipe(
             map((result: any) => result?.data ?? null)

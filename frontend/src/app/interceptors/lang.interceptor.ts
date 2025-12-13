@@ -6,10 +6,10 @@ export const langInterceptor: HttpInterceptorFn = (req, next) => {
   const langStore = inject(LangStoreService);
   const lang = langStore.getLang();
 
-  // ✅ Chỉ áp dụng cho post
+  // ✅ Chỉ áp dụng cho GET request và post URL
   const allowLang =
-    req.url.includes('/public/post') ||
-    req.url.includes('/post');
+    req.method === 'GET' &&
+    (req.url.includes('/public/post') || req.url.includes('/post'));
 
   if (!allowLang) {
     return next(req);

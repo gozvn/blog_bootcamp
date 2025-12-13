@@ -68,7 +68,7 @@ const postController = {
             const newPost = await postService.createPost({
                 title,
                 slug: title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, ''),
-                thumbnail: thumbnail || 'img/default-thumbnail.jpg',
+                thumbnail: thumbnail || null,
                 featured: featured || false,
                 status: status || "draft",
                 lang_id: lang_id || "1",

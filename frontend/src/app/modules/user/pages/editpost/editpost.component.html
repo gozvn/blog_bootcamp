@@ -41,6 +41,19 @@
                             <div class="text-danger mt-1">{{ 'USER.CATEGORY_REQUIRED' | translate }}</div>
                             }
                         </div>
+                        <div class="mb-3">
+                            <label for="postLanguage" class="form-label">{{ 'USER.LANGUAGE' | translate }} <span class="text-danger">*</span></label>
+                            <select class="form-select" id="postLanguage" formControlName="lang_id" required>
+                                <option value="">{{ 'USER.SELECT_LANGUAGE' | translate }}</option>
+                                @for (language of languages; track language.id) {
+                                <option value="{{language.id}}">{{language.lang_name}}</option>
+                                }
+                            </select>
+                            @if (editPostForm.get('lang_id')?.hasError('required') &&
+                            (editPostForm.get('lang_id')?.touched || editPostForm.get('lang_id')?.dirty)) {
+                            <div class="text-danger mt-1">{{ 'USER.LANGUAGE_REQUIRED' | translate }}</div>
+                            }
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
@@ -48,8 +61,7 @@
                             &nbsp;<input type="checkbox" id="postFeatured" formControlName="featured">
                         </div>
                         <div class="mb-3">
-                            <label for="postImage" class="form-label">{{ 'USER.FEATURED_IMAGE' | translate }} <span
-                                    class="text-danger">*</span></label>
+                            <label for="postImage" class="form-label">{{ 'USER.FEATURED_IMAGE' | translate }}</label>
                             <input type="file" class="form-control" id="postImage" (change)="onFileChange($event)"
                                 accept="image/*">
                             @if (loading) {

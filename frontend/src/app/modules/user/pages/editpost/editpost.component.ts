@@ -23,6 +23,7 @@ export class EditpostComponent implements OnInit {
   postId: number = 0;
   tags: any[] = [];
   categories: any[] = [];
+  languages: any[] = [];
   imagePreview: string | null = null;
   loading: boolean = false;
 
@@ -58,6 +59,7 @@ export class EditpostComponent implements OnInit {
       title: new FormControl('', [Validators.minLength(3), Validators.maxLength(255)]),
       content: new FormControl('', [Validators.minLength(10)]),
       category: new FormControl('', [Validators.required]),
+      lang_id: new FormControl('', [Validators.required]),
       thumbnail: new FormControl(''),
       featured: new FormControl(false),
     });
@@ -66,6 +68,7 @@ export class EditpostComponent implements OnInit {
   ngOnInit(): void {
     this.postId = Number(this.route.snapshot.params['id']);
     this.loadCategories();
+    this.loadLanguages();
     this.loadPost();
   }
 
@@ -80,6 +83,17 @@ export class EditpostComponent implements OnInit {
     });
   }
 
+  loadLanguages(): void {
+    this.userService.getLanguages().subscribe({
+      next: (res) => {
+        this.languages = res.rows || [];
+      },
+      error: (err) => {
+        this.toastService.showMessage('errorToast', this.translate.instant('USER.LOAD_LANGUAGES_FAILED'));
+      }
+    });
+  }
+
   loadPost(): void {
     this.userService.getPostById(this.postId).subscribe({
       next: (res) => {
@@ -89,6 +103,7 @@ export class EditpostComponent implements OnInit {
             title: res.title || '',
             content: res.content || '',
             category: categoryId,
+            lang_id: res.lang_id || res.language_id || '',
             thumbnail: res.thumbnail || '',
             featured: res.featured || false
           });

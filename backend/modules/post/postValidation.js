@@ -34,6 +34,7 @@ const postValidation = {
       errorMessage: 'Validation.required',
     },
     thumbnail: {
+      optional: true,
       isString: true,
       errorMessage: 'Validation.required',
     },
