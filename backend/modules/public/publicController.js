@@ -1,4 +1,3 @@
-const { get, search } = require("index");
 const publicService = require("./pubclicService");
 const responseUtils = require("utils/responseUtils");
 
@@ -27,12 +26,12 @@ const publicController = {
             const categoryId = req.query.category_id || null;
             const tagId = req.query.tag_id || null;
             const userId = req.query.user_id || null;
-            const langId = req.query.lang_id || null;
+            const lang_code = req.query.lang_code || null;
             const status = req.query.status || null;
             const featured = req.query.featured || null;
             // const cat = parse Int(req.query.cat);
 
-            const post = await publicService.listPosts(page, limit, categoryId, tagId, userId, langId, status, featured);
+            const post = await publicService.listPosts(page, limit, categoryId, tagId, userId, lang_code, status, featured);
             // xử lý show all ở đây
             return responseUtils.ok(res, post)
         } catch (error) {

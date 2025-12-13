@@ -1,4 +1,3 @@
-const { search } = require("index");
 const { Category, Post, User, Tag, Language, Comment } = require("../../models");
 const { Op, where, fn, col } = require("sequelize");
 
@@ -60,7 +59,7 @@ const publicService = {
             }
         };
     },
-    async listPosts(page = 1, limit = 10, categoryId = null, tagId = null, userId = null, langId = null, status = null, featured = null) {
+    async listPosts(page = 1, limit = 10, categoryId = null, tagId = null, userId = null, lang_code = null, status = null, featured = null) {
 
         page = parseInt(page);
         limit = parseInt(limit);
@@ -90,14 +89,15 @@ const publicService = {
             {
                 as: 'language',
                 model: Language,
-                attributes: ["id", "lang_name"],
+                attributes: ["id", "lang_code"],
             }
         ];
         // loc ngôn ngữ
-        if (langId) {
-            whereClause.lang_id = langId;
+        if (lang_code) {
+            include[3].where = { lang_code: lang_code };
+            include[3].required = true;
         }
-        // loc nổi bật
+        // loc nổi bật  
         if (featured !== null) {
             whereClause.featured = featured;
         }
