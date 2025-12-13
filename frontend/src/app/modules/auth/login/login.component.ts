@@ -5,11 +5,12 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { ToastService } from '../../../services/toast.service';
 import { ToastComponent } from '../../../layouts/default/partials/toast/toast.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, ToastComponent, RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, ToastComponent, RouterLink,TranslateModule],
   templateUrl: './login.component.html',
 })
 export class LoginComponent {

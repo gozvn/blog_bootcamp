@@ -6,11 +6,12 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ToastComponent } from '../../../layouts/default/partials/toast/toast.component';
 import { CommonModule } from '@angular/common';
 import { passwordMatchValidator } from '../../../validations/password.validation';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [RouterLink,CommonModule, ToastComponent,ReactiveFormsModule],
+  imports: [RouterLink,CommonModule, ToastComponent,ReactiveFormsModule,TranslateModule ],
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })

@@ -5,40 +5,40 @@
       <div class="card shadow">
         <div class="card-body p-5">
           <div class="text-center mb-4">
-            <h2 class="fw-bold">Welcome Back</h2>
-            <p class="text-muted">Sign in to your account</p>
+            <h2 class="fw-bold">{{ 'AUTH.WELCOME_BACK' | translate }}</h2>
+            <p class="text-muted">{{ 'AUTH.SIGN_IN_ACCOUNT' | translate }}</p>
           </div>
 
           <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
             <!-- Email -->
             <div class="mb-3">
-              <label for="email" class="form-label">Email Address</label>
+              <label for="email" class="form-label">{{ 'AUTH.EMAIL_ADDRESS' | translate }}</label>
               <input
                 type="email"
                 id="email"
                 formControlName="email"
                 class="form-control"
-                placeholder="Enter your email"
+                placeholder="{{ 'AUTH.ENTER_EMAIL' | translate }}"
                 [class.is-invalid]="form.get('email')?.invalid && form.get('email')?.touched"
               />
               @if (form.get('email')?.errors?.['required'] && form.get('email')?.touched) {
-                <div class="invalid-feedback d-block">Please provide an email address.</div>
+                <div class="invalid-feedback d-block">{{ 'AUTH.EMAIL_REQUIRED' | translate }}</div>
               }
               @if (form.get('email')?.errors?.['email'] && form.get('email')?.touched) {
-                <div class="invalid-feedback d-block">Invalid email format.</div>
+                <div class="invalid-feedback d-block">{{ 'AUTH.EMAIL_INVALID' | translate }}</div>
               }
             </div>
 
             <!-- Password -->
             <div class="mb-3">
-              <label for="password" class="form-label">Password</label>
+              <label for="password" class="form-label">{{ 'AUTH.PASSWORD' | translate }}</label>
               <div class="input-group">
                 <input
                   [type]="showPassword ? 'text' : 'password'"
                   formControlName="password"
                   class="form-control"
                   id="password"
-                  placeholder="Enter your password"
+                  placeholder="{{ 'AUTH.ENTER_PASSWORD' | translate }}"
                   [class.is-invalid]="form.get('password')?.invalid && form.get('password')?.touched"
                 />
                 <button
@@ -50,7 +50,7 @@
                 </button>
               </div>
               @if (form.get('password')?.errors?.['required'] && form.get('password')?.touched) {
-                <div class="invalid-feedback d-block">Password is required.</div>
+                <div class="invalid-feedback d-block">{{ 'AUTH.PASSWORD_REQUIRED' | translate }}</div>
               }
             </div>
 
@@ -63,9 +63,9 @@
                   id="rememberMe"
                   formControlName="rememberMe"
                 />
-                <label class="form-check-label" for="rememberMe">Remember me</label>
+                <label class="form-check-label" for="rememberMe">{{ 'AUTH.REMEMBER_ME' | translate }}</label>
               </div>
-              <a href="#" class="text-primary text-decoration-none">Forgot password?</a>
+              <a href="#" class="text-primary text-decoration-none">{{ 'AUTH.FORGOT_PASSWORD' | translate }}</a>
             </div>
 
             <!-- Submit -->
@@ -78,9 +78,9 @@
                   [class.d-none]="!loading"
                 ></span>
                 @if (loading) {
-                  Signing in...
+                  {{ 'AUTH.SIGNING_IN' | translate }}
                 } @else {
-                  Sign In
+                  {{ 'AUTH.SIGN_IN' | translate }}
                 }
               </button>
             </div>
@@ -89,21 +89,21 @@
           <hr class="my-4" />
 
           <div class="text-center">
-            <p class="mb-3">Or sign in with</p>
+            <p class="mb-3">{{ 'AUTH.OR_SIGN_IN_WITH' | translate }}</p>
             <div class="d-grid gap-2 d-md-flex justify-content-md-center">
               <button class="btn btn-outline-danger me-md-2" type="button">
-                <i class="bi bi-google me-2"></i> Google
+                <i class="bi bi-google me-2"></i> {{ 'AUTH.GOOGLE' | translate }}
               </button>
               <button class="btn btn-outline-dark" type="button">
-                <i class="bi bi-github me-2"></i> GitHub
+                <i class="bi bi-github me-2"></i> {{ 'AUTH.GITHUB' | translate }}
               </button>
             </div>
           </div>
 
           <div class="text-center mt-4">
             <p class="mb-0">
-              Don't have an account?
-              <a routerLink="/auth/signup" class="text-primary">Sign up</a>
+              {{ 'AUTH.NO_ACCOUNT' | translate }}
+              <a routerLink="/auth/signup" class="text-primary">{{ 'AUTH.SIGN_UP' | translate }}</a>
             </p>
           </div>
         </div>
