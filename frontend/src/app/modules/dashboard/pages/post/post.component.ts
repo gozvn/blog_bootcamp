@@ -29,6 +29,12 @@ export class PostComponent {
   orderBy: string = 'DESC';
   categories: any[] = [];
 
+  // Badge configuration for language
+  badgeLanguage: any = {
+    1: { badge: 'bg-primary', text: 'Vietnamese' },
+    2: { badge: 'bg-info', text: 'English' }
+  }
+
   // Filter properties
   selectedLanguage: any = '';
   selectedStatus: string = '';
