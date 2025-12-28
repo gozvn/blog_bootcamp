@@ -107,7 +107,7 @@ router.group("/user", validate([]), (router) => {
   router.get('/', authMiddleware, checkRole(4), userController.all);
   router.get('/:id', authMiddleware, checkRole(4), userController.getbyId);
   router.post('/create', authMiddleware, checkRole(4), checkSchema(userValidation.createUser), userController.create);
-  router.put('/edit/:id', authMiddleware, checkRole(4), checkSchema(userValidation.updateUser), userController.update);
+  router.put('/edit/:id', authMiddleware, checkRole(1), checkSchema(userValidation.updateUser), userController.update);
   router.delete('/delete/:id', authMiddleware, checkRole(1), userController.delete);
 })
 

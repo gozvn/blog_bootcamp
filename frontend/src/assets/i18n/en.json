@@ -192,5 +192,20 @@
         "RESULTS_FOR": "Search results for: \"{{keyword}}\"",
         "SEARCHING_FOR": "Searching posts with keyword \"{{keyword}}\"",
         "SEARCH_POSTS": "Search Posts"
+    },
+    "SETTINGS": {
+        "TITLE": "Account Settings",
+        "PROFILE_INFO": "Profile Information",
+        "UPDATE_PROFILE": "Update Profile",
+        "CHANGE_PASSWORD": "Change Password",
+        "NEW_PASSWORD": "New Password",
+        "CURRENT_PASSWORD": "Current Password",
+        "CONFIRM_NEW_PASSWORD": "Confirm New Password",
+        "PROFILE_UPDATED": "Profile updated successfully.",
+        "PASSWORD_UPDATED": "Password updated successfully.",
+        "UPDATE_FAILED": "Failed to update profile.",
+        "AVATAR_UPLOADED": "Avatar uploaded successfully.",
+        "AVATAR_UPLOAD_FAILED": "Failed to upload avatar.",
+        "NO_CHANGES": "No changes were made."
     }
 }

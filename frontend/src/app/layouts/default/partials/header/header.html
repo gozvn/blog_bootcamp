@@ -38,13 +38,8 @@
         <!-- Search form for large screens only -->
         <form [formGroup]="searchForm" (ngSubmit)="onSearch()" class="me-3 d-none d-lg-block" role="search">
           <div class="input-group">
-            <input 
-              type="search" 
-              class="form-control" 
-              formControlName="keyword"
-              [placeholder]="'HOMEPAGE.SEARCH' | translate"
-              (keypress)="onSearchKeyPress($event)"
-              aria-label="Search">
+            <input type="search" class="form-control" formControlName="keyword"
+              [placeholder]="'HOMEPAGE.SEARCH' | translate" (keypress)="onSearchKeyPress($event)" aria-label="Search">
             <button class="btn btn-outline-primary" type="submit">
               <i class="bi bi-search"></i>
             </button>
@@ -140,7 +135,7 @@
           @if (user.role == 1 || user.role == '1') {
           <li><a class="dropdown-item" [routerLink]="['/dashboard']">{{ 'MENU.DASHBOARD' | translate }}</a></li>
           }
-          <li><a class="dropdown-item" href="#">{{ 'MENU.PROFILE' | translate }}</a></li>
+          <li><a class="dropdown-item" routerLink="/user/setting">{{ 'MENU.PROFILE' | translate }}</a></li>
           <li>
             <hr class="dropdown-divider">
           </li>
@@ -164,13 +159,8 @@
         <i class="bi bi-search me-2"></i>{{ 'SEARCH.SEARCH' | translate }}
       </h6>
       <form [formGroup]="mobileSearchForm" (ngSubmit)="onSearch(true)" class="d-flex" role="search">
-        <input 
-          class="form-control me-2" 
-          type="search" 
-          formControlName="keyword"
-          [placeholder]="'HOMEPAGE.SEARCH' | translate"
-          (keypress)="onSearchKeyPress($event, true)"
-          aria-label="Search">
+        <input class="form-control me-2" type="search" formControlName="keyword"
+          [placeholder]="'HOMEPAGE.SEARCH' | translate" (keypress)="onSearchKeyPress($event, true)" aria-label="Search">
         <button class="btn btn-outline-primary" type="submit">
           <i class="bi bi-search"></i>
         </button>

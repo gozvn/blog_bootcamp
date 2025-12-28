@@ -87,4 +87,16 @@ export class UserService {
         );
     }
 
+    getUserById(userId: number): Observable<any> {
+        return this.backendService.get(`user/${userId}`).pipe(
+            map((result: any) => result?.data ?? null)
+        );
+    }
+
+    updateUser(userId: number, user: any): Observable<any> {
+        return this.backendService.put(`user/edit/${userId}`, user).pipe(
+            map((result: any) => result?.data ?? null)
+        );
+    }
+
 }

@@ -190,5 +190,20 @@
         "RESULTS_FOR": "Kết quả tìm kiếm: \"{{keyword}}\"",
         "SEARCHING_FOR": "Tìm kiếm bài viết với từ khóa \"{{keyword}}\"",
         "SEARCH_POSTS": "Tìm kiếm bài viết"
+    },
+    "SETTINGS": {
+        "TITLE": "Cài đặt tài khoản",
+        "PROFILE_INFO": "Thông tin cá nhân",
+        "UPDATE_PROFILE": "Cập nhật thông tin",
+        "CHANGE_PASSWORD": "Đổi mật khẩu",
+        "NEW_PASSWORD": "Mật khẩu mới",
+        "CURRENT_PASSWORD": "Mật khẩu hiện tại",
+        "CONFIRM_NEW_PASSWORD": "Xác nhận mật khẩu mới",
+        "PROFILE_UPDATED": "Cập nhật thông tin thành công.",
+        "PASSWORD_UPDATED": "Đổi mật khẩu thành công.",
+        "UPDATE_FAILED": "Cập nhật thất bại.",
+        "AVATAR_UPLOADED": "Tải ảnh đại diện thành công.",
+        "AVATAR_UPLOAD_FAILED": "Tải ảnh đại diện thất bại.",
+        "NO_CHANGES": "Không có thay đổi nào được thực hiện."
     }
 }

@@ -1,1 +1,86 @@
-<p>setting works!</p>
+<app-header></app-header>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0 fw-bold">{{ 'SETTINGS.TITLE' | translate }}</h5>
+                </div>
+                <div class="card-body p-4">
+                    <form [formGroup]="settingsForm" (ngSubmit)="updateSettings()">
+
+                        <h6 class="mb-3 fw-bold text-primary">{{ 'SETTINGS.PROFILE_INFO' | translate }}</h6>
+
+                        <div class="mb-3">
+                            <label for="username" class="form-label">{{ 'AUTH.USERNAME' | translate }} <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" id="username" class="form-control" formControlName="username"
+                                [ngClass]="{'is-invalid': settingsForm.get('username')?.invalid && settingsForm.get('username')?.touched}">
+                            @if (settingsForm.get('username')?.invalid && settingsForm.get('username')?.touched) {
+                            <div class="invalid-feedback">
+                                {{ 'AUTH.USERNAME_REQUIRED' | translate }}
+                            </div>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">{{ 'AUTH.EMAIL_ADDRESS' | translate }} <span
+                                    class="text-danger">*</span></label>
+                            <input type="email" id="email" class="form-control" formControlName="email" readonly
+                                [ngClass]="{'is-invalid': settingsForm.get('email')?.invalid && settingsForm.get('email')?.touched}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="language" class="form-label">{{ 'HEADER.LANGUAGE' | translate }} <span
+                                    class="text-danger">*</span></label>
+                            <select class="form-select" id="language" formControlName="lang_id">
+                                @for (lang of languages; track lang.id) {
+                                <option [value]="lang.id">{{ lang.lang_name }}</option>
+                                }
+                            </select>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <h6 class="mb-3 fw-bold text-primary">{{ 'SETTINGS.CHANGE_PASSWORD' | translate }}</h6>
+
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label">{{ 'SETTINGS.NEW_PASSWORD' | translate
+                                }}</label>
+                            <input type="password" id="newPassword" class="form-control" formControlName="password"
+                                [ngClass]="{'is-invalid': settingsForm.get('password')?.invalid && settingsForm.get('password')?.touched}">
+                            @if (settingsForm.get('password')?.errors?.['minlength'] &&
+                            settingsForm.get('password')?.touched) {
+                            <div class="invalid-feedback">
+                                Password must be at least 6 characters.
+                            </div>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">{{ 'SETTINGS.CONFIRM_NEW_PASSWORD' |
+                                translate }}</label>
+                            <input type="password" id="confirmPassword" class="form-control"
+                                formControlName="confirmPassword"
+                                [ngClass]="{'is-invalid': settingsForm.get('confirmPassword')?.invalid && settingsForm.get('confirmPassword')?.touched}">
+                            @if (settingsForm.get('confirmPassword')?.errors?.['passwordMismatch'] &&
+                            settingsForm.get('confirmPassword')?.touched) {
+                            <div class="invalid-feedback">
+                                {{ 'AUTH.PASSWORD_MISMATCH' | translate }}
+                            </div>
+                            }
+                        </div>
+
+                        <div class="text-end mt-4">
+                            <button type="submit" class="btn btn-primary" [disabled]="settingsForm.invalid || loading">
+                                {{ 'SETTINGS.UPDATE_PROFILE' | translate }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-toast></app-toast>
+<app-footer></app-footer>

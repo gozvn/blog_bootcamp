@@ -10,7 +10,7 @@ const authMiddleware = (req, res, next) => {
             return responseUtils.unauthorized(res, "Unauthorized");
         }
         req.user = decoded;
-        console.log(req.user)
+        // console.log(req.user)
         next();
     } catch (error) {
         return responseUtils.unauthorized(res, "Unauthorized");
@@ -26,4 +26,21 @@ const checkRole = (role) => {
     }
 }
 
-module.exports = { authMiddleware, checkRole };
+const canUpdateUser = (req, res, next) => {
+    const currentUser = req.user;
+    const targetUserId = Number(req.params.id);
+
+    // Admin / Super Admin
+    if (parseInt(currentUser.role) <= 1) {
+        return next();
+    }
+
+    // User thường → chỉ update chính mình
+    if (parseInt(currentUser.role) > 3 && currentUser.id === targetUserId) {
+        return next();
+    }
+
+    return responseUtils.unauthorized(res, "Unauthorized");
+};
+
+module.exports = { authMiddleware, checkRole, canUpdateUser };

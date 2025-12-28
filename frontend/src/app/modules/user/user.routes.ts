@@ -24,5 +24,10 @@ export const UserRoutes: Route[] = [
         component: EditpostComponent,
         title: 'Edit Post'
     },
+    {
+        path: 'setting',
+        loadComponent: () => import('./pages/setting/setting.component').then(m => m.SettingComponent),
+        title: 'Settings'
+    }
 
 ];
