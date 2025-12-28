@@ -5,9 +5,18 @@
         <div class="card-header d-flex justify-content-between align-items-center">
             <h5 class="mb-0">{{ 'USER.EDIT_POST' | translate }}</h5>
             <div class="d-flex align-items-center">
-                <button type="button" class="btn btn-outline-secondary me-2">{{ 'USER.CANCEL' | translate }}</button>
-                <button type="button" class="btn btn-outline-primary me-2" (click)="submitDraft()">{{ 'USER.SAVE_DRAFT' | translate }}</button>
-                <button type="button" class="btn btn-primary" (click)="submitPost()">{{ 'USER.UPDATE_POST' | translate }}</button>
+                <button type="button" class="btn btn-outline-secondary me-2" routerLink="/user">{{ 'USER.CANCEL' |
+                    translate }}</button>
+                @if (postStatus === 'draft' || !postStatus) {
+                <button type="button" class="btn btn-primary" (click)="publishPost()">{{ 'USER.PUBLISH_POST' | translate
+                    }}</button>
+                }
+                @if (postStatus === 'published') {
+                <button type="button" class="btn btn-outline-primary me-2" (click)="submitDraft()">{{ 'USER.SAVE_DRAFT'
+                    | translate }}</button>
+                <button type="button" class="btn btn-primary" (click)="submitPost()">{{ 'USER.UPDATE_POST' | translate
+                    }}</button>
+                }
             </div>
         </div>
 
@@ -17,7 +26,8 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label for="postTitle" class="form-label">{{ 'USER.TITLE' | translate }} <span class="text-danger">*</span></label>
+                            <label for="postTitle" class="form-label">{{ 'USER.TITLE' | translate }} <span
+                                    class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="postTitle" formControlName="title"
                                 placeholder="{{ 'USER.ENTER_TITLE' | translate }}" required>
                             @if (editPostForm.get('title')?.hasError('required') &&
@@ -42,7 +52,8 @@
                             }
                         </div>
                         <div class="mb-3">
-                            <label for="postLanguage" class="form-label">{{ 'USER.LANGUAGE' | translate }} <span class="text-danger">*</span></label>
+                            <label for="postLanguage" class="form-label">{{ 'USER.LANGUAGE' | translate }} <span
+                                    class="text-danger">*</span></label>
                             <select class="form-select" id="postLanguage" formControlName="lang_id" required>
                                 <option value="">{{ 'USER.SELECT_LANGUAGE' | translate }}</option>
                                 @for (language of languages; track language.id) {
@@ -90,7 +101,8 @@
 
                 <!--  editor -->
                 <div class="mb-3">
-                    <label for="postContent" class="form-label">{{ 'USER.CONTENT' | translate }} <span class="text-danger">*</span></label>
+                    <label for="postContent" class="form-label">{{ 'USER.CONTENT' | translate }} <span
+                            class="text-danger">*</span></label>
                     <quill-editor formControlName="content" [modules]="quillConfig" [styles]="{height: '400px'}"
                         placeholder="{{ 'USER.CONTENT_PLACEHOLDER' | translate }}">
                     </quill-editor>

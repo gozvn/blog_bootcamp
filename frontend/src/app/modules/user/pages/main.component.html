@@ -115,8 +115,13 @@
                 <div class="row g-0">
                     <div class="col-md-3">
                         <a [routerLink]="['edit/', post.id]">
+                            @if (post.thumbnail) {
+                            <img src="{{post.thumbnail}}" class="img-fluid rounded-start h-100 object-cover"
+                                alt="Post Image">
+                            } @else {
                             <img src="assets/img/no_img.jpg" class="img-fluid rounded-start h-100 object-cover"
                                 alt="Post Image">
+                            }
                         </a>
                     </div>
                     <div class="col-md-9">
@@ -239,7 +244,8 @@
                 </div>
             </div>
             <div class="modal-footer border-0">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'USER.CANCEL' | translate }}</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'USER.CANCEL' | translate
+                    }}</button>
                 <button type="button" class="btn btn-success" id="confirmPublishBtn">
                     <i class="bi bi-upload me-2"></i>{{ 'USER.PUBLISH_POST' | translate }}
                 </button>

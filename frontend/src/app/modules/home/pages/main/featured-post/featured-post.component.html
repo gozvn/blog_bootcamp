@@ -15,7 +15,11 @@
       <div class="row g-0 h-100">
         <div class="col-md-4">
           <a href="post/{{post.id}}/{{post.slug}}">
+            @if (post.thumbnail) {
+            <img src="{{post.thumbnail}}" class="img-fluid rounded-start h-100 object-cover" alt="Design">
+            } @else {
             <img src="assets/img/no_img.jpg" class="img-fluid rounded-start h-100 object-cover" alt="Design">
+            }
           </a>
         </div>
         <div class="col-md-8">

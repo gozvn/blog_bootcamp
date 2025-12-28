@@ -26,6 +26,7 @@ export class EditpostComponent implements OnInit {
   languages: any[] = [];
   imagePreview: string | null = null;
   loading: boolean = false;
+  postStatus: string = '';
 
   // Cấu hình Quill Editor
   quillConfig = {
@@ -99,11 +100,14 @@ export class EditpostComponent implements OnInit {
       next: (res) => {
         if (res) {
           const categoryId = res.categories && res.categories.length > 0 ? res.categories[0].id : '';
+          const languageId = res.language ? res.language.id : '';
+          this.postStatus = res.status;
+
           this.editPostForm.patchValue({
             title: res.title || '',
             content: res.content || '',
             category: categoryId,
-            lang_id: res.lang_id || res.language_id || '',
+            lang_id: languageId,
             thumbnail: res.thumbnail || '',
             featured: res.featured || false
           });
@@ -194,11 +198,36 @@ export class EditpostComponent implements OnInit {
 
     this.userService.editPost(this.postId, postData).subscribe({
       next: (res) => {
+        this.postStatus = 'draft';
         this.toastService.showMessage('successToast', this.translate.instant('USER.DRAFT_SAVED'));
       },
       error: (err) => {
         this.toastService.showMessage('errorToast', err?.error?.message || this.translate.instant('USER.DRAFT_SAVE_FAILED'));
       }
     });
+  }
+
+  publishPost(): void {
+    if (this.editPostForm.valid) {
+      const postData = {
+        ...this.editPostForm.value,
+        category: Array.isArray(this.editPostForm.value.category) ? this.editPostForm.value.category : [Number(this.editPostForm.value.category)],
+        tags: this.tags.map(t => t.id || t),
+        status: 'published'
+      };
+
+      this.userService.editPost(this.postId, postData).subscribe({
+        next: (res) => {
+          this.postStatus = 'published';
+          this.toastService.showMessage('successToast', this.translate.instant('USER.POST_PUBLISHED'));
+          this.router.navigate(['/user']);
+        },
+        error: (err) => {
+          this.toastService.showMessage('errorToast', err?.error?.message || err?.error?.data || this.translate.instant('USER.PUBLISH_FAILED'));
+        }
+      });
+    } else {
+      this.toastService.showMessage('errorToast', this.translate.instant('USER.FILL_REQUIRED_FIELDS'));
+    }
   }
 }
