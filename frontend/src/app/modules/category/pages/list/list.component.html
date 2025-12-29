@@ -3,8 +3,8 @@
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">{{ 'HEADER.HOME' | translate }}</a></li>
-            <li class="breadcrumb-item"><a href="categories.html">{{ 'HEADER.CATEGORY' | translate }}</a></li>
+            <li class="breadcrumb-item"><a routerLink="/">{{ 'HEADER.HOME' | translate }}</a></li>
+            <li class="breadcrumb-item"><a routerLink="/category">{{ 'HEADER.CATEGORY' | translate }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{detailCategory.name}}</li>
         </ol>
     </nav>

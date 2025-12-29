@@ -8,11 +8,11 @@ import { CommentComponent } from '../../../comment/comment.component';
 import { Title } from '@angular/platform-browser';
 import { SidebarComponent } from '../../../../layouts/default/partials/sidebar/sidebar.component';
 import { TranslateModule } from '@ngx-translate/core';
-
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-detail',
   standalone: true,
-  imports: [CommonModule, Header, Footer, CommentComponent, SidebarComponent, TranslateModule],
+  imports: [CommonModule, Header, Footer, CommentComponent, SidebarComponent, TranslateModule, RouterLink],
   templateUrl: './detail.component.html',
 })
 export class DetailPostComponent implements OnInit {
