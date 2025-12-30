@@ -1,107 +1,105 @@
 <app-toast></app-toast>
 <div class="container">
 
-        <div class="row justify-content-center">
-            <div class="col-md-6 col-lg-5">
-                <div class="card shadow">
-                    <div class="card-body p-5">
-                        <div class="text-center mb-4">
-                            <h2 class="fw-bold">{{ 'AUTH.CREATE_ACCOUNT' | translate }}</h2>
-                            <p class="text-muted">{{ 'AUTH.JOIN_US' | translate }}</p>
-                        </div>
-                        
-                        <form [formGroup]="form" (ngSubmit)="onSignup()" novalidate>
-                            <div class="mb-3">
-                                <label for="username" class="form-label">{{ 'AUTH.USERNAME' | translate }}</label>
-                                <input type="text" 
-                                id="username"
-                                formControlName="username"
-                                class="form-control"
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold">{{ 'AUTH.CREATE_ACCOUNT' | translate }}</h2>
+                        <p class="text-muted">{{ 'AUTH.JOIN_US' | translate }}</p>
+                    </div>
+
+                    <form [formGroup]="form" (ngSubmit)="onSignup()" novalidate>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">{{ 'AUTH.USERNAME' | translate }}</label>
+                            <input type="text" id="username" formControlName="username" class="form-control"
                                 placeholder="{{ 'AUTH.ENTER_USERNAME' | translate }}"
                                 [class.is-invalid]="form.get('username')?.invalid && form.get('username')?.touched">
-                                <div class="invalid-feedback">
-                                    {{ 'AUTH.USERNAME_REQUIRED' | translate }}
-                                </div>
+                            <div class="invalid-feedback">
+                                {{ 'AUTH.USERNAME_REQUIRED' | translate }}
                             </div>
-                            
-                            <div class="mb-3">
-                                <label for="email" class="form-label">{{ 'AUTH.EMAIL_ADDRESS' | translate }}</label>
-                                <input type="email"
-                                id="email"
-                                formControlName="email"
-                                class="form-control"
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">{{ 'AUTH.EMAIL_ADDRESS' | translate }}</label>
+                            <input type="email" id="email" formControlName="email" class="form-control"
                                 placeholder="{{ 'AUTH.ENTER_EMAIL' | translate }}"
                                 [class.is-invalid]="form.get('email')?.invalid && form.get('email')?.touched">
-                                @if (form.get('email')?.errors?.['required'] && form.get('email')?.touched) {
-                                    <div class="invalid-feedback d-block">{{ 'AUTH.EMAIL_REQUIRED' | translate }}</div>
-                                }
-                                @if (form.get('email')?.errors?.['email'] && form.get('email')?.touched) {
-                                    <div class="invalid-feedback d-block">{{ 'AUTH.EMAIL_INVALID' | translate }}</div>
-                                }
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label for="password" class="form-label">{{ 'AUTH.PASSWORD' | translate }}</label>
-                                <div class="input-group">
-                                    <input
-                                    [type]="showPassword ? 'text' : 'password'"
-                                    formControlName="password"
-                                    class="form-control"
-                                    id="password"
+                            @if (form.get('email')?.errors?.['required'] && form.get('email')?.touched) {
+                            <div class="invalid-feedback d-block">{{ 'AUTH.EMAIL_REQUIRED' | translate }}</div>
+                            }
+                            @if (form.get('email')?.errors?.['email'] && form.get('email')?.touched) {
+                            <div class="invalid-feedback d-block">{{ 'AUTH.EMAIL_INVALID' | translate }}</div>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">{{ 'AUTH.PASSWORD' | translate }}</label>
+                            <div class="input-group">
+                                <input [type]="showPassword ? 'text' : 'password'" formControlName="password"
+                                    class="form-control" id="password"
                                     placeholder="{{ 'AUTH.ENTER_PASSWORD' | translate }}"
-                                    [class.is-invalid]="form.get('password')?.invalid && form.get('password')?.touched"
-                                    />
-                                    <button
-                                        class="btn btn-outline-secondary"
-                                        type="button"
-                                        (click)="togglePassword()"
-                                    >
+                                    [class.is-invalid]="form.get('password')?.invalid && form.get('password')?.touched" />
+                                <button class="btn btn-outline-secondary" type="button" (click)="togglePassword()">
                                     <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
-                                    </button>
-                                </div>
-                                @if (form.get('password')?.errors?.['required'] && form.get('password')?.touched) {
-                                    <div class="invalid-feedback d-block">{{ 'AUTH.PASSWORD_REQUIRED' | translate }}</div>
-                                }
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label for="confirmPassword" class="form-label">{{ 'AUTH.CONFIRM_PASSWORD' | translate }}</label>
-                                <div class="input-group">
-                                    <input [type]="showconfirmPassword ? 'text' : 'password'" class="form-control" id="confirmPassword" formControlName="confirmPassword" placeholder="{{ 'AUTH.CONFIRM_PASSWORD_PLACEHOLDER' | translate }}" [class.is-invalid]="form.errors?.['passwordMismatch'] && form.get('confirmPassword')?.touched" required>
-                                    <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword" (click)="toggleconfirmPassword()">
-                                        <i class="bi" [ngClass]="showconfirmPassword ? 'bi-eye-slash' : 'bi-eye'" id="toggleConfirmIcon"></i>
-                                    </button>
-                                </div>
-                                @if (form.errors?.['passwordMismatch'] && form.get('confirmPassword')?.touched) {
-                                <div class="invalid-feedback d-block">
-                                    {{ 'AUTH.PASSWORD_MISMATCH' | translate }}
-                                </div>
-                                }
-                            </div>
-                            
-                            <div class="mb-3 form-check">
-                                <input type="checkbox" [class.is-invalid]="form.get('terms')?.invalid && form.get('terms')?.touched" class="form-check-input" id="terms" formControlName="terms" required>
-                                <label class="form-check-label" for="terms">
-                                    I agree to the <a href="#" class="text-primary">Terms of Service</a> and <a href="#" class="text-primary">Privacy Policy</a>
-                                </label>
-                                @if (form.get('terms')?.errors?.['requiredTrue'] && form.get('terms')?.touched) {
-                                <div class="invalid-feedback d-block">
-                                    You must agree to the terms and conditions.
-                                </div>
-                                }
-                            </div>
-                            
-                            <div class="d-grid">
-                                <button [disabled]="form.invalid" type="submit" class="btn btn-primary btn-lg" id="signupBtn">
-                                    <span class="spinner-border spinner-border-sm d-none me-2" id="signupSpinner" role="status" aria-hidden="true"></span>
-                                    {{ 'AUTH.CREATE_ACCOUNT' | translate }}
                                 </button>
                             </div>
-                        </form>
-                        
-                        <hr class="my-4">
-                        
-                        <div class="text-center">
+                            @if (form.get('password')?.errors?.['required'] && form.get('password')?.touched) {
+                            <div class="invalid-feedback d-block">{{ 'AUTH.PASSWORD_REQUIRED' | translate }}</div>
+                            }
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">{{ 'AUTH.CONFIRM_PASSWORD' | translate
+                                }}</label>
+                            <div class="input-group">
+                                <input [type]="showconfirmPassword ? 'text' : 'password'" class="form-control"
+                                    id="confirmPassword" formControlName="confirmPassword"
+                                    placeholder="{{ 'AUTH.CONFIRM_PASSWORD_PLACEHOLDER' | translate }}"
+                                    [class.is-invalid]="form.errors?.['passwordMismatch'] && form.get('confirmPassword')?.touched"
+                                    required>
+                                <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword"
+                                    (click)="toggleconfirmPassword()">
+                                    <i class="bi" [ngClass]="showconfirmPassword ? 'bi-eye-slash' : 'bi-eye'"
+                                        id="toggleConfirmIcon"></i>
+                                </button>
+                            </div>
+                            @if (form.errors?.['passwordMismatch'] && form.get('confirmPassword')?.touched) {
+                            <div class="invalid-feedback d-block">
+                                {{ 'AUTH.PASSWORD_MISMATCH' | translate }}
+                            </div>
+                            }
+                        </div>
+
+                        <div class="mb-3 form-check">
+                            <input type="checkbox"
+                                [class.is-invalid]="form.get('terms')?.invalid && form.get('terms')?.touched"
+                                class="form-check-input" id="terms" formControlName="terms" required>
+                            <label class="form-check-label" for="terms">
+                                I agree to the <a href="#" class="text-primary">Terms of Service</a> and <a href="#"
+                                    class="text-primary">Privacy Policy</a>
+                            </label>
+                            @if (form.get('terms')?.errors?.['requiredTrue'] && form.get('terms')?.touched) {
+                            <div class="invalid-feedback d-block">
+                                You must agree to the terms and conditions.
+                            </div>
+                            }
+                        </div>
+
+                        <div class="d-grid">
+                            <button [disabled]="form.invalid" type="submit" class="btn btn-primary btn-lg"
+                                id="signupBtn">
+                                <span class="spinner-border spinner-border-sm d-none me-2" id="signupSpinner"
+                                    role="status" aria-hidden="true"></span>
+                                {{ 'AUTH.CREATE_ACCOUNT' | translate }}
+                            </button>
+                        </div>
+                    </form>
+
+                    <hr class="my-4">
+
+                    <!-- <div class="text-center">
                             <p class="mb-3">{{ 'AUTH.OR_SIGN_IN_WITH' | translate }}</p>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-center">
                                 <button class="btn btn-outline-danger me-md-2" type="button" id="googleSignup">
@@ -117,13 +115,14 @@
                                     {{ 'AUTH.GITHUB' | translate }}
                                 </button>
                             </div>
-                        </div>
-                        
-                        <div class="text-center mt-4">
-                            <p class="mb-0">{{ 'AUTH.ALREADY_HAVE_ACCOUNT' | translate }} <a routerLink="/auth/login" class="text-primary">{{ 'AUTH.SIGN_IN_HERE' | translate }}</a></p>
-                        </div>
+                        </div> -->
+
+                    <div class="text-center mt-4">
+                        <p class="mb-0">{{ 'AUTH.ALREADY_HAVE_ACCOUNT' | translate }} <a routerLink="/auth/login"
+                                class="text-primary">{{ 'AUTH.SIGN_IN_HERE' | translate }}</a></p>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 </div>
