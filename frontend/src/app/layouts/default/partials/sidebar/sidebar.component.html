@@ -17,7 +17,11 @@
     <li>
       <div class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 border-top">
         <a href="posts/{{post.id}}/{{post.slug}}">
+          @if (post.thumbnail) {
+          <img src="{{post.thumbnail}}" alt="Post thumbnail" class="rounded" width="100" height="60">
+          } @else {
           <img src="assets/img/no_img.jpg" alt="Post thumbnail" class="rounded" width="100" height="60">
+          }
         </a>
         <div class="col-lg-8">
           <h6 class="mb-0">
