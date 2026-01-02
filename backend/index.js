@@ -13,7 +13,7 @@ const cors = require("cors");
 const app = express();
 
 const corsOptions = {
-  origin: ['http://localhost:4200', 'https://blog.sunvoz.com/'],
+  origin: ['http://localhost:4200', 'https://blog.sunvoz.com'],
   credentials: true,
 };
 app.use(cors(corsOptions));
