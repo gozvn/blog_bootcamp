@@ -43,7 +43,7 @@ export class AppTranslateService {
     /** Khởi tạo ngôn ngữ (khi app bootstrap) */
     private initLanguage() {
         const lang = this.getLanguage();
-        this.ngx.addLangs(['vi', 'en']);
+        this.ngx.addLangs(['vn', 'en']);
         this.ngx.setDefaultLang(this.defaultLang);
         this.ngx.use(lang);
     }
