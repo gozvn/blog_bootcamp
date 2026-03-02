@@ -1,14 +1,14 @@
 export const environment = {
     backendServer: {
-        host: 'localhost:3000',
+        host: 'dbblog.sunvoz.com',
         prefix: '/api/v1',
         port: 443,
-        ssl: false,
+        ssl: true,
         timeout: 30000,
 
     },
     cdn: {
-        baseimageUrl: 'http://localhost:3000/', // Lưu tạm ở đaay
+        baseimageUrl: 'http://dbblog.sunvoz.com/', // Lưu tạm ở đaay
     },
-    production: false,
+    production: true,
 };

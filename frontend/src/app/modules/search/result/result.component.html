@@ -52,7 +52,11 @@
                 <div class="col-md-6">
                     <div class="card border-0 shadow-sm h-100 post-card">
                         <a routerLink="/post/{{post.id}}/{{post.slug}}">
+                            @if (post.image) {
+                            <img src="{{post.thumbnail}}" class="card-img-top" alt="{{post.title}}">
+                            } @else {
                             <img src="/assets/img/no_img.jpg" class="card-img-top" alt="{{post.title}}">
+                            }
                         </a>
                         <div class="card-body d-flex flex-column">
                             <span class="badge bg-warning text-dark mb-2 align-self-start">{{ post.category?.name ||
@@ -82,28 +86,23 @@
                 <ul class="pagination justify-content-center">
 
                     <li class="page-item" [class.disabled]="currentPage <= 1">
-                        <a class="page-link" 
-                           [routerLink]="['/search']" 
-                           [queryParams]="{ q: keyword, page: currentPage - 1 }"
-                           [class.disabled]="currentPage <= 1"
-                           tabindex="-1">{{ 'USER.PREVIOUS' | translate }}</a>
+                        <a class="page-link" [routerLink]="['/search']"
+                            [queryParams]="{ q: keyword, page: currentPage - 1 }" [class.disabled]="currentPage <= 1"
+                            tabindex="-1">{{ 'USER.PREVIOUS' | translate }}</a>
                     </li>
 
                     @for (page of pages; track page) {
                     <li class="page-item" [class.active]="page === currentPage">
-                        <a class="page-link" 
-                           [routerLink]="['/search']" 
-                           [queryParams]="{ q: keyword, page: page }">
+                        <a class="page-link" [routerLink]="['/search']" [queryParams]="{ q: keyword, page: page }">
                             {{ page }}
                         </a>
                     </li>
                     }
 
                     <li class="page-item" [class.disabled]="currentPage >= totalPages">
-                        <a class="page-link" 
-                           [routerLink]="['/search']" 
-                           [queryParams]="{ q: keyword, page: currentPage + 1 }"
-                           [class.disabled]="currentPage >= totalPages">{{
+                        <a class="page-link" [routerLink]="['/search']"
+                            [queryParams]="{ q: keyword, page: currentPage + 1 }"
+                            [class.disabled]="currentPage >= totalPages">{{
                             'USER.NEXT' | translate }}</a>
                     </li>
                 </ul>

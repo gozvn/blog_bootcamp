@@ -87,11 +87,11 @@ router.group("/tag", validate([]), (router) => {
 
 // Comment module routes
 router.group("/comment", validate([]), (router) => {
-  router.get('/', commentController.all);
-  router.get('/:id', commentController.getById);
-  router.post('/create', authMiddleware, checkRole(4), commentController.create);
-  router.put('/edit/:id', authMiddleware, checkRole(4), commentController.update);
-  router.delete('/delete/:id', authMiddleware, checkRole(4), commentController.delete);
+  router.get('/', authMiddleware, checkRole(1), commentController.all);
+  router.get('/:id', authMiddleware, checkRole(1), commentController.getById);
+  router.post('/create', authMiddleware, checkRole(1), commentController.create);
+  router.put('/edit/:id', authMiddleware, checkRole(1), commentController.update);
+  router.delete('/delete/:id', authMiddleware, checkRole(1), commentController.delete);
 });
 
 // Module Post routes
@@ -106,7 +106,7 @@ router.group("/post", validate([]), (router) => {
 router.group("/user", validate([]), (router) => {
   router.get('/', authMiddleware, checkRole(4), userController.all);
   router.get('/:id', authMiddleware, checkRole(4), userController.getbyId);
-  router.post('/create', authMiddleware, checkSchema(userValidation.createUser), userController.create);
+  router.post('/create', authMiddleware, checkRole(4), checkSchema(userValidation.createUser), userController.create);
   router.put('/edit/:id', authMiddleware, checkRole(1), checkSchema(userValidation.updateUser), userController.update);
   router.delete('/delete/:id', authMiddleware, checkRole(1), userController.delete);
 })
