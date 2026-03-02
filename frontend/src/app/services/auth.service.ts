@@ -38,6 +38,29 @@ export class AuthService {
       );
   }
 
+  /**
+   * Đăng nhập bằng Google OAuth.
+   * Nhận id_token từ Google GSI, gửi lên backend để verify và tạo/tìm user.
+   */
+  googleLogin(idToken: string): Observable<any> {
+    return this.backendService.post('auth/googleOAuth', { id_token: idToken }, { withCredentials: true })
+      .pipe(
+        tap((response: any) => {
+          if (response?.data?.accessToken) {
+            localStorage.setItem('accessToken', response.data.accessToken);
+            localStorage.setItem('user', JSON.stringify({
+              id: response.data.user.id,
+              email: response.data.user.email,
+              expiredAt: response.data.expiredAt,
+              username: response.data.user.username,
+              role: response.data.user.role,
+              avatar: response.data.user.avatar,
+            }));
+          }
+        })
+      );
+  }
+
   getUserInfo(): any {
     if (typeof window !== 'undefined') {
       const user = localStorage.getItem('user');

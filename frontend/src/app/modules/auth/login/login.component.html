@@ -65,17 +65,21 @@
 
           <hr class="my-4" />
 
-          <!-- <div class="text-center">
+          <div class="text-center">
             <p class="mb-3">{{ 'AUTH.OR_SIGN_IN_WITH' | translate }}</p>
             <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-              <button class="btn btn-outline-danger me-md-2" type="button">
-                <i class="bi bi-google me-2"></i> {{ 'AUTH.GOOGLE' | translate }}
+              <button class="btn btn-outline-danger me-md-2" type="button" (click)="onGoogleLogin()"
+                [disabled]="googleLoading">
+                <span class="spinner-border spinner-border-sm me-2" role="status"
+                  [class.d-none]="!googleLoading"></span>
+                <i class="bi bi-google me-2" [class.d-none]="googleLoading"></i>
+                {{ googleLoading ? '' : ('AUTH.GOOGLE' | translate) }}
               </button>
-              <button class="btn btn-outline-dark" type="button">
+              <!-- <button class="btn btn-outline-dark" type="button">
                 <i class="bi bi-github me-2"></i> {{ 'AUTH.GITHUB' | translate }}
-              </button>
+              </button> -->
             </div>
-          </div> -->
+          </div>
 
           <div class="text-center mt-4">
             <p class="mb-0">

@@ -23,7 +23,12 @@ const authController = {
             if (!checkEmail) {
                 return responseUtils.invalidated(res, "validation.email")
             }
-            // respone giống nhau
+
+            // User đăng ký bằng Google không có password → không thể login bằng email/password
+            if (!checkEmail.password) {
+                return responseUtils.invalidated(res, "validation.password");
+            }
+
             const passwordMatches = await bcrypt.compare(password, checkEmail.password);
             if (!passwordMatches) {
                 return responseUtils.invalidated(res, "validation.password");
@@ -76,7 +81,7 @@ const authController = {
     logout: async (req, res) => {
         try {
             // Lấy refresh_token từ cookie hoặc trong body
-            const refreshToken = req?.cookies?.refresh_token || req?.body?.refresh_token;
+            const refreshToken = req?.cookies?.refreshToken || req?.body?.refreshToken;
 
             if (!refreshToken) {
                 return responseUtils.error(res, "Chưa có refresh Token");
@@ -94,7 +99,7 @@ const authController = {
             // hoặc: await existingToken.destroy(); // nếu muốn xoá hẳn
 
             // Xoá cookie
-            res.clearCookie("refresh_token", {
+            res.clearCookie("refreshToken", {
                 httpOnly: true,
                 secure: false,
                 sameSite: "lax",
@@ -109,7 +114,7 @@ const authController = {
     refreshToken: async (req, res) => {
         try {
             // Lấy refresh_token từ cookie hoặc trong body
-            const refreshToken = req?.cookies?.refresh_token || req?.body?.refresh_token;
+            const refreshToken = req?.cookies?.refreshToken || req?.body?.refreshToken;
 
             if (!refreshToken) {
                 return responseUtils.notFound(res, "Chưa có refresh Token");
@@ -137,10 +142,23 @@ const authController = {
     googleLogin: async (req, res) => {
         try {
             const { id_token } = req.body;
-            if (!id_token) return responseUtils.error(res, "Thiếu Google ID token");
+            if (!id_token) return responseUtils.invalidated(res, "Thiếu Google ID token");
 
             const result = await authService.handleGoogleToken(id_token);
-            return responseUtils.ok(res, result);
+
+            // Set refreshToken vào cookie (giống login thường)
+            res.cookie("refreshToken", result.refreshToken, {
+                httpOnly: true,
+                secure: false,      // đổi thành true khi dùng HTTPS
+                sameSite: "lax",
+                maxAge: 7 * 60 * 60 * 24 * 1000, // 7 ngày
+            });
+
+            return responseUtils.ok(res, {
+                accessToken: result.accessToken,
+                expiredAt: result.expiredAt,
+                user: result.user,
+            });
         } catch (error) {
             console.error(error);
             return responseUtils.error(res, error);

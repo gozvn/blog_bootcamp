@@ -10,4 +10,5 @@ export const environment = {
         baseimageUrl: 'http://localhost:3000/',
     },
     production: false,
+    googleClientId: '714171876760-0c4a4e3ivfu86bqc3vci6okl6deel7su.apps.googleusercontent.com',  // ← Điền GOOGLE_CLIENT_ID của bạn vào đây
 };

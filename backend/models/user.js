@@ -2,7 +2,6 @@
 const {
   Model
 } = require('sequelize');
-const language = require('./language');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -11,9 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
-      User.hasMany(models.Post,{ foreignKey: 'user_id' });
-      User.belongsTo(models.Language,{ foreignKey: 'lang_id'});
+      User.hasMany(models.Post, { foreignKey: 'user_id' });
+      User.belongsTo(models.Language, { foreignKey: 'lang_id' });
       User.hasMany(models.Comment, { foreignKey: 'user_id' });
     }
   }
@@ -23,10 +21,24 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true,
     },
+    google_id: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+      unique: true,
+    },
+    auth_provider: {
+      type: DataTypes.ENUM('local', 'google'),
+      allowNull: false,
+      defaultValue: 'local',
+    },
     username: DataTypes.STRING,
-    password: DataTypes.STRING,
+    password: {
+      type: DataTypes.STRING,
+      allowNull: true,  // nullable vì user Google không có password
+    },
     email: DataTypes.STRING,
-    lang_id : DataTypes.INTEGER,
+    avatar: DataTypes.STRING,
+    lang_id: DataTypes.INTEGER,
     role: DataTypes.STRING,
     created_at: DataTypes.DATE,
     updated_at: DataTypes.DATE,
@@ -34,8 +46,8 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'users',
     sequelize,
     modelName: 'User',
-    createdAt: 'created_at', // ánh xạ
-    updatedAt: 'updated_at' // ánh xạ
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
   });
   return User;
 };
