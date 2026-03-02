@@ -1,5 +1,6 @@
 const publicService = require("./pubclicService");
 const responseUtils = require("utils/responseUtils");
+const { redisCache } = require("../../utils/redisCache");
 
 const publicController = {
     getCategories: async (req, res) => {
@@ -30,9 +31,17 @@ const publicController = {
             const status = req.query.status || null;
             const featured = req.query.featured || null;
             // const cat = parse Int(req.query.cat);
-
+            const cacheKey = `post:list:page=${page}:limit=${limit}:category=${categoryId}:tag=${tagId}:user=${userId}:lang=${lang_code}:status=${status}:featured=${featured}`;
+            const cached = await redisCache.get(cacheKey);
+            if (cached) {
+                console.log('Cache HIT:', cacheKey);
+                return responseUtils.ok(res, JSON.parse(cached));
+            }
             const post = await publicService.listPosts(page, limit, categoryId, tagId, userId, lang_code, status, featured);
+
             // xử lý show all ở đây
+            await redisCache.set(cacheKey, JSON.stringify(post), 'EX', 300); // 5 phút; 
+
             return responseUtils.ok(res, post)
         } catch (error) {
             console.log(error)

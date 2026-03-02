@@ -1,6 +1,8 @@
 const responseUtils = require("utils/responseUtils")
 const postService = require("./postService.js");
 const { validationResult } = require("express-validator");
+const { redisCache } = require("../../utils/redisCache.js");
+
 const postController = {
 
     all: async (req, res) => {
@@ -16,9 +18,21 @@ const postController = {
             const featured = req.query.featured || null;
             const title = req.query.title || null;
             // const cat = parse Int(req.query.cat);
+            // 🔑 Tạo cache key theo params
+            const cacheKey = `post:list:page=${page}:limit=${limit}:category=${categoryId}:tag=${tagId}:user=${userId}:lang=${langId}:status=${status}:featured=${featured}:title=${title}`;
+
+            // 1️⃣ Check cache
+            const cached = await redisCache.get(cacheKey);
+            if (cached) {
+                console.log('Cache HIT:', cacheKey);
+                return responseUtils.ok(res, JSON.parse(cached));
+            }
+
+            console.log('Cache MISS:', cacheKey);
 
             const post = await postService.list(page, limit, categoryId, tagId, userId, langId, status, featured, title);
             // xử lý show all ở đây
+            await redisCache.set(cacheKey, JSON.stringify(post), 'EX', 300); // 5 phút
             return responseUtils.ok(res, post)
         } catch (error) {
             console.log(error)
